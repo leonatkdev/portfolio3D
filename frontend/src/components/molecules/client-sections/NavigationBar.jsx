@@ -52,7 +52,6 @@ const NavigationBar = () => {
     });
 
     // Perform your login logic here
-    console.log("Form data submitted:", formData);
 
     try {
       const response = await fetch('http://localhost:4000/api/auth/login', {
@@ -63,14 +62,12 @@ const NavigationBar = () => {
         body: JSON.stringify(formData),
       });
 
-      console.log('response', response)
 
       if (!response.ok) {
         throw new Error('Login failed');
       }
 
       const data = await response.json();
-      console.log('Login successful:', data);
       
       sessionStorage.setItem('user', JSON.stringify(data));
       window.location.href = '/dashboard';
@@ -110,7 +107,7 @@ const NavigationBar = () => {
   return (
     <>
       <nav
-        className={` w-full flex items-center px-3 sm:px-16 sm: py-3 sm:py-3 fixed top-0 z-20 bg-primary backdrop-blur-md`}
+        className={` w-full z-30 flex items-center px-3 sm:px-16 sm: py-3 sm:py-3 fixed top-0 bg-primary backdrop-blur-md`}
       >
         <div className="w-full flex justify-between items-center max-w-7xl mx-auto gap-3">
           <Link

@@ -5,7 +5,7 @@ const jwtSecret =
 
 exports.adminAuth = (req, res, next) => {
   // console.log('req', req)
-  console.log(' req.cookie',  req.cookies.jwt)
+  // console.log(' req.cookie',  req.cookies.jwt)
     const token = req.cookies.jwt;
     if (token) {
       jwt.verify(token, jwtSecret, (err, decodedToken) => {

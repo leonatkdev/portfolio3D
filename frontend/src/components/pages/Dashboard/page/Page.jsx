@@ -18,7 +18,6 @@ const PageDashboard = () => {
 
   const [settingPanel, setSettingPanel] = useState(false);
 
-  console.log("nestedDataClicked", nestedDataClicked);
 
   const startResizing = (mouseDownEvent) => {
     // When the mouse is down, start tracking movement

@@ -5,7 +5,6 @@ const jwtSecret =
   "7a20f602a73fd7e92f3ce9ed196ff68c57f6903d3e9c06f131f5c0a03c12fb86dd2fa1";
 
 exports.register = async (req, res, next) => {
-  console.log("req.body", req.body);
   const { username, password } = req.body;
 
   if (password?.length < 6) {

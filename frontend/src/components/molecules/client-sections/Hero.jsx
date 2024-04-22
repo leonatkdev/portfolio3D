@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 import { styles } from "../../../style";
 import leoAvatar from "../../../assets/leoavatar.png";
-import { ComputersCanvas } from "../../canvas";
+// import { ComputersCanvas } from "../../canvas";
 import { FaInstagram } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa";
 
@@ -33,53 +33,39 @@ const Hero = () => {
           </p>
           <ul className="mt-4 flex gap-4">
             <li>
-              <a
-                href="https://www.linkedin.com/in/leonat-krasniqi-6b59a0223/"
-                target="_blank"
-                rel="noreferrer"
-                className="text-[#915eff]"
-              >
+              <a href="https://www.linkedin.com/in/leonat-krasniqi-6b59a0223/" target="_blank" rel="noreferrer" className="text-[#915eff]">
                 <RxLinkedinLogo width={32} height={32} className="w-8 h-8" />
               </a>
             </li>
             <li>
-              <a
-                href="https://github.com/leonatkdev"
-                target="_blank"
-                rel="noreferrer"
-                className="text-[#915eff]"
-              >
+              <a href="https://github.com/leonatkdev" target="_blank" rel="noreferrer" className="text-[#915eff]">
                 <FaGithub width={32} height={32} className="w-8 h-8" />
               </a>
             </li>
-            <li>
-              <a
-                href="https://www.instagram.com/leonatk_1/"
-                target="_blank"
-                rel="noreferrer"
-                className="text-[#915eff]"
-              >
+          <li>
+              <a href="https://www.instagram.com/leonatk_1/" target="_blank" rel="noreferrer" className="text-[#915eff]" >
                 <FaInstagram width={32} height={32} className="w-8 h-8" />
               </a>
             </li>
           </ul>
         </div>
       </div>
-      <div className="relative">
-        <img
-          src={leoAvatar}
-          alt="hero"
-          loading="eager"
-          className="relative w-[420px] sm:h-[420px] object-cover z-10 rounded-b-[50%]  hover:pb-6 hover:rounded-b-[100%]  transition duration-500 ease-in-out"
-          width="420px"
-          height="420px"
-        />
-        <div className="absolute z-0  bottom-0 w-full  h-[calc(100%-24px)] bg-[#7126b640] border-2 border-[mediumpurple] rounded-full"></div>
-      </div>
+      <div className="relative overflow-hidden sm:overflow-visible ">
+         <img
+        src={leoAvatar}
+        alt="hero"
+        loading="eager"
+        className=" relative z-10 w-[420px] sm:h-[420px]  object-cover  rounded-b-[50%] rotate-45 hover:rotate-0 sm:hover:scale-[1.1] sm:hover:rounded-none transition duration-500 ease-in-out"
+        width="420px"
+        height="420px"
+      />
+      <div className=" absolute top-[0px] bg-[#7126b640] border-2 border-[mediumpurple] rounded-full w-full sm:w-[420px] h-full sm:h-[420px]"></div>
 
+      </div>
+     
       {/* <ComputersCanvas /> */}
 
-      <div className=" absolute xs:bottom-10 bottom-[16px] w-full flex justify-center items-center ">
+      <div className=" absolute z-20  xs:bottom-10 bottom-[16px] w-full flex justify-center items-center ">
         <a href="#about" aria-label="Scroll to About Me Section">
           <div className="w-[35px] h-[64px] rounded-3xl border-4 border-secondary flex justify-center items-start p-2">
             <motion.div

@@ -1,4 +1,4 @@
-import { EarthCanvas, BallCanvas, ComputersCanvas, StarsCanvas } from './canvas';
+import { EarthCanvas, BallCanvas, StarsCanvas } from './canvas';
 import Hero from "./molecules/client-sections/Hero";
 import NavigationBar from "./molecules/client-sections/NavigationBar";
 import About from "./molecules/client-sections/About";
@@ -22,6 +22,6 @@ export {
   CanvasLoader,
   EarthCanvas, 
   BallCanvas, 
-  ComputersCanvas, 
+ 
   StarsCanvas
 };

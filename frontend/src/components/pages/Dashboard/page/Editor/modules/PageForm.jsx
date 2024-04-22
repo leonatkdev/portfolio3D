@@ -19,7 +19,6 @@ const SimpleForm = () => {
   
     const handleSubmit = (event) => {
       event.preventDefault();
-      console.log(formData);
       // Handle form submission, e.g., sending data to a server
     };
   
