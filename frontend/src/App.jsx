@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "./components/pages/client/Homepage";
 import Dashboard from "./components/pages/Dashboard/Dashboard";
-import Blog from "./components/pages/client/Blogs";
+import BlogPage from "./components/pages/client/BlogPage";
+import Blogs from "./components/pages/client/Blogs";
 import Profiles from "./components/pages/Dashboard/Profile";
 import NotFound from "./components/pages/client/NotFound";
 
 import DashboardLayout from "./components/templates/DashboardLayout";
 import PagesDashboard from "./components/pages/Dashboard/Pages";
-// import Page from "./components/pages/Dashboard/Page/Page";
+import Page from "./components/pages/Dashboard/Page/Page";
 import Sections from "./components/pages/Dashboard/Sections";
 
 
@@ -18,7 +19,8 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" exact element={<Homepage />} />
-        <Route path="/blogs" element={<Blog />} />(
+        <Route path="/blogs" element={<Blogs />} />
+        <Route path="/blog/:id" element={<BlogPage />} />(
         <>
           <Route
             path="/dashboard"
@@ -36,14 +38,14 @@ const App = () => {
               </DashboardLayout>
             }
           />
-          {/* <Route
+          <Route
             path="/dashboard/pages/page"
             element={ <Page />
               // <DashboardLayout>
                
               // </DashboardLayout>
             }
-          /> */}
+          />
           <Route
             path="/dashboard/sections"
             element={
