@@ -4,7 +4,7 @@ import { navLinks } from "../../../constants";
 import { logo, menu, close } from "../../../assets";
 import { IoClose } from "react-icons/io5";
 
-// import { useHistory } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import Scrollbar from "../../atoms/scrollbar";
 
 const NavigationBar = () => {
@@ -21,10 +21,8 @@ const NavigationBar = () => {
     password: "",
   });
 
-  const [progressBar, setProgressBar] = useState(0);
   const shadow = useRef();
-
-  // const history = useHistory();
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -54,56 +52,30 @@ const NavigationBar = () => {
     // Perform your login logic here
 
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
       });
 
-
       if (!response.ok) {
-        throw new Error('Login failed');
+        throw new Error("Login failed");
       }
 
       const data = await response.json();
-      
-      sessionStorage.setItem('user', JSON.stringify(data));
-      window.location.href = '/dashboard';
+
+      sessionStorage.setItem("user", JSON.stringify(data));
+      window.location.href = "/dashboard";
       // history.push('/dashboard');
       // Optionally, handle the successful login here
     } catch (error) {
-      console.error('Error during login:', error);
+      console.error("Error during login:", error);
       // Optionally, handle the login error here
     }
-
   };
-  // const handleScroll = () => {
-  //   const ids = ["about", "work", "contact"];
-  //   const offset = 50; // Adjust this value based on your needs
-
-  //   const getAbsoluteTop = (element) => {
-  //     let top = 0;
-  //     while (element) {
-  //       top += element.offsetTop;
-  //       element = element.offsetParent;
-  //     }
-  //     return top;
-  //   };
-
-  //   ids.forEach((ids) => {
-  //     const element = document.getElementById(ids);
-
-  //     const elementTop = getAbsoluteTop(element) - offset;
-  //     const elementBottom = elementTop + element.clientHeight;
-
-  //     if (window.scrollY >= elementTop && window.scrollY <= elementBottom) {
-  //       setActive(ids.charAt(0).toUpperCase() + ids.slice(1));
-  //     }
-  //   });
-  // };
-
+  
   return (
     <>
       <nav
@@ -148,11 +120,22 @@ const NavigationBar = () => {
                       : " text-costume sm:text-secondary"
                   }  hover:text-white text-[18px] font-medium cursor-pointer`}
                 >
-                  <a href={`#${link.id}`}>{link.title}</a>
+                  <a
+                    href={link.type === "page" ? `${link.id}` : `/#${link.id}`}
+                  >
+                    {link.title}
+                  </a>
                 </li>
               ))}
               <div className=" relative">
-                <span onClick={() => setModal(!showModal)}>Dashboard</span>
+                <span
+                  onClick={() => setModal(!showModal)}
+                  className={`${
+                    showModal ? "text-white " : " sm:text-secondary"
+                  } hover:text-white text-[18px] font-medium cursor-pointer`}
+                >
+                  Dashboard
+                </span>
                 {showModal && (
                   <form
                     className="absolute left-0 top-[35px] flex flex-col rounded-lg bg-[#23265D] p-4

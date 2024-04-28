@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import NavigationBar from "../../molecules/client-sections/NavigationBar";
 import blogImg from "../../../assets/blog.jpg";
 import { SearchSvg } from "../../../assets/svg/index";
@@ -9,10 +9,11 @@ import { IoIosArrowDown } from "react-icons/io";
 const dummyData = [
   {
     postName: "This is a blog post about a random issue",
-    readingTime: "4 min read",
+    readingTime: "4 min read",  
     link: "/blog/1",
     blogImg: blogImg,
     category: "Tech",
+    mainChategory: "Technology 1",
     publishDate: "12 November 2023",
     desc: `  Lorem Ipsum is simply dummy text of the printing and typesetting
     industry. Lorem Ipsum has been the industry's standard dummy text
@@ -31,6 +32,7 @@ const dummyData = [
     link: "/blog/1",
     blogImg: blogImg,
     category: "Tech",
+    mainChategory: "Technology 2",
     publishDate: "12 November 2023",
     desc: `  Lorem Ipsum is simply dummy text of the printing and typesetting
     industry. Lorem Ipsum has been the industry's standard dummy text
@@ -49,6 +51,7 @@ const dummyData = [
     link: "/blog/1",
     blogImg: blogImg,
     category: "Tech",
+    mainChategory: "Technology 3",
     publishDate: "12 November 2023",
     desc: `  Lorem Ipsum is simply dummy text of the printing and typesetting
         industry. Lorem Ipsum has been the industry's standard dummy text
@@ -72,61 +75,62 @@ const dummyTags = [
 ];
 
 const Blogs = () => {
+  const [active, setActive] = useState(0);
+
+  const currentData = dummyData[active];
+
+  const dymmyDataLength = dummyData.length
+
+
+  const  handleClick = (index) => {
+    console.log('indexc', index)
+    setActive(index);
+  }
+
   return (
     <div className="bg-hero-pattern bg-cover bg-fixed w-screen h-screen ">
       <NavigationBar />
       <div className="mt-[64px] sm:mt-[115px]  max-w-7xl mx-auto px-6 sm:py-16 py-2 ">
         <div className="flex gap-8 flex-col sm:flex-row">
-          <div className=" sm:w-[65%] relative">
+        {currentData  && <div className=" sm:w-[65%] relative">
             <span className="my-4 block text-[#dfd9ff] font-bold">
-              Technology
+            {currentData?.mainChategory}
             </span>
             <h1
               className={`relative z-10 font-black text-[20px]  lg:text-[40px]  bg-gradient-to-r from-[#915eff] via-white to-indigo-400 inline-block text-transparent bg-clip-text`}
             >
-              This is a blog post about a random issue
+             {currentData?.postName}
             </h1>
             <p
               className={`relative max-h-[190px] overflow-hidden mr-[53%] z-10 text-[12] lg:text-base mt-4 text-white-100  `}
             >
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum
+            {currentData?.desc}
             </p>
             <div className=" relative mr-[55%] z-10 flex flex-col gap-1 sm:flex-row justify-between mt-6 font-semibold">
               <p className="flex items-center text-[#dfd9ff] ">
-                <IoTimeOutline className="mr-1" width={16} height={16} /> 4 min
-                read
+                <IoTimeOutline className="mr-1" width={16} height={16} /> {currentData?.readingTime}
               </p>
               <p className="flex items-center">
-                <FaRegCalendarAlt className="mr-2" width={16} height={16} /> 12
-                November 2023
+                <FaRegCalendarAlt className="mr-2" width={16} height={16} /> {currentData?.publishDate}
               </p>
             </div>
-            <div className="group flex relative z-10 w-[62%] items-center  mt-4 p-3 border-b font-semibold border-[#915eff] hover:bg-[#915eff] hover:text-white  text-[#915eff] text-center arrow hover:after:border-[#915eff] hover:before:left-[93%]">
+            <a href={currentData?.link} className="group flex relative z-10 w-[62%] items-center  mt-4 p-3 border-b font-semibold border-[#915eff] hover:bg-[#915eff] hover:text-white  text-[#915eff] text-center arrow hover:after:border-[#915eff] hover:before:left-[93%]">
               Read more
               <IoIosArrowDown
                 width={24}
                 height={24}
                 className="w-6 h-6 -rotate-90  "
               />
-            </div>
-            <div className="flex absolute bottom-0 right-0 z-10">
-              <span className="flex p-3 px-4 bg-[grey] rounded-tl-lg">
+            </a>
+            <div className="flex absolute bottom-0 right-0 z-10 bg-gradient-to-b from-[#915eff] to-[#202020]">
+              <span className="flex p-3 px-4  rounded-tl-lg">
               <IoIosArrowDown
                 width={24}
                 height={24}
                 className="w-6 h-6 rotate-90 sm:w-8 sm:h-8"
               />
               </span>
-              <span className="flex p-3 px-4 bg-[#915eff] rounded-br-lg">
+              <span className="flex p-3 px-4  rounded-br-lg">
               <IoIosArrowDown
                 width={24}
                 height={24}
@@ -142,14 +146,14 @@ const Blogs = () => {
               height={450}
               className=" h-full object-cover w-1/2 absolute top-[-52px] right-0"
             />
-          </div>
+          </div>}
           <div className=" sm:w-[40%] bg-[#202020] px-4 py-6 rounded-tr-[32px] rounded-bl-[32px] bg-gradient-to-b from-[#915eff] to-[#202020]">
             <span className=" block text-2xl mb-6 font-medium pl-3 pt-3">
               Latest Posts
             </span>
-            {dummyData.map((data) => (
+            {dummyData.map((data, index) => (
               // eslint-disable-next-line react/jsx-key
-              <div className="flex bg-[#202020] hover:bg-[#343434]  p-2 px-3 rounded-[10px] mb-2">
+              <div className={`flex bg-[#202020] hover:bg-[#343434]  p-2 px-3 rounded-[10px] mb-2 ${active === index && "bg-[#343434]"}`} onClick={() => handleClick(index)}>
                 <img
                   src={blogImg}
                   width={100}

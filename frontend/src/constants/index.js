@@ -24,16 +24,25 @@ import {
   export const navLinks = [
     {
       id: "about",
+      type: "section",
       title: "About",
     },
     {
       id: "work",
+      type: "section",
       title: "Work",
     },
     {
       id: "contact",
+      type: "section",
       title: "Contact",
     },
+    {
+      id: "blogs",
+      type: "page",
+      title: "Blogs",
+    },
+    
   ];
   
   const services = [

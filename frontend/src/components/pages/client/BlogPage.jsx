@@ -11,7 +11,7 @@ const Blogs = () => {
       <NavigationBar />
       <div className="flex flex-col sm:flex-row  mx-4  gap-8 items-center mt-[64px] sm:mt-[115px]  max-w-7xl sm:mx-auto  p-[32px]  backdrop-blur-md border rounded-[32px] border-[#915eff] ">
         <div className="sm:w-1/2">
-          <span className=" block font-medium mb-9">Blog</span>
+          <span className=" block font-semibold mb-9">Blog</span>
           <h1 className="mb-8 text-white text-4xl font-bold">
             This is a blog post about a random issue
           </h1>
