@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { logo, avatar } from "../../assets";
+import { logo, avatar, menu, close } from "../../assets";
 import {
   HomeSvg,
   StarSvg,
@@ -18,6 +18,8 @@ const DashboardMenu = () => {
   const [activeTab, setActive] = useState("Home");
   // const [open, setOpen] = useState(false);
   const [favorite, setFavorite] = useState([]);
+
+  const [toggle, setToggle] = useState(false);
 
   const addFavorite = (obj) => {
     setFavorite([...favorite, obj]);
@@ -47,7 +49,16 @@ const DashboardMenu = () => {
   ];
 
   return (
-    <div className="flex">
+    <div>
+        <img
+              src={toggle ? close : menu}
+              alt="menu"
+              className={` absolute top-4 left-4 z-[60]  w-[20px] h-[20px] object-contain cursor-pointer sm:hidden ${
+                toggle && " w-[16px] h-[16px]"
+              }`}
+              onClick={() => setToggle(!toggle)}
+            />
+    <div className="flex absolute sm:static z-50">
       <div className=" sticky top-0 flex flex-col w-[64px] mxa-w-[64px] min-w-[64px] h-screen items-center py-3 px-2 justify-between bg-[#131826] ">
         <img
           src={logo}
@@ -87,6 +98,7 @@ const DashboardMenu = () => {
       </div>
 
       <DetailsMenu showDashboard={showDashboard} activeTab={activeTab} favorite={favorite} addFavorite={addFavorite}/>
+    </div>
     </div>
   );
 };

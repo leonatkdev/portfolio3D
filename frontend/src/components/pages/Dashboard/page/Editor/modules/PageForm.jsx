@@ -17,10 +17,31 @@ const SimpleForm = () => {
       }));
     };
   
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
       event.preventDefault();
-      // Handle form submission, e.g., sending data to a server
+    
+      try {
+        const response = await fetch("http://localhost:4000/api/page", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        });
+    
+        console.log('formData', formData);
+    
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+    
+        const result = await response.json();
+        console.log('Data successfully sent to the server:', result);
+      } catch (error) {
+        console.error('Failed to send form data:', error);
+      }
     };
+    
   
     return (
       <form onSubmit={handleSubmit} className="space-y-4">

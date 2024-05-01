@@ -15,8 +15,8 @@ const DashboardNavigation = () => {
       {/* Welcome, Sir! */}
         </span>
 
-      <BsCalendarWeek className=" w-5 h-5 mr-3" />
-      <TbMessage2 className=" w-5 h-5 mr-3" />
+      {/* <BsCalendarWeek className=" w-5 h-5 mr-3" />
+      <TbMessage2 className=" w-5 h-5 mr-3" /> */}
       <PiBellBold className=" w-5 h-5 mr-3" />
 
       <div onClick={() => setOpen(!open)} className="relative flex items-center ml-4">

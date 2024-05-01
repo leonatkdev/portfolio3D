@@ -1,8 +1,8 @@
 import React from 'react'
 import { IoClose } from "react-icons/io5";
 
-const Modal = ({setModal}) => {
-  return (
+const Modal = ({modal, setModal}) => {
+  return modal && (
     <div
     class="relative z-10"
     aria-labelledby="modal-title"

@@ -7,8 +7,8 @@ import Sidebar from "./Editor/Sidebar/MainMenu";
 import Content from "./Editor/modules/Content";
 
 const PageDashboard = () => {
-  const [activeTab, setActiveTab] = useState(null);
-  const [nestedData, setNestedData] = useState(null);
+  const [activeTab, setActiveTab] = useState("Page");
+  const [nestedData, setNestedData] = useState("Page");
   const [allComponents, setAllComponents] = useState([]);
 
   const [screen, setScreen] = useState("desktop");

@@ -1,21 +1,25 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { AiOutlineStar } from "react-icons/ai";
-import { HomeSvg, ArrowSvg, SearchSvg } from "../../../assets/svg/index";
+import { HomeSvg, ArrowSvg, SearchSvg, SectionSvg, PostsSvg } from "../../../assets/svg/index";
 import SimpleMenu from "../../atoms/menuItems/simpleMenu";
 import ExtendedMenu from "../../atoms/menuItems/extendedMenu";
+import { MdOutlineGTranslate } from "react-icons/md";
+import { AiOutlineDeploymentUnit } from "react-icons/ai";
+import { FaRegUserCircle } from "react-icons/fa";
+import { LuUserSquare2 } from "react-icons/lu";
 
 const DetailsMenu = ({ showDashboard, activeTab, favorite, addFavorite }) => {
   const detailDashboardData = {
     Home: [
-      { label: "Home", path: "/dashboard" },
-      { label: "Test", path: "/dashboard" },
-      { label: "Translations", path: "/dashboard" },
+      { label: "Home", path: "/dashboard", icon: <HomeSvg /> },
+      { label: "Users", path: "/dashboard/users", icon: <FaRegUserCircle /> },
+      { label: "Translations", path: "/dashboard", icon: <MdOutlineGTranslate /> },
       {
         label: "Test1",
         path: "/dashboard",
         moreLinks: [
-          { label: "Test2", path: "/dashboard" },
+          { label: "Test2", path: "/dashboard"  },
           { label: "Test3", path: "/dashboard" },
         ],
       },
@@ -29,8 +33,9 @@ const DetailsMenu = ({ showDashboard, activeTab, favorite, addFavorite }) => {
       },
     ],
     Favorite: favorite,
-    Posts: [{ label: "Pages", path: "/dashboard/pages" }],
-    Sections: [{ label: "Sections", path: "/dashboard/sections" }],
+    Posts: [{ label: "Pages", path: "/dashboard/pages", icon: <PostsSvg />}, { label: "Sections", path: "/dashboard/sections", icon: <SectionSvg />}, { label: "Authors", path: "/dashboard/authors", icon: <LuUserSquare2 />},{ label: "Deploy", path: "/dashboard/deploy", icon: <AiOutlineDeploymentUnit />}] ,
+    // Sections: [{ label: "Sections", path: "/dashboard/sections", icon: <SectionSvg />}],
+    // Deploy: [{ label: "Deploy", path: "/dashboard/deploy", icon: <AiOutlineDeploymentUnit />}],
   };
 
   return (

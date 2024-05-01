@@ -1,9 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-
-import { IoClose } from "react-icons/io5";
-import { TbDotsVertical } from "react-icons/tb";
-import { IoIosArrowDown } from "react-icons/io";
 
 import { HiOutlineTrash } from "react-icons/hi2";
 import { TbEdit } from "react-icons/tb";
@@ -14,13 +9,13 @@ import DropDown from "../../atoms/dropDownField";
 import Modal from "../../molecules/dashboard/Modal";
 import Pagination from "../../atoms/pagination";
 
-const PagesDashboard = () => {
+const PageUsers = () => {
   const [modal, setModal] = useState(false);
 
   const columns = [
-    { key: "title", header: "Title" },
+    { key: "name", header: "Name" },
     { key: "state", header: "State" },
-    { key: "path", header: "Path" },
+    { key: "role", header: "Role" },
     { key: "team", header: "Team" },
     { key: "tools", header: "Tools" },
     // Add more columns as needed
@@ -28,12 +23,16 @@ const PagesDashboard = () => {
 
   const data = [
     {
-      title: "Page Title",
+      name: "Steven Jobs",
       state: "Active",
-      path: "test",
+      role: "Product Designer",
       team: ["Design", "Product", "Develop"],
       tools: [
-        <HiOutlineTrash color="#6B7380" className="h-6 w-6" onClick={() => setModal(true)} />,
+        <HiOutlineTrash
+          color="#6B7380"
+          className="h-6 w-6"
+          onClick={() => setModal(true)}
+        />,
         <TbEdit color="#6B7380" className="h-6 w-6" />,
       ],
     },
@@ -85,16 +84,13 @@ const PagesDashboard = () => {
   return (
     <>
       <div className="p-4 pt-0">
-     <h1 className="text-2xl font-bold">Pages</h1>
-        <button
-          onClick={() => (window.location.href = "pages/page")}
-          class=" block m-3 mr-6 ml-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105"
-        >
-          Create page
+        <h1 className="text-2xl font-bold">Users</h1>
+        <button class=" block m-3 mr-6 ml-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105">
+          Add Users
         </button>
         <div className=" flex gap-3 border border-[#F0F3F5] p-4 bg-white rounded-lg">
-          <InputField label="Search for order" placeholder="Search" />
-          <DropDown />
+          <InputField label="Search for User" placeholder="Search" />
+          {/* <DropDown /> */}
         </div>
       </div>
 
@@ -127,4 +123,4 @@ const PagesDashboard = () => {
   );
 };
 
-export default PagesDashboard;
+export default PageUsers;

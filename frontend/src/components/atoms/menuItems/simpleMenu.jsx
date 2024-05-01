@@ -4,16 +4,16 @@ import { AiOutlineStar } from "react-icons/ai";
 
 import { Link } from "react-router-dom";
 
-const SimpleMenu = ({ item ,  addFavorite}) => {
+const SimpleMenu = ({ item, addFavorite }) => {
   return (
-    <li className="flex flex-wrap gap-3 items-center p-3 rounded-md hover:bg-[#2B313B]">
-      <Link to={item?.path} className="flex flex-wrap gap-3">
-        <HomeSvg />
-      <span>{item?.label}</span>
+    <li className="flex gap-3 items-center p-3 rounded-md hover:bg-[#2B313B]">
+      <Link to={item?.path} className="flex w-full  gap-3">
+        {item.icon ? item.icon : <HomeSvg />}
+        <span>{item?.label}</span>
       </Link>
       
       <AiOutlineStar
-        className="w-[22px] h-[22px] ml-auto"
+        className="w-[22px] h-[22px] "
         onClick={() => addFavorite(item)}
       />
     </li>

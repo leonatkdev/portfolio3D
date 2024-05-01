@@ -9,13 +9,12 @@ import NotFound from "./components/pages/client/NotFound";
 
 import DashboardLayout from "./components/templates/DashboardLayout";
 import PagesDashboard from "./components/pages/Dashboard/Pages";
+import Users from "./components/pages/Dashboard/Users";
 import Page from "./components/pages/Dashboard/Page/Page";
 import Sections from "./components/pages/Dashboard/Sections";
 
-
-
 const App = () => {
-  return (   
+  return (
     <BrowserRouter>
       <Routes>
         <Route path="/" exact element={<Homepage />} />
@@ -40,10 +39,20 @@ const App = () => {
           />
           <Route
             path="/dashboard/pages/page"
-            element={ <Page />
+            element={
+              <Page />
               // <DashboardLayout>
-               
+
               // </DashboardLayout>
+            }
+          />
+
+          <Route
+            path="/dashboard/users"
+            element={
+              <DashboardLayout>
+                <Users />
+              </DashboardLayout>
             }
           />
           <Route
