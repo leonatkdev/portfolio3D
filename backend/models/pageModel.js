@@ -2,29 +2,28 @@ const mongoose = require("mongoose");
 
 const { Schema } = mongoose;
 
-const seoSchema = new Schema({
-  title: { type: String },
-  description: { type: String },
-  image: String,
-  keywords: [String],
-  // slug: { type: String },
-  robots: String,
-  canonicalURL: String,
-  author: String,
+// const seoSchema = new Schema({
+//   title: { type: String },
+//   description: { type: String },
+//   image: String,
+//   keywords: [String],
+//   robots: String,
+//   canonicalURL: String,
+//   author: String,
 
-  // Open Graph (Facebook) fields
-  ogTitle: { type: String, default: function() { return this.title; } },
-  ogDescription: { type: String, default: function() { return this.description; } },
-  ogImage: { type: String, default: function() { return this.image; } },
-  ogType: String, // type of object, e.g., website, article, etc.
-  ogUrl: { type: String, default: function() { return this.canonicalURL; } },
+//   // Open Graph (Facebook) fields
+//   ogTitle: { type: String, default: function() { return this.title; } },
+//   ogDescription: { type: String, default: function() { return this.description; } },
+//   ogImage: { type: String, default: function() { return this.image; } },
+//   ogType: String, // type of object, e.g., website, article, etc.
+//   ogUrl: { type: String, default: function() { return this.canonicalURL; } },
 
-  // Twitter Card fields
-  twitterTitle: { type: String, default: function() { return this.title; } },
-  twitterDescription: { type: String, default: function() { return this.description; } },
-  twitterImage: { type: String, default: function() { return this.image; } },
-  twitterCard: { type: String, default: 'summary_large_image' } // or "summary" etc.
-})
+//   // Twitter Card fields
+//   twitterTitle: { type: String, default: function() { return this.title; } },
+//   twitterDescription: { type: String, default: function() { return this.description; } },
+//   twitterImage: { type: String, default: function() { return this.image; } },
+//   twitterCard: { type: String, default: 'summary_large_image' } // or "summary" etc.
+// })
 
 // const codeInjectionSchema = new Schema({ 
 
@@ -53,7 +52,17 @@ const PageSchema = new Schema(
       ref: "User",
       // required: true,
     },
-    seo: seoSchema ,
+    layout: {
+      type: String,
+      enum: ["None", "Default", "Custom"],
+      default: 'None'
+    },
+    language: {
+      type: String,
+      enum: ["English", "Spanish", "French", "German"],
+      default: 'English'
+    },
+    // seo: seoSchema ,
     manualDate: {
       type: Date,
     },

@@ -58,7 +58,7 @@ const DashboardMenu = () => {
               }`}
               onClick={() => setToggle(!toggle)}
             />
-    <div className="flex absolute sm:static z-50">
+    <div className={`flex absolute sm:static z-50 `}>
       <div className=" sticky top-0 flex flex-col w-[64px] mxa-w-[64px] min-w-[64px] h-screen items-center py-3 px-2 justify-between bg-[#131826] ">
         <img
           src={logo}

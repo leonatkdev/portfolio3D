@@ -129,7 +129,7 @@ const SimpleForm = () => {
             className="mt-1 block bg-white w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
         </div>
-  
+{/*   
         <div className="mt-4">
           <button
             type="submit"
@@ -137,7 +137,7 @@ const SimpleForm = () => {
           >
             Submit
           </button>
-        </div>
+        </div> */}
       </form>
     );
   };

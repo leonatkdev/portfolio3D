@@ -27,7 +27,7 @@ const Content = ({ content }) => {
         editorClassName="editorClassName"
         onEditorStateChange={onEditorStateChange}
       />
-      <button onClick={handleSave} className='p-2 bg-teal-700 rounded-full'>Save Text</button>
+      <button onClick={handleSave} className='py-2 px-4 rounded-2xl bg-blue-700 text-white'>Save Text</button>
       {/* <div>{content}</div> */}
     </>
   );

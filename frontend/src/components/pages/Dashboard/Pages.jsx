@@ -1,12 +1,8 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-
-import { IoClose } from "react-icons/io5";
-import { TbDotsVertical } from "react-icons/tb";
-import { IoIosArrowDown } from "react-icons/io";
+import React, { useState, useEffect } from "react";
 
 import { HiOutlineTrash } from "react-icons/hi2";
 import { TbEdit } from "react-icons/tb";
+import { AiOutlineStar } from "react-icons/ai";
 
 import InputField from "../../atoms/inputField";
 import DropDown from "../../atoms/dropDownField";
@@ -16,31 +12,51 @@ import Pagination from "../../atoms/pagination";
 
 const PagesDashboard = () => {
   const [modal, setModal] = useState(false);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    console.log("modal", modal);
+    fetch("http://localhost:4000/api/pages")
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("data", data);
+        setData(data);
+      });
+  }, []);
+
+  console.log("data", data);
 
   const columns = [
     { key: "title", header: "Title" },
-    { key: "state", header: "State" },
+    { key: "status", header: "status" },
     { key: "path", header: "Path" },
-    { key: "team", header: "Team" },
+    { key: "layout", header: "Layout" },
+    { key: "market", header: "Language-(Market)" },
     { key: "tools", header: "Tools" },
     // Add more columns as needed
   ];
 
-  const data = [
+  const dataTable = [
     {
       title: "Page Title",
       state: "Active",
       path: "test",
-      team: ["Design", "Product", "Develop"],
+      layout: "None",
+      market: "English",
       tools: [
-        <HiOutlineTrash color="#6B7380" className="h-6 w-6" onClick={() => setModal(true)} />,
+        <AiOutlineStar color="#6B7380" className="h-6 w-6" />,
         <TbEdit color="#6B7380" className="h-6 w-6" />,
+        <HiOutlineTrash
+          color="#6B7380"
+          className="h-6 w-6"
+          onClick={() => setModal(true)}
+        />,
       ],
     },
   ];
 
   const CostumeCell = ({ column, row }) => {
-    switch (column.key) {
+    switch (column?.key) {
       case "state": {
         const stateClasses = {
           Active: "bg-green-50 text-green-600",
@@ -61,8 +77,16 @@ const PagesDashboard = () => {
       }
       case "tools": {
         return (
-          <td className="px-6 py-4 flex">
-            {row[column.key].map((icon) => icon)}
+          <td className="px-6 py-4 flex justify-around">
+            {[
+              <TbEdit color="#6B7380" className="h-6 w-6" />,
+              <AiOutlineStar color="#6B7380" className="h-6 w-6" />,
+              <HiOutlineTrash
+                color="#6B7380"
+                className="h-6 w-6"
+                onClick={() => setModal(true)}
+              />,
+            ].map((icon) => icon)}
           </td>
         );
       }
@@ -85,7 +109,7 @@ const PagesDashboard = () => {
   return (
     <>
       <div className="p-4 pt-0">
-     <h1 className="text-2xl font-bold">Pages</h1>
+        <h1 className="text-2xl font-bold">Pages</h1>
         <button
           onClick={() => (window.location.href = "pages/page")}
           class=" block m-3 mr-6 ml-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105"
@@ -93,7 +117,8 @@ const PagesDashboard = () => {
           Create page
         </button>
         <div className=" flex gap-3 border border-[#F0F3F5] p-4 bg-white rounded-lg">
-          <InputField label="Search for order" placeholder="Search" />
+          <InputField label="Search for Title" placeholder="Search" />
+          <InputField label="Search by path" placeholder="Path" />
           <DropDown />
         </div>
       </div>
@@ -113,7 +138,7 @@ const PagesDashboard = () => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100  border-t border-gray-100">
-            {data.map((row, rowIndex) => (
+            {data?.map((row, rowIndex) => (
               <TableRow key={rowIndex} row={row} columns={columns} />
             ))}
           </tbody>
@@ -122,7 +147,14 @@ const PagesDashboard = () => {
 
       <Pagination />
 
-      {modal && <Modal modal={modal} setModal={setModal} />}
+      {modal && (
+        <Modal
+          modal={modal}
+          setModal={setModal}
+          title="Delete Page"
+          desc="Are you sure you want to delete your Page? All of your data will be permanently removed. This action cannot be undone."
+        />
+      )}
     </>
   );
 };

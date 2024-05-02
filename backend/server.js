@@ -39,16 +39,7 @@ app.use(cookieParser()); // So we can use res.cookie
 
 // Routes
 app.get("/", (req, res) => {
-  // res.send("Hello Friend // ");
-  const maxAge = 3 * 60 * 60;
-
-  res.send("Hello Friend :)")
-  // res.cookie("jwt",  "7a20f602a73fd7e92f3ce9ed196ff68c57f6903d3e9c06f131f5c0a03c12fb86dd2fa1", {
-  //   httpOnly: true,
-  //   maxAge: maxAge * 1000,
-  //   secure: true, // Enable for HTTPS
-  // });
-
+  res.send("Hello Friend :) ")
 });
 
 app.use("/api", sectionsRouter);

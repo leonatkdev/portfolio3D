@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { HiOutlineTrash } from "react-icons/hi2";
 import { TbEdit } from "react-icons/tb";
@@ -11,33 +11,23 @@ import Pagination from "../../atoms/pagination";
 
 const PageUsers = () => {
   const [modal, setModal] = useState(false);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:4000/api/auth/users")
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data);
+      });
+  }, []);
 
   const columns = [
-    { key: "name", header: "Name" },
-    { key: "state", header: "State" },
+    { key: "username", header: "Username" },
     { key: "role", header: "Role" },
-    { key: "team", header: "Team" },
     { key: "tools", header: "Tools" },
-    // Add more columns as needed
   ];
 
-  const data = [
-    {
-      name: "Steven Jobs",
-      state: "Active",
-      role: "Product Designer",
-      team: ["Design", "Product", "Develop"],
-      tools: [
-        <HiOutlineTrash
-          color="#6B7380"
-          className="h-6 w-6"
-          onClick={() => setModal(true)}
-        />,
-        <TbEdit color="#6B7380" className="h-6 w-6" />,
-      ],
-    },
-  ];
-
+ 
   const CostumeCell = ({ column, row }) => {
     switch (column.key) {
       case "state": {
@@ -61,7 +51,14 @@ const PageUsers = () => {
       case "tools": {
         return (
           <td className="px-6 py-4 flex">
-            {row[column.key].map((icon) => icon)}
+            {[
+              <HiOutlineTrash
+                color="#6B7380"
+                className="h-6 w-6"
+                onClick={() => setModal(true)}
+              />,
+              <TbEdit color="#6B7380" className="h-6 w-6" />,
+            ].map((icon) => icon)}
           </td>
         );
       }
@@ -109,7 +106,7 @@ const PageUsers = () => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100  border-t border-gray-100">
-            {data.map((row, rowIndex) => (
+            {data?.users?.map((row, rowIndex) => (
               <TableRow key={rowIndex} row={row} columns={columns} />
             ))}
           </tbody>

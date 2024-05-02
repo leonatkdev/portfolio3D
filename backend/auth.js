@@ -167,4 +167,17 @@ exports.update = async (req, res, next) => {
     }
   }
 };
-
+exports.getUsers = async (req, res, next) => {
+  try {
+    const users = await User.find();
+    res.status(200).json({
+      message: "Users found",
+      users,
+    });
+  } catch (error) {
+    res.status(400).json({
+      message: "Users not found",
+      error: error.message,
+    });
+  }
+}

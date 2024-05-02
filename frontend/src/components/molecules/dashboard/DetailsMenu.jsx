@@ -1,7 +1,10 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { AiOutlineStar } from "react-icons/ai";
-import { HomeSvg, ArrowSvg, SearchSvg, SectionSvg, PostsSvg } from "../../../assets/svg/index";
+import {
+  HomeSvg,
+  ArrowSvg,
+  SearchSvg,
+  SectionSvg,
+  PostsSvg,
+} from "../../../assets/svg/index";
 import SimpleMenu from "../../atoms/menuItems/simpleMenu";
 import ExtendedMenu from "../../atoms/menuItems/extendedMenu";
 import { MdOutlineGTranslate } from "react-icons/md";
@@ -14,12 +17,16 @@ const DetailsMenu = ({ showDashboard, activeTab, favorite, addFavorite }) => {
     Home: [
       { label: "Home", path: "/dashboard", icon: <HomeSvg /> },
       { label: "Users", path: "/dashboard/users", icon: <FaRegUserCircle /> },
-      { label: "Translations", path: "/dashboard", icon: <MdOutlineGTranslate /> },
+      {
+        label: "Translations",
+        path: "/dashboard",
+        icon: <MdOutlineGTranslate />,
+      },
       {
         label: "Test1",
         path: "/dashboard",
         moreLinks: [
-          { label: "Test2", path: "/dashboard"  },
+          { label: "Test2", path: "/dashboard" },
           { label: "Test3", path: "/dashboard" },
         ],
       },
@@ -33,7 +40,21 @@ const DetailsMenu = ({ showDashboard, activeTab, favorite, addFavorite }) => {
       },
     ],
     Favorite: favorite,
-    Posts: [{ label: "Pages", path: "/dashboard/pages", icon: <PostsSvg />}, { label: "Sections", path: "/dashboard/sections", icon: <SectionSvg />}, { label: "Authors", path: "/dashboard/authors", icon: <LuUserSquare2 />},{ label: "Deploy", path: "/dashboard/deploy", icon: <AiOutlineDeploymentUnit />}] ,
+    Posts: [
+      { label: "Pages", path: "/dashboard/pages", icon: <PostsSvg /> },
+      { label: "Sections", path: "/dashboard/sections", icon: <SectionSvg /> },
+      { label: "Authors", path: "/dashboard/authors", icon: <LuUserSquare2 /> },
+      {
+        label: "Runtime Changes",
+        path: "/dashboard/deploy",
+        icon: <AiOutlineDeploymentUnit />,
+      },
+      {
+        label: "Deploy",
+        path: "/dashboard/deploy",
+        icon: <AiOutlineDeploymentUnit />,
+      },
+    ],
     // Sections: [{ label: "Sections", path: "/dashboard/sections", icon: <SectionSvg />}],
     // Deploy: [{ label: "Deploy", path: "/dashboard/deploy", icon: <AiOutlineDeploymentUnit />}],
   };
@@ -53,7 +74,6 @@ const DetailsMenu = ({ showDashboard, activeTab, favorite, addFavorite }) => {
           ></input>
         </form>
         <ul>
-        
           {detailDashboardData[activeTab]?.map((menuItem) => {
             const hasMoreLinks = menuItem?.moreLinks !== undefined;
 
