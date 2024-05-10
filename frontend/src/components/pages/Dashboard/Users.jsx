@@ -9,7 +9,7 @@ import DropDown from "../../atoms/dropDownField";
 import Modal from "../../molecules/dashboard/Modal";
 import Pagination from "../../atoms/pagination";
 
-const PageUsers = () => {
+const PageUsers = ({title = "authors"}) => {
   const [modal, setModal] = useState(false);
   const [data, setData] = useState([]);
 
@@ -81,12 +81,12 @@ const PageUsers = () => {
   return (
     <>
       <div className="p-4 pt-0">
-        <h1 className="text-2xl font-bold">Users</h1>
+        <h1 className="text-2xl font-bold">{title}</h1>
         <button class=" block m-3 mr-6 ml-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105">
-          Add Users
+          Add {title}
         </button>
         <div className=" flex gap-3 border border-[#F0F3F5] p-4 bg-white rounded-lg">
-          <InputField label="Search for User" placeholder="Search" />
+          <InputField label={`Search for ${title}`} placeholder="Search" />
           {/* <DropDown /> */}
         </div>
       </div>

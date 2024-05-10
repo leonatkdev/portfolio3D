@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import DashboardMenu from "../organisms/DashboardMenu";
 import DashboardNavigation from "../molecules/dashboard/DashboardNavigation";
+import NotFound from "../pages/client/NotFound";
 
 const DashboardLayout = ({ children }) => {
   const isAuthenticated = JSON.parse(sessionStorage.getItem("user")) || null;
@@ -13,7 +14,7 @@ const DashboardLayout = ({ children }) => {
       </div>
     </div>
   ) : (
-    <div>You don't have access Mate</div>
+     <NotFound text="You are not authorized to view this page" />
   );
 };
 

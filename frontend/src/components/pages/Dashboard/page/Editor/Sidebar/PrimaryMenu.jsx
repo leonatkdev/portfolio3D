@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import SubMenu from "./SubMenu";
+import React, { useState } from "react";
+import SubMenu from "./SecondaryMenu";
 import { LuPlusCircle } from "react-icons/lu";
 import { RxCardStackMinus } from "react-icons/rx";
 import { IoIosColorPalette } from "react-icons/io";
@@ -12,15 +12,16 @@ import { IoLayersOutline } from "react-icons/io5";
 
 const sectionsMenu = [
   {
-    section: "Elements",
-    label: "Add Elements",
-    icon: <LuPlusCircle className="w-6 h-6" color="white" />,
-  },
-  {
     section: "Page",
     label: "Page Info",
     icon: <SiGoogledocs className="w-6 h-6" color="white" />,
   },
+  {
+    section: "Elements",
+    label: "Add Elements",
+    icon: <LuPlusCircle className="w-6 h-6" color="white" />,
+  },
+
   {
     section: "Sections",
     label: "Add Section",
@@ -49,11 +50,11 @@ const MainMenu = ({
   nestedData,
   setNestedData,
   handleDragStart,
+  PageForm,
+  setPageForm,
 }) => {
-
   const handleShowSubMenu = (section) => {
     setActiveTab(section);
-    setShowSubMenu(true);
   };
 
   return (
@@ -71,16 +72,16 @@ const MainMenu = ({
           </span>
         ))}
       </div>
- 
-        <SubMenu
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          nestedData={nestedData}
-          setNestedData={setNestedData}
-          handleDragStart={handleDragStart}
-        
-        />
-      
+
+      <SubMenu
+        activeTab={activeTab}
+        setActiveTab={setActiveTab}
+        nestedData={nestedData}
+        setNestedData={setNestedData}
+        handleDragStart={handleDragStart}
+        PageForm={PageForm}
+        setPageForm={setPageForm}
+      />
     </>
   );
 };

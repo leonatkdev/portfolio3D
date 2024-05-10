@@ -84,7 +84,6 @@ const Blogs = () => {
   const dymmyDataLength = dummyData.length;
 
   const handleClick = (index) => {
-    console.log("indexc", index);
     setActive(index);
   };
 

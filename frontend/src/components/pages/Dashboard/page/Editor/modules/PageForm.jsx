@@ -1,17 +1,12 @@
 import  {useState} from 'react'
 
-const SimpleForm = () => {
-    const [formData, setFormData] = useState({
-      title: "",
-      path: "",
-      author: "",
-      publishDate: "",
-      manualDate: "",
-    });
+const SimpleForm = ({PageForm, setPageForm}) => {
+    
   
     const handleChange = (event) => {
       const { name, value } = event.target;
-      setFormData((prevState) => ({
+      console.log('name', name);
+      setPageForm((prevState) => ({
         ...prevState,
         [name]: value,
       }));
@@ -21,15 +16,15 @@ const SimpleForm = () => {
       event.preventDefault();
     
       try {
-        const response = await fetch("http://localhost:4000/api/page", {
+        const response = await fetch("http://localhost:4000/api/pages", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData),
+          body: JSON.stringify(PageForm),
         });
     
-        console.log('formData', formData);
+        console.log('formData', PageForm);
     
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -56,7 +51,7 @@ const SimpleForm = () => {
             type="text"
             name="title"
             id="title"
-            value={formData.title}
+            value={PageForm?.title}
             onChange={handleChange}
             className="mt-1 bg-white block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
@@ -73,7 +68,7 @@ const SimpleForm = () => {
             type="text"
             name="path"
             id="path"
-            value={formData.path}
+            value={PageForm?.path}
             onChange={handleChange}
             className="mt-1 bg-white block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
@@ -90,7 +85,7 @@ const SimpleForm = () => {
             type="text"
             name="author"
             id="author"
-            value={formData.author}
+            value={PageForm?.author}
             onChange={handleChange}
             className="mt-1 bg-white block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
@@ -107,7 +102,7 @@ const SimpleForm = () => {
             type="date"
             name="publishDate"
             id="publishDate"
-            value={formData.publishDate}
+            value={PageForm?.publishDate}
             onChange={handleChange}
             className="mt-1 bg-white block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
@@ -124,12 +119,12 @@ const SimpleForm = () => {
             type="date"
             name="manualDate"
             id="manualDate"
-            value={formData.manualDate}
+            value={PageForm?.manualDate}
             onChange={handleChange}
             className="mt-1 block bg-white w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
           />
         </div>
-{/*   
+  
         <div className="mt-4">
           <button
             type="submit"
@@ -137,7 +132,7 @@ const SimpleForm = () => {
           >
             Submit
           </button>
-        </div> */}
+        </div>
       </form>
     );
   };

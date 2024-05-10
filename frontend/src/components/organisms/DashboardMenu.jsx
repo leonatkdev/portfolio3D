@@ -25,6 +25,11 @@ const DashboardMenu = () => {
     setFavorite([...favorite, obj]);
   };
 
+  const removeItem = (obj) => {
+    console.log('obj', obj)
+    setFavorite(prevItems => prevItems.filter(item => item.label !== obj.label));
+  };
+
   const mainDashboardData = [
     {
       label: "Home",
@@ -97,7 +102,7 @@ const DashboardMenu = () => {
         </button>
       </div>
 
-      <DetailsMenu showDashboard={showDashboard} activeTab={activeTab} favorite={favorite} addFavorite={addFavorite}/>
+      <DetailsMenu showDashboard={showDashboard} activeTab={activeTab} favorite={favorite} addFavorite={addFavorite} removeItem={removeItem}/>
     </div>
     </div>
   );

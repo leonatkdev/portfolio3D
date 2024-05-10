@@ -12,7 +12,7 @@ import { AiOutlineDeploymentUnit } from "react-icons/ai";
 import { FaRegUserCircle } from "react-icons/fa";
 import { LuUserSquare2 } from "react-icons/lu";
 
-const DetailsMenu = ({ showDashboard, activeTab, favorite, addFavorite }) => {
+const DetailsMenu = ({ showDashboard, activeTab, favorite, addFavorite , removeItem}) => {
   const detailDashboardData = {
     Home: [
       { label: "Home", path: "/dashboard", icon: <HomeSvg /> },
@@ -77,11 +77,17 @@ const DetailsMenu = ({ showDashboard, activeTab, favorite, addFavorite }) => {
           {detailDashboardData[activeTab]?.map((menuItem) => {
             const hasMoreLinks = menuItem?.moreLinks !== undefined;
 
+            const existingFavorite = favorite.find(
+              (fav) => fav.label === menuItem?.label
+            );
+
             return !hasMoreLinks ? (
               <SimpleMenu
                 item={menuItem}
                 key={menuItem?.label}
                 addFavorite={addFavorite}
+                existingFavorite={existingFavorite}
+                removeItem={removeItem}
               />
             ) : (
               <ExtendedMenu menuItem={menuItem} addFavorite={addFavorite} />

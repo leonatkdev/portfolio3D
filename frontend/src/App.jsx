@@ -37,21 +37,14 @@ const App = () => {
               </DashboardLayout>
             }
           />
-          <Route
-            path="/dashboard/pages/page"
-            element={
-              <Page />
-              // <DashboardLayout>
-
-              // </DashboardLayout>
-            }
-          />
+          <Route path="/dashboard/pages/page" element={<Page />} />
+          <Route path="/dashboard/pages/page/:id" element={<Page />} />
 
           <Route
             path="/dashboard/users"
             element={
               <DashboardLayout>
-                <Users />
+                <Users  title="Users" />
               </DashboardLayout>
             }
           />
@@ -60,6 +53,14 @@ const App = () => {
             element={
               <DashboardLayout>
                 <Sections />
+              </DashboardLayout>
+            }
+          />
+          <Route
+            path="/dashboard/authors"
+            element={
+              <DashboardLayout>
+                <Users title="Authors" />
               </DashboardLayout>
             }
           />

@@ -14,7 +14,20 @@ const IframTest = () => (
   ></iframe>
 );
 
-const sectionsMenuDetails = {
+
+
+const SubMenu = ({
+  activeTab,
+  setActiveTab,
+  nestedData,
+  setNestedData,
+  handleDragStart,
+  PageForm,
+  setPageForm,
+}) => {
+  if (!activeTab) return null;
+
+ const sectionsMenuDetails = {
   Elements: {
     Text: {
       Navigation: "value1",
@@ -34,7 +47,7 @@ const sectionsMenuDetails = {
     Page: {
       costumeComponent: {
         draggable: false,
-        component: <SimpleForm />,
+        component: <SimpleForm PageForm={PageForm} setPageForm={setPageForm}/>,
       },
     },
     Seo: {
@@ -73,18 +86,6 @@ const sectionsMenuDetails = {
     },
   },
 };
-
-const SubMenu = ({
-  activeTab,
-  setActiveTab,
-  nestedData,
-  setNestedData,
-  handleDragStart,
-}) => {
-
-
-  if (!activeTab) return null;
-
   const details = sectionsMenuDetails[activeTab];
   const detailKeys = details && Object?.keys(details);
 
@@ -129,7 +130,6 @@ const SubMenu = ({
                         onDragStart={(e) =>{
                                handleDragStart(e, `${nestedData}-${key}`, true)
                         }
-                     
                         }
                         className="text-sm min-h-[30px] min-w-[125px] max-w-[200px]"
                       >

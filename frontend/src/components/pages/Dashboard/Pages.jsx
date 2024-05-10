@@ -9,6 +9,7 @@ import DropDown from "../../atoms/dropDownField";
 
 import Modal from "../../molecules/dashboard/Modal";
 import Pagination from "../../atoms/pagination";
+import { Link } from "react-router-dom";
 
 const PagesDashboard = () => {
   const [modal, setModal] = useState(false);
@@ -24,36 +25,15 @@ const PagesDashboard = () => {
       });
   }, []);
 
-  console.log("data", data);
 
   const columns = [
     { key: "title", header: "Title" },
     { key: "status", header: "status" },
     { key: "path", header: "Path" },
     { key: "layout", header: "Layout" },
-    { key: "market", header: "Language-(Market)" },
+    { key: "language", header: "Language-(Market)" },
     { key: "tools", header: "Tools" },
-    // Add more columns as needed
-  ];
-
-  const dataTable = [
-    {
-      title: "Page Title",
-      state: "Active",
-      path: "test",
-      layout: "None",
-      market: "English",
-      tools: [
-        <AiOutlineStar color="#6B7380" className="h-6 w-6" />,
-        <TbEdit color="#6B7380" className="h-6 w-6" />,
-        <HiOutlineTrash
-          color="#6B7380"
-          className="h-6 w-6"
-          onClick={() => setModal(true)}
-        />,
-      ],
-    },
-  ];
+  ];    
 
   const CostumeCell = ({ column, row }) => {
     switch (column?.key) {
@@ -79,7 +59,9 @@ const PagesDashboard = () => {
         return (
           <td className="px-6 py-4 flex justify-around">
             {[
-              <TbEdit color="#6B7380" className="h-6 w-6" />,
+              <Link to={`/dashboard/pages/page/${row._id}`} key={row._id}> 
+              <TbEdit color="#6B7380" className="h-6 w-6" />
+              </Link>,
               <AiOutlineStar color="#6B7380" className="h-6 w-6" />,
               <HiOutlineTrash
                 color="#6B7380"
@@ -151,6 +133,7 @@ const PagesDashboard = () => {
         <Modal
           modal={modal}
           setModal={setModal}
+          onConfirm={() => console.log("Delete")}
           title="Delete Page"
           desc="Are you sure you want to delete your Page? All of your data will be permanently removed. This action cannot be undone."
         />

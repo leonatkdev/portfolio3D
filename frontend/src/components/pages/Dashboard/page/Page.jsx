@@ -1,22 +1,53 @@
 /* eslint-disable react/prop-types */
-import React, { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 // import ModuleModal from "./ModuleModal.jsx";
+import { useParams } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
 import EditorHeader from "./Editor/EditorHeader";
-import Sidebar from "./Editor/Sidebar/MainMenu";
+import Sidebar from "./Editor/Sidebar/PrimaryMenu";
 import Content from "./Editor/modules/Content";
+import ModuleDetails from "./Editor/Sidebar/ ModuleDetails";
 
 const PageDashboard = () => {
+  // const [pageData, setPageData] = useState();
+  const [PageForm, setPageForm] = useState({
+    generalData: {},
+    title: "",
+    path: "",
+    // authID: "",
+    layout: "None",
+    language: "English",
+    publishDate: "",
+    modules: [],
+  });
   const [activeTab, setActiveTab] = useState("Page");
   const [nestedData, setNestedData] = useState("Page");
   const [allComponents, setAllComponents] = useState([]);
 
-  const [screen, setScreen] = useState("desktop");
   const [elmClicked, setElmClicked] = useState(null);
-  const [nestedDataClicked, setNestedDataClicked] = useState(null);
+  const [screen, setScreen] = useState("desktop");
   const [width, setWidth] = useState(400);
 
-  const [settingPanel, setSettingPanel] = useState(false);
+  let { id } = useParams();
+
+  useEffect(() => {
+    if (id) {
+      fetch(`http://localhost:4000/api/pages/${id}`)
+        .then((res) => res.json())
+        .then((data) => {
+          // setPageData(data);
+          // Update pageForm with fetched data
+          setPageForm((prevPageForm) => ({
+            ...prevPageForm,
+            ...data,
+          }));
+        });
+    }
+  }, [id]);
+
+  useEffect(() => {
+    PageForm.modules = allComponents;
+  }, [allComponents]);
 
 
   const startResizing = (mouseDownEvent) => {
@@ -42,8 +73,6 @@ const PageDashboard = () => {
   };
 
   const itemsRef = useRef([]);
-
-  // console.log("allComponents", allComponents);
 
   const handleDragStart = (e, id, isNestedData = false) => {
     e.dataTransfer.setData(
@@ -132,7 +161,7 @@ const PageDashboard = () => {
   };
 
   const renderComponents = () =>
-    allComponents.map((component, index) => (
+    PageForm?.modules.map((component, index) => (
       <div
         id={`component-${index}`} // Assign unique ID
         key={component.id}
@@ -140,14 +169,13 @@ const PageDashboard = () => {
         onDragStart={(e) => handleDragStart(e, component.id)}
         // ref={(el) => (itemsRef.current[index] = el)}
         onClick={(e) => {
-          // console.log("e", e);
+         
           console.log(
             "elementRef.current.style",
             itemsRef.current[index].style
           );
           // if (e.target === itemsRef.current[index]) {
           setElmClicked(`component-${index}`);
-          setNestedDataClicked(itemsRef.current[index]);
           // }
         }}
         className={
@@ -156,52 +184,28 @@ const PageDashboard = () => {
         }
       >
         <Modules value={component.content} index={index} />
-        {elmClicked === `component-${index}` && (
+        {/* {elmClicked === `component-${index}` && (
           <div className=" flex z-10 absolute bg-black text-white rounded-lg py-4 px-4">
             <div className=" text-xs">Quick Setting</div>
             <IoClose onClick={() => setElmClicked(null)} />
           </div>
-        )}
+        )} */}
         {/* <Content content={component.content} /> */}
         {/* {component.content} */}
       </div>
     ));
 
- 
-  const BoxStyleEditor = () => {
-    return (
-      <div className="flex justify-center items-center w-fit mx-auto bg-green-300 p-4">
-        <div className="relative border-dashed border-2 border-green-500">
-          <div className="absolute -top-5 left-1/2 transform -translate-x-1/2">
-            0
-          </div>
-          <div className="border-0 p-0">
-            <div className="p-7 bg-blue-300 relative">
-              <div className="absolute top-0 left-1/2 transform -translate-x-1/2">
-                30
-              </div>
-
-              <div className="w-[78px] h-[14px] bg-blue-200 flex justify-center items-center"></div>
-
-              <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2">
-                30
-              </div>
-            </div>
-          </div>{" "}
-          <div className="absolute top-1/2 left-0 transform -translate-y-1/2 -translate-x-full">
-            0
-          </div>
-          <div className="absolute top-1/2 right-0 transform -translate-y-1/2 translate-x-full">
-            0
-          </div>
-        </div>
-      </div>
-    );
-  };
+    console.log('PageForm', PageForm)
 
   return (
     <div className="bg-[#E1E2E6]">
-      <EditorHeader screen={screen} setScreen={setScreen} />
+      <EditorHeader
+        screen={screen}
+        setScreen={setScreen}
+        allComponents={allComponents}
+        id={id}
+        PageForm={PageForm}
+      />
       <div className="flex mt-[60px]">
         <Sidebar
           activeTab={activeTab}
@@ -209,6 +213,8 @@ const PageDashboard = () => {
           nestedData={nestedData}
           setNestedData={setNestedData}
           handleDragStart={handleDragStart}
+          PageForm={PageForm}
+          setPageForm={setPageForm}
         />
         <div className=" flex flex-1 flex-col bg-slate-400 p-6">
           <div
@@ -242,21 +248,7 @@ const PageDashboard = () => {
             )}
           </div>
         </div>
-        {elmClicked && (
-          <div className="flex flex-col fixed top-[65px] right-0 h-full bg-[#131826] w-[250px]">
-            <div className="flex justify-between p-4">
-              <span className=" text-lg font-medium">All Settings</span>
-              <IoClose
-                onClick={() => setElmClicked(null)}
-                width={24}
-                height={24}
-                className=" w-6 h-6"
-              />
-            </div>
-
-            <BoxStyleEditor />
-          </div>
-        )}
+        {elmClicked && <ModuleDetails setElmClicked={setElmClicked} />}
       </div>
     </div>
   );

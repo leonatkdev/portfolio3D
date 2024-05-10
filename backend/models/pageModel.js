@@ -49,8 +49,7 @@ const PageSchema = new Schema(
     },
     authID: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      // required: true,
+      ref: "AuthorModel",
     },
     layout: {
       type: String,
