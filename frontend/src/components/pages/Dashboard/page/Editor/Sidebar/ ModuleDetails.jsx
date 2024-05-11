@@ -1,7 +1,8 @@
 import React from "react";
 import { IoClose } from "react-icons/io5";
 
-const ModuleDetails = ({setElmClicked}) => {
+const ModuleDetails = ({ elmClicked, setElmClicked }) => {
+  console.log("elmClicked", elmClicked);
   const BoxStyleEditor = () => {
     return (
       <div className="flex justify-center items-center w-fit mx-auto bg-green-300 p-4">
@@ -35,7 +36,7 @@ const ModuleDetails = ({setElmClicked}) => {
 
   return (
     <div className="flex flex-col fixed top-[65px] right-0 h-full bg-[#131826] w-[250px]">
-      <div className="flex justify-between p-4">
+       <div className="flex justify-between p-4">
         <span className=" text-lg font-medium">All Settings</span>
         <IoClose
           onClick={() => setElmClicked(null)}
@@ -43,8 +44,14 @@ const ModuleDetails = ({setElmClicked}) => {
           height={24}
           className=" w-6 h-6"
         />
+      </div> <div className="flex justify-between px-4 gap-2">
+        <span className=" text-lg font-medium">Module:</span>
+        <span className=" text-base font-medium break-all text-right">{elmClicked?.ModuleName}</span>
       </div>
-
+     
+     <div className="p-4 text-xl font-semibold">
+      Style
+     </div>
       <BoxStyleEditor />
     </div>
   );

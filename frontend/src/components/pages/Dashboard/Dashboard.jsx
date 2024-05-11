@@ -21,14 +21,26 @@ const Dashboard = (props) => {
     {
       label: "Blogs",
       number: "7",
+      chartData: {
+        status: "down",
+        statusData: "-20%",
+      },
     },
     {
       label: "Employee",
       number: "35",
+      chartData: {
+        status: "down",
+        statusData: "-20%",
+      },
     },
     {
       label: "Remote",
       number: "7",
+      chartData: {
+        status: "up",
+        statusData: "-20%",
+      },
     },
   ];
 
@@ -51,16 +63,68 @@ const Dashboard = (props) => {
     ],
     datasets: [
       {
-        label: "Sales",
+        label: "Top Sales",
         backgroundColor: "rgba(54, 162, 235, 0.2)",
+        hoverBackgroundColor:"rgba(59, 130, 246, 1)",
         borderColor: "rgba(54, 162, 235, 1)",
         borderWidth: 1,
         data: [350, 450, 240, 400, 450, 100, 300],
         borderRadius: 100,
         borderSkipped: false,
+        barThickness: 25, // Fixed bar width
+        maxBarThickness: 40 // Maximum width for automatically-sized bars
       },
     ],
   };
+
+  const chartDataTwo = {
+    labels: [
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun",
+      "Mon",
+      "Tue",
+      "Wed",
+      "Thu",
+      "Fri",
+      "Sat",
+      "Sun",
+    ],
+    datasets: [
+      {
+        label: "Top Sales",
+        // backgroundColor: "rgba(239, 6, 6, 1)",
+        borderColor:  function(context) {
+          const chart = context.chart;
+          const {ctx, chartArea} = chart;
+          if (!chartArea) return; // Skip if chart area is not available
+          let gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+          gradient.addColorStop(0, 'blue');
+          gradient.addColorStop(0.5, 'red');
+          gradient.addColorStop(1, 'red');
+          return gradient;
+        },
+        fill: true,
+        backgroundColor: function(context) {
+          const chart = context.chart;
+          const {ctx, chartArea} = chart;
+          if (!chartArea) return; // Skip if chart area is not available
+          let gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+          gradient.addColorStop(0, 'rgba(255, 255, 255, 0.5)');
+          gradient.addColorStop(1, 'rgba(239, 6, 6, 0.5)');
+          return gradient;
+        },
+        borderWidth: 1.5,
+        data: [350, 450, 240, 400, 450, 100, 300],
+       
+      },
+    ],
+  };
+
 
   const config = {
     scales: {
@@ -82,6 +146,13 @@ const Dashboard = (props) => {
         },
       },
     },
+  };
+
+  const SocialData = {
+    Facebook: 100,
+    Instagram: 200,
+    Twitter: 300,
+    Tiktok: 400,
   };
 
   return (
@@ -106,20 +177,62 @@ const Dashboard = (props) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-[1fr_0.7fr] gap-4">
-        <div className="bg-white rounded-2xl p-4 max-w-[650px]">
+      <div className="grid grid-cols-[1fr_1fr] gap-4">
+        <div className="bg-white rounded-2xl p-4">
           <Chart type="bar" data={chartData} options={config} />
         </div>
-        <div className=" grid grid-cols-2 gap-1 h-fit">
-          {dummyData?.map((data) => (
-            <div className=" relative p-6 bg-[#131826] text-white rounded-2xl min-w-[200px]">
-              {/* <SettingsSvg style="w-9 h-9 absolute right-4" /> */}
-              <span className="block text-[14px] pt-1">{data?.label}</span>
-              <span className="block pt-4 text-4xl font-bold">
+        <div className=" grid grid-cols-2 gap-1 h-fit rounded-2xl ">
+          {dummyData?.map((data, index) => (
+            <div
+              className={` relative p-6 bg-white text-black ${
+                index === 0 && " rounded-tl-2xl"
+              } ${index === 1 && " rounded-tr-2xl"} ${
+                index === 2 && " rounded-bl-2xl"
+              } ${index === 3 && " rounded-br-2xl"}`}
+            >
+              <span className="block text-[14px]">{data?.label}</span>
+              <span className="block pt-2  pb-4 text-4xl font-bold">
                 {data?.number}
               </span>
+              <p>
+                {data?.chartData?.status ? (
+                  <span
+                    className={`${
+                      data?.chartData?.status === "up"
+                        ? "text-green-500"
+                        : "text-red-500"
+                    }`}
+                  >
+                    {data?.chartData?.statusData}{" "}
+                    <span className=" text-black">vs last month</span>
+                  </span>
+                ) : (
+                  ""
+                )}
+              </p>
             </div>
           ))}
+        </div>
+      </div>
+
+      <div className="grid grid-cols-[1fr_1fr] gap-4 pt-4">
+        <div>
+          <Chart type="line" data={chartDataTwo} options={{
+
+          }} />
+        </div>
+
+        <div className="bg-white rounded-2xl w-fit">
+          {Object.entries(SocialData).map(([key, value]) => {
+            return (
+              <div className="p-4 border-b ">
+                <span className=" text-lg font-medium">{key}</span>
+                <p className=" text-3xl font-semibold pt-1">
+                  {value} <span className=" text-base font-normal ">Visitors</span>
+                </p>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

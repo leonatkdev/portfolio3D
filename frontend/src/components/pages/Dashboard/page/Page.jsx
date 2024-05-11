@@ -24,7 +24,7 @@ const PageDashboard = () => {
   const [nestedData, setNestedData] = useState("Page");
   const [allComponents, setAllComponents] = useState([]);
 
-  const [elmClicked, setElmClicked] = useState(null);
+  const [elmClicked, setElmClicked] = useState(null); 
   const [screen, setScreen] = useState("desktop");
   const [width, setWidth] = useState(400);
 
@@ -46,6 +46,10 @@ const PageDashboard = () => {
   }, [id]);
 
   useEffect(() => {
+    setPageForm((prevPageForm) => ({
+      ...prevPageForm,
+      modules: allComponents
+    }));
     PageForm.modules = allComponents;
   }, [allComponents]);
 
@@ -169,18 +173,17 @@ const PageDashboard = () => {
         onDragStart={(e) => handleDragStart(e, component.id)}
         // ref={(el) => (itemsRef.current[index] = el)}
         onClick={(e) => {
-         
-          console.log(
-            "elementRef.current.style",
-            itemsRef.current[index].style
-          );
           // if (e.target === itemsRef.current[index]) {
-          setElmClicked(`component-${index}`);
+          setElmClicked({
+            id: component?.id,
+            index: index,
+            ModuleName: component?.content,
+          });
           // }
         }}
         className={
           "text-black relative" +
-          (elmClicked === `component-${index}` ? " border border-sky-500" : "")
+          (elmClicked?.index === `${index}` ? " border border-sky-500" : "")
         }
       >
         <Modules value={component.content} index={index} />
@@ -248,7 +251,7 @@ const PageDashboard = () => {
             )}
           </div>
         </div>
-        {elmClicked && <ModuleDetails setElmClicked={setElmClicked} />}
+        {elmClicked && <ModuleDetails elmClicked={elmClicked} setElmClicked={setElmClicked} />}
       </div>
     </div>
   );

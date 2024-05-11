@@ -113,7 +113,7 @@ const PageUsers = ({title = "authors"}) => {
         </table>
       </div>
 
-      <Pagination />
+      <Pagination items={data?.users} itemsPerPage={10}  />
 
       {modal && <Modal modal={modal} setModal={setModal} />}
     </>

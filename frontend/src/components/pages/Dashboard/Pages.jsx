@@ -127,7 +127,7 @@ const PagesDashboard = () => {
         </table>
       </div>
 
-      <Pagination />
+      <Pagination items={data} />
 
       {modal && (
         <Modal

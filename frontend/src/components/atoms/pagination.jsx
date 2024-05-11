@@ -1,37 +1,24 @@
 import React, { useState } from "react";
 import { FaArrowLeftLong, FaArrowRightLong } from "react-icons/fa6";
 
-const Pagination = () => {
+const Pagination = ({items = [], itemsPerPage = '10'}) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 3; // Number of items per page
-  const totalItems = 10; // Total number of items (you can calculate this dynamically)
 
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+  const lastItemIndex = currentPage * itemsPerPage;
+  const firstItemIndex = lastItemIndex - itemsPerPage;
 
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-    // You can implement logic here to fetch data for the new page
-  };
+
+  const currentItems = items?.slice(firstItemIndex, lastItemIndex);
+
+  const totalPages = Math.ceil(items?.length / itemsPerPage);
+
 
   const renderPaginationLinks = () => {
-    const links = [];
-    for (let i = 1; i <= totalPages; i++) {
-      links.push(
-        <a
-          key={i}
-          href="#"
-          className={`relative inline-flex items-center px-4 pt-2 text-sm border-t-2 border-transparent font-medium ${
-            currentPage === i
-              ? "text-indigo-600 border-t-indigo-500 "
-              : "text-gray-500 hover:text-gray-700"
-          }`}
-          onClick={() => handlePageChange(i)}
-        >
-          {i}
-        </a>
-      );
-    }
-    return links;
+    return Array.from({ length: totalPages }, (_, i) => (
+      <button key={i} onClick={() => setCurrentPage(i + 1)}>
+        {i + 1}
+      </button>
+    ))
   };
 
   return (
