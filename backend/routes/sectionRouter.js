@@ -100,7 +100,7 @@ router.get("/authors", (req, res) => {
   });
 });
 
-router.post("/authors", upload.single("image"), async (req, res) => {
+router.post("/authors", upload.single("avatar"), async (req, res) => {
   if (!req.file) {
     return res.status(400).send("No file uploaded.");
   }

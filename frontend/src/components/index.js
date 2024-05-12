@@ -1,13 +1,13 @@
-import { EarthCanvas, BallCanvas, StarsCanvas } from './canvas';
-import Hero from "./molecules/client-sections/Hero";
-import NavigationBar from "./molecules/client-sections/NavigationBar";
-import About from "./molecules/client-sections/About";
-import Tech from "./molecules/client-sections/Tech";
-import Experience from "./molecules/client-sections/Experience";
-import Works from "./molecules/client-sections/Works";
-import Feedbacks from "./molecules/client-sections/Feedback";
-import Contact from "./molecules/client-sections/Contact";
-import CanvasLoader from "./templates/Loader";
+import { EarthCanvas, BallCanvas, StarsCanvas } from './Client/canvas';
+import Hero from "./Client/molecules/Hero";
+import NavigationBar from "./Client/molecules/NavigationBar";
+import About from "./Client/molecules/About";
+import Tech from "./Client/molecules/Tech";
+import Experience from "./Client/molecules/Experience";
+import Works from "./Client/molecules/Works";
+import Feedbacks from "./Client/molecules/Feedback";
+import Contact from "./Client/molecules/Contact";
+import CanvasLoader from "./Client/templates/Loader";
 
 
 export {

@@ -1,17 +1,18 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Homepage from "./components/pages/client/Homepage";
-import Dashboard from "./components/pages/Dashboard/Dashboard";
-import BlogPage from "./components/pages/client/BlogPage";
-import Blogs from "./components/pages/client/Blogs";
-import Profiles from "./components/pages/Dashboard/Profile";
-import NotFound from "./components/pages/client/NotFound";
+import Homepage from "./components/Client/pages/Homepage";
+import Dashboard from "./components/Dashboard/pages/Dashboard";
+import BlogPage from "./components/Client/pages/BlogPage";
+import Blogs from "./components/Client/pages/Blogs";
+import Profiles from "./components/Dashboard/pages/Profile";
+import NotFound from "./components/Client/pages/NotFound";
 
-import DashboardLayout from "./components/templates/DashboardLayout";
-import PagesDashboard from "./components/pages/Dashboard/Pages";
-import Users from "./components/pages/Dashboard/Users";
-import Page from "./components/pages/Dashboard/Page/Page";
-import Sections from "./components/pages/Dashboard/Sections";
+// Dashboard
+import DashboardLayout from "./components/Dashboard/templates/DashboardLayout";
+import PagesDashboard from "./components/Dashboard/pages/Pages";
+import Users from "./components/Dashboard/pages/Users";
+import Page from "./components/Dashboard/pages/page-editor/Page";
+import Sections from "./components/Dashboard/pages/Sections";
 
 const App = () => {
   return (
@@ -44,7 +45,7 @@ const App = () => {
             path="/dashboard/users"
             element={
               <DashboardLayout>
-                <Users  title="Users" />
+                <Users title="Users" api="users" />
               </DashboardLayout>
             }
           />
