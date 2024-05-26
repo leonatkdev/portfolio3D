@@ -19,7 +19,7 @@ const Hero = () => {
       >
         <div className="flex flex-col justify-center items-center mt-5">
           <div className="w-5 h-5 rounded-full bg-[#6366f1]" />
-          <div className="w-1 lg:h-80 h-40 bg-gradient-to-b from-indigo-500" />
+          <div className="w-1 lg:h-80 h-40 bg-gradient-to-b from-indigo-500  " />
         </div>
 
         <div>

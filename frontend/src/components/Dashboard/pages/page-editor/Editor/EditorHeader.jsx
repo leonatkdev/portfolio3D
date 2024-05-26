@@ -91,14 +91,14 @@ const EditorHeader = ({ screen, setScreen, allComponents, id, PageForm }) => {
 
         <span className=" text-black">1920 PX</span>
       </div>
-      <div className="flex  items-center  gap-2 mr-3">
+      {/* <div className="flex  items-center  gap-2 mr-3">
         <TbArrowBackUp className="w-6 h-6" color="black" />
         <TbArrowForwardUp className="w-6 h-6" color="black" />
       </div>
       <span className="flex  items-center gap-1 text-black mr-2">
         <CiCircleMinus className="w-6 h-6" color="black" />
         100%
-      </span>
+      </span> */}
 
       <select id="cars" className=" rounded-full px-2 mr-2">
         <option value="volvo">Active</option>

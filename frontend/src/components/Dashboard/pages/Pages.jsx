@@ -108,7 +108,7 @@ const PagesDashboard = () => {
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 mt-0">
+      <div className=" overflow-x-auto sm:overflow-x-hidden rounded-lg border border-gray-200 shadow-md m-5 mt-0">
         <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
           <thead className="bg-gray-50">
             <tr>

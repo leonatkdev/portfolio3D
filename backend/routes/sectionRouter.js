@@ -16,6 +16,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+
+
 // Get Pages
 router.get("/pages", (req, res) => {
   PageModel.find({})
@@ -139,7 +141,6 @@ router.post("/authors", upload.single("avatar"), async (req, res) => {
 //       res.status(401).send({ "Server Error": err.message });
 //     });
 // });
-
 
 /**
  * @swagger

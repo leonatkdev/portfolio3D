@@ -59,13 +59,17 @@ const DashboardMenu = () => {
       <img
         src={toggle ? close : menu}
         alt="menu"
-        className={` absolute top-4 left-4 z-[60]  w-[20px] h-[20px] object-contain cursor-pointer sm:hidden ${
-          toggle && " w-[16px] h-[16px]"
+        className={` absolute top-4 left-4 z-[60]  w-[20px] h-[20px] object-contain cursor-pointer sm:hidden invert ${
+          toggle && " w-[16px] h-[16px] !invert-0"
         }`}
         onClick={() => setToggle(!toggle)}
       />
-      <div className={`flex absolute sm:static z-50 `}>
-        <div className=" sticky top-0 flex flex-col w-[64px] mxa-w-[64px] min-w-[64px] h-screen items-center py-3 px-2 justify-between bg-[#131826] ">
+      <div
+        className={` hidden sm:flex absolute sm:static z-50 ${
+          toggle && "!flex"
+        } `}
+      >
+        <div className=" pt-16 sm:pt-3 sticky top-0 flex flex-col w-[64px] mxa-w-[64px] min-w-[64px] h-screen items-center py-3 px-2 justify-between bg-[#131826] ">
           <img
             src={logo}
             alt="Leonat Krasniqi Logo"
@@ -89,7 +93,6 @@ const DashboardMenu = () => {
           <div className="flex flex-col items-center gap-4">
             <AiOutlineSetting />
             <Link to={`/profile`}>
-             
               <img
                 src={avatar}
                 alt="Leonat Krasniqi Logo"

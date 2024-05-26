@@ -1,21 +1,22 @@
-import React, {useState} from 'react'
+import React from "react";
 import { EditorState, convertToRaw } from "draft-js";
 import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css"; // import '../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-const Content = ({ content }) => {
-  const [editorState, setEditorState] = useState(() =>
-    EditorState.createEmpty()
-  );
-
-  const onEditorStateChange = (editorState) => {
-    setEditorState(editorState);
-  };
-
+const Content = ({ editorState, onEditorStateChange, setIsEditingText, onSave }) => {
   const handleSave = () => {
     const contentState = editorState.getCurrentContent();
     const rawContentState = convertToRaw(contentState);
     const content = JSON.stringify(rawContentState);
+    onSave(content); // Call the onSave function passed as a prop
+  };
+
+  const handleFocus = () => {
+    setIsEditingText(true);
+  };
+
+  const handleBlur = () => {
+    setIsEditingText(false);
   };
 
   return (
@@ -26,12 +27,17 @@ const Content = ({ content }) => {
         wrapperClassName="wrapperClassName"
         editorClassName="editorClassName"
         onEditorStateChange={onEditorStateChange}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
       />
-      <button onClick={handleSave} className='py-2 px-4 rounded-2xl bg-blue-700 text-white'>Save Text</button>
-      {/* <div>{content}</div> */}
+      <button
+        onClick={handleSave}
+        className="py-2 px-4 rounded-2xl bg-blue-700 text-white"
+      >
+        Save Text
+      </button>
     </>
   );
 };
-
 
 export default Content;

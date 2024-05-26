@@ -12,6 +12,7 @@ import {
   } from "../../index";
   import { Helmet } from 'react-helmet';
 
+
 const Homepage = () => {
   const schema = {
     "@context": "http://schema.org",
@@ -46,7 +47,7 @@ const Homepage = () => {
         <meta property="og:title" content="Leonat Krasniqi - Full Stack Developer"/>
         <meta property="og:type" content="website"/>
         <meta property="og:url" content="https://leonat.dev/"/>
-        <meta property="og:image" content="https://leonat.dev/logo.svg"/>
+        <meta property="og:image" content=""/>
         <meta property="og:description" content="Explore the portfolio of Leonat Krasniqi, a Full Stack Developer with a focus on mobile and web application development. Featuring projects like Car Rent, Job IT, and Trip Guide."/>
         <meta property="og:site_name" content="Leonat Krasniqi Portfolio"/>
         {/* Twitter Card data */}

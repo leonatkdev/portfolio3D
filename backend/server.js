@@ -18,7 +18,7 @@ const connectToDatabase = require("./db.js");
 const app = express();
 const Port = process.env.PORT || 4001;
 
-const allowedOrigins = ['http://localhost:5173', 'https://leonat.dev'];
+const allowedOrigins = ['http://localhost:5173', 'http://localhost:5174', 'https://leonat.dev'];
 
 // Middleware
 app.use(express.json()); // So you can use req.body
