@@ -6,7 +6,9 @@ import { EditorState, convertFromRaw, convertToRaw } from "draft-js";
 import EditorHeader from "./Editor/EditorHeader";
 import Sidebar from "./Editor/Sidebar/PrimaryMenu";
 import Content from "./Editor/modules/Content";
-// import ModuleDetails from "./Editor/Sidebar/ModuleDetails";
+import Modules from "./Modules";
+import { Editor } from "react-draft-wysiwyg";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
 const PageDashboard = () => {
   const [PageForm, setPageForm] = useState({
@@ -15,9 +17,11 @@ const PageDashboard = () => {
     path: "",
     layout: "None",
     language: "English",
+    authID: "",
     publishDate: "",
     modules: [],
   });
+  const [authors, setAuthors] = useState([]);
   const [activeTab, setActiveTab] = useState("Page");
   const [nestedData, setNestedData] = useState("Page");
   const [allComponents, setAllComponents] = useState([]);
@@ -29,6 +33,12 @@ const PageDashboard = () => {
   let { id } = useParams();
 
   useEffect(() => {
+    fetch("http://localhost:4000/api/authors")
+      .then((res) => res.json())
+      .then((data) => setAuthors(data));
+  }, []);
+
+  useEffect(() => {
     if (id) {
       fetch(`http://localhost:4000/api/pages/${id}`)
         .then((res) => res.json())
@@ -37,14 +47,20 @@ const PageDashboard = () => {
             ...prevPageForm,
             ...data,
           }));
-          const modules = data.modules.map(module => {
-            if (module.content === "costumeComponent" && module.values.text) {
+          const modules = data.modules.map((module) => {
+            if (
+              module?.content?.includes("costumeComponent") &&
+              module.values.text
+            ) {
+              console.log("module", module?.values?.text);
               return {
                 ...module,
                 values: {
                   ...module.values,
-                  editorState: EditorState.createWithContent(convertFromRaw(JSON.parse(module.values.text)))
-                }
+                  editorState: EditorState.createWithContent(
+                    convertFromRaw(JSON.parse(module.values.text))
+                  ),
+                },
               };
             }
             return module;
@@ -123,7 +139,11 @@ const PageDashboard = () => {
     setAllComponents((prevComponents) => {
       let newComponents = [...prevComponents];
       if (isNestedData) {
-        const newItem = { id, content: id.split("-")[1], values: { editorState: EditorState.createEmpty() } };
+        const newItem = {
+          id,
+          content: id.split("-")[1],
+          values: { editorState: EditorState.createEmpty() },
+        };
         newComponents.splice(dropPositionIndex, 0, newItem);
       } else {
         const draggedIndex = newComponents.findIndex((comp) => comp.id === id);
@@ -137,10 +157,10 @@ const PageDashboard = () => {
     });
   };
 
-  const handleContentChange = useCallback((index, newValue) => {
+  const handleContentChange = useCallback((index, newEditorState) => {
     setAllComponents((prevComponents) => {
       const newComponents = [...prevComponents];
-      newComponents[index].values = newValue;
+      newComponents[index].values.editorState = newEditorState;
       return newComponents;
     });
   }, []);
@@ -148,60 +168,12 @@ const PageDashboard = () => {
   const handleSave = useCallback((index, content) => {
     setAllComponents((prevComponents) => {
       const newComponents = [...prevComponents];
-      newComponents[index].values.text = content; // Save the serialized content
+      newComponents[index].values.text = JSON.stringify(convertToRaw(content));
       return newComponents;
     });
     // Optionally, you can make an API call here to save the content
     // fetch('/api/saveContent', { method: 'POST', body: JSON.stringify({ content }) })
   }, []);
-
-  const Modules = useCallback(
-    ({ value, index }) => {
-      function getActionType(action) {
-        if (action.includes("costumeComponent")) return "Content";
-        if (action.includes("Navigation")) return "Navigation";
-        if (action.includes("Container")) return "Container";
-        return "default";
-      }
-
-      console.log('value', value)
-
-      switch (getActionType(value.content)) {
-        case "Content":
-          return (
-            <Content
-              // editorState={value.values.text}
-              // onEditorStateChange={(editorState) =>
-              //   handleContentChange(index, { ...value.values, editorState })
-              // }
-              setIsEditingText={setIsEditingText}
-              onSave={(content) => handleSave(index, content)}
-            />
-          );
-        case "Navigation":
-          return (
-            <nav
-              style={{ margin: "10px", padding: "8px 16px" }}
-              ref={(el) => (itemsRef.current[index] = el)}
-            >
-              Nav
-            </nav>
-          );
-        case "Container":
-          return <div className="border border-red-600 min-h-8 min-w-8"></div>;
-        default:
-          return (
-            <p
-              className="px-4 py-2"
-              ref={(el) => (itemsRef.current[index] = el)}
-            >
-              {value.content}
-            </p>
-          );
-      }
-    },
-    [handleContentChange, handleSave]
-  );
 
   const renderComponents = () =>
     PageForm?.modules.map((component, index) => (
@@ -222,7 +194,14 @@ const PageDashboard = () => {
           (elmClicked?.index === `${index}` ? " border border-sky-500" : "")
         }
       >
-        <Modules value={component} index={index} />
+        <Modules
+          value={component}
+          index={index}
+          itemsRef={itemsRef}
+          handleContentChange={handleContentChange}
+          handleSave={handleSave}
+          setIsEditingText={setIsEditingText}
+        />
       </div>
     ));
 
@@ -246,6 +225,7 @@ const PageDashboard = () => {
           handleDragStart={handleDragStart}
           PageForm={PageForm}
           setPageForm={setPageForm}
+          authors={authors}
         />
         <div className="flex flex-1 flex-col bg-slate-400 p-6">
           <div
@@ -275,7 +255,7 @@ const PageDashboard = () => {
                   cursor: "col-resize",
                 }}
                 onMouseDown={startResizing}
-              ></div> 
+              ></div>
             )}
           </div>
         </div>

@@ -1,6 +1,4 @@
 const mongoose = require("mongoose");
-const {Buffer} = require("buffer");
-
 const { Schema } = mongoose;
 
 const AuthorSchema = new Schema({
@@ -9,8 +7,8 @@ const AuthorSchema = new Schema({
     required: true,
   },
   avatar: {
-    type: Buffer,
-    required: true,
+    type: String,
+    required: true, // Ensure this is a string to store the file path
   },
   email: {
     type: String,

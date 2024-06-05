@@ -66,6 +66,8 @@ const NavigationBar = () => {
 
       const data = await response.json();
 
+      console.log("data", data);
+
       sessionStorage.setItem("user", JSON.stringify(data));
       window.location.href = "/dashboard";
       // history.push('/dashboard');
@@ -75,7 +77,15 @@ const NavigationBar = () => {
       // Optionally, handle the login error here
     }
   };
-  
+
+  const handleGuest = async (e) => {
+    sessionStorage.setItem(
+      "user",
+      JSON.stringify({ username: "guest", password: "guest" })
+    );
+    window.location.href = "/dashboard";
+  };
+
   return (
     <>
       <nav
@@ -186,9 +196,13 @@ const NavigationBar = () => {
                       Log in
                     </button>
 
-                    {/* <Link to="/dashboard" className="text-[#aa82ff] underline text-center mt-3 text-sm">
-                  Continue as Guest
-                </Link> */}
+                    <Link
+                      to="/dashboard"
+                      onClick={handleGuest}
+                      className="text-[#aa82ff] underline text-center mt-3 text-sm"
+                    >
+                      Continue as Guest
+                    </Link>
                   </form>
                 )}
               </div>

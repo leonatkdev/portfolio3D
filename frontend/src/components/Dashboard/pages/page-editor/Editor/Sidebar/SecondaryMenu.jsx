@@ -26,6 +26,7 @@ const SubMenu = ({
   handleDragStart,
   PageForm,
   setPageForm,
+  authors
 }) => {
   if (!activeTab) return null;
 
@@ -51,7 +52,7 @@ const SubMenu = ({
         costumeComponent: {
           draggable: false,
           component: (
-            <SimpleForm PageForm={PageForm} setPageForm={setPageForm} />
+            <SimpleForm PageForm={PageForm} setPageForm={setPageForm} authors={authors} />
           ),
         },
       },

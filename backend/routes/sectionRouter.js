@@ -2,46 +2,65 @@ const express = require("express");
 const PageModel = require("../models/pageModel");
 const AuthorModel = require("../models/AuthorsModel");
 const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
 
 const router = express.Router();
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/");
+    const uploadPath = path.join(__dirname, '../uploads/');
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath);
+    }
+    cb(null, uploadPath);
   },
   filename: function (req, file, cb) {
-    cb(null, new Date().toISOString() + file.originalname);
+    const originalName = file.originalname.replace(/\s+/g, '-'); // Replace spaces with hyphens
+    const uploadPath = path.join(__dirname, '../uploads/');
+    let finalName = originalName;
+    let counter = 1;
+    
+    while (fs.existsSync(path.join(uploadPath, finalName))) {
+      const nameWithoutExt = path.parse(originalName).name;
+      const ext = path.extname(originalName);
+      finalName = `${nameWithoutExt}-${counter}${ext}`;
+      counter++;
+    }
+    
+    cb(null, finalName);
   },
 });
 
 const upload = multer({ storage: storage });
 
+const app = express();
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 
+// Your other route definitions...
 
-// Get Pages
 router.get("/pages", (req, res) => {
   PageModel.find({})
     .then((page) => {
       if (!page) {
-        res.status(404).json({
+        return res.status(404).json({
           message: "Page not found",
         });
       }
       res.send(page);
     })
     .catch((err) => {
-      res.status(401).send({ "Server Error": err.message });
+      res.status(500).send({ "Server Error": err.message });
     });
 });
 
-// Post Pages
 router.post("/pages", async (req, res) => {
-  const { title, path, author, manualDate, publishDate, modules } = req.body;
+  const { title, path, authorID, manualDate, publishDate, modules } = req.body;
   console.log("req.body", req.body);
   await PageModel.create({
     title: title,
     path: path,
-    // authID: author,
+    authID: authorID,
   })
     .then((page) => {
       res.status(200).json({
@@ -50,50 +69,47 @@ router.post("/pages", async (req, res) => {
       });
     })
     .catch((err) => {
-      res.status(401).json({
+      res.status(500).json({
         message: "Page not created",
         error: err.message,
       });
     });
 });
 
-// Get Page by ID
 router.get("/pages/:id", (req, res) => {
   const { id } = req.params;
 
-  PageModel.findById(id)
+  PageModel.findById(id).populate('authID')
     .then((page) => {
       if (!page) {
-        res.status(404).json({
+        return res.status(404).json({
           message: "Page not found",
         });
       }
       res.send(page);
     })
     .catch((err) => {
-      res.status(401).send({ "Server Error": err.message });
+      res.status(500).send({ "Server Error": err.message });
     });
 });
 
-// Update Page by ID
 router.put("/pages/:id", (req, res) => {
   const { id } = req.params;
 
   PageModel.findByIdAndUpdate(id, req.body, { new: true })
     .then((updatedPage) => {
       if (!updatedPage) {
-        res.status(404).json({
+        return res.status(404).json({
           message: "Page not found",
         });
       }
       res.send(updatedPage);
     })
     .catch((err) => {
-      res.status(401).send({ "Server Error": err.message });
+      res.status(500).send({ "Server Error": err.message });
     });
 });
 
-// Delete Page by ID
 router.delete("/pages/:id", (req, res) => {});
 
 router.get("/authors", (req, res) => {
@@ -109,38 +125,22 @@ router.post("/authors", upload.single("avatar"), async (req, res) => {
   const { name } = req.body;
 
   try {
+    const filename = req.file.filename; // Get the filename with replaced spaces
     const newAuthor = new AuthorModel({
       name: name,
-      avatar: req.file.buffer,
+      avatar: filename, // Save only the filename
     });
 
     await newAuthor.save();
 
     res.status(200).json({ message: "Author successfully created" });
   } catch (err) {
-    res.status(401).json({
+    res.status(500).json({
       message: "Author not created",
       error: err.message,
     });
   }
 });
-
-// router.get("/authors/:id", (req, res) => {
-//   const { id } = req.params;
-
-//   UserModel.findById(id)
-//     .then((author) => {
-//       if (!author) {
-//         res.status(404).json({
-//           message: "Author not found",
-//         });
-//       }
-//       res.send(author);
-//     })
-//     .catch((err) => {
-//       res.status(401).send({ "Server Error": err.message });
-//     });
-// });
 
 /**
  * @swagger

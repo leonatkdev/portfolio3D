@@ -11,7 +11,7 @@ const Content = ({ editorState, onEditorStateChange, setIsEditingText, onSave })
     onSave(content); // Call the onSave function passed as a prop
   };
 
-  const handleFocus = () => {
+  const handleFocus = () => { 
     setIsEditingText(true);
   };
 

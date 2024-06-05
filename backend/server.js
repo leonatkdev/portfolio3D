@@ -39,7 +39,7 @@ app.use(cookieParser()); // So we can use res.cookie
 
 // Routes
 app.get("/", (req, res) => {
-  res.send("Hello Friend :) ")
+  res.send("Hello Bro :) ")
 });
 
 app.use("/api", sectionsRouter);
@@ -47,6 +47,7 @@ app.get("/admin", adminAuth , (req, res) => res.send("Admin Route"))
 app.get("/basic" , userAuth , (req, res)=> res.send("User Route") )
 
 app.use("/api/auth" , authRouter);
+app.use('/uploads', express.static('uploads'));
 
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 

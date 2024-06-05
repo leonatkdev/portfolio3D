@@ -16,17 +16,29 @@ const PageUsers = ({ title = "authors", api = "authors" }) => {
 
   const [data, setData] = useState([]);
 
+  console.log('api', api)
+  console.log('api === "authors"', api === "authors")
+
   useEffect(() => {
-    fetch(`http://localhost:4000/api/auth/${api}`)
+    fetch(
+      api === "authors"
+        ? `http://localhost:4000/api/authors`
+        : `http://localhost:4000/api/auth/${api}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setData(data);
       });
-  }, []);
+  }, [api]);
 
   const columns = [
     { key: "username", header: "Username" },
     { key: "role", header: "Role" },
+    { key: "tools", header: "Tools" },
+  ];
+
+  const authorColumns = [
+    { key: "name", header: "Name" },
     { key: "tools", header: "Tools" },
   ];
 
@@ -46,6 +58,8 @@ const PageUsers = ({ title = "authors", api = "authors" }) => {
       console.log(error);
     }
   };
+
+  console.log("data", data);
 
   return (
     <>
@@ -67,8 +81,8 @@ const PageUsers = ({ title = "authors", api = "authors" }) => {
 
       <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5 mt-0">
         <Table
-          data={data?.users}
-          columns={columns}
+          data={data}
+          columns={api === "authors" ? authorColumns : columns}
           tools={[
             <HiOutlineTrash
               color="#6B7380"

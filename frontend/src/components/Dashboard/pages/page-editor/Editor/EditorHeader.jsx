@@ -4,6 +4,7 @@ import { IoIosDesktop } from "react-icons/io";
 import { HiOutlineDevicePhoneMobile } from "react-icons/hi2";
 import { HiOutlineDeviceTablet } from "react-icons/hi2";
 import { IoReturnUpBack } from "react-icons/io5";
+import { EditorState, convertFromRaw, convertToRaw } from "draft-js";
 // import { FiLayers } from "react-icons/fi";
 // import { IoLayersOutline } from "react-icons/io5";
 import { TbArrowBackUp } from "react-icons/tb";
@@ -16,12 +17,33 @@ const EditorHeader = ({ screen, setScreen, allComponents, id, PageForm }) => {
 
   const handleSubmit = async (e) => {
     try {
+      // Create a copy of PageForm
+      const updatedPageForm = { ...PageForm };
+      // Filter out editorState and retain serialized content
+      updatedPageForm.modules = PageForm.modules.map((module) => {
+        if (
+          module?.content?.includes("costumeComponent") &&
+          module.values.editorState
+        ) {
+          console.log("here");
+          return {
+            ...module,
+            values: {
+              text: JSON.stringify(
+                convertToRaw(module.values.editorState.getCurrentContent())
+              ),
+            },
+          };
+        }
+        return module;
+      });
+
       const response = await fetch(`http://localhost:4000/api/pages/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(PageForm),
+        body: JSON.stringify(updatedPageForm),
       });
 
       const result = await response.json();
@@ -33,7 +55,7 @@ const EditorHeader = ({ screen, setScreen, allComponents, id, PageForm }) => {
 
   const toggleDropdown = () => setIsOpen(!isOpen);
   return (
-    <div className="flex fixed z-10 w-full top-0  bg-white py-3 px-2  border-b border-[#dfe5eb]">
+    <div className="flex fixed  overflow-x-auto whitespace-nowrap z-10 w-full top-0  bg-white py-3 px-2  border-b border-[#dfe5eb]">
       <a href="/dashboard/pages" className="px-3 py-2">
         <IoReturnUpBack className="w-6 h-6" color="black" />
       </a>

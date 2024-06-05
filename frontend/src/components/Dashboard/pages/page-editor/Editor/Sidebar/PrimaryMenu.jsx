@@ -52,6 +52,7 @@ const MainMenu = ({
   handleDragStart,
   PageForm,
   setPageForm,
+  authors
 }) => {
   const handleShowSubMenu = (section) => {
     setActiveTab(section);
@@ -81,6 +82,7 @@ const MainMenu = ({
         handleDragStart={handleDragStart}
         PageForm={PageForm}
         setPageForm={setPageForm}
+        authors={authors}
       />
     </>
   );
