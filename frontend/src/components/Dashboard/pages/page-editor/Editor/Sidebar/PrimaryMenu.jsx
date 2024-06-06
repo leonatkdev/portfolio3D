@@ -10,7 +10,7 @@ import { IoLayersOutline } from "react-icons/io5";
 
 <IoLayersOutline className="w-6 h-6" color="black" />;
 
-const sectionsMenu = [
+const guestSectionsMenu = [
   {
     section: "Page",
     label: "Page Info",
@@ -27,21 +27,6 @@ const sectionsMenu = [
     label: "Add Section",
     icon: <RxCardStackMinus className="w-6 h-6" color="white" />,
   },
-  {
-    section: "Menu",
-    label: "Site Pages and Menu",
-    icon: <HiMenu className="w-6 h-6" color="white" />,
-  },
-  {
-    section: "Theme",
-    label: "Add Theme colors",
-    icon: <IoIosColorPalette className="w-6 h-6" color="white" />,
-  },
-  {
-    section: "DOM",
-    label: "DOM",
-    icon: <IoLayersOutline className="w-6 h-6" color="white" />,
-  },
 ];
 
 const MainMenu = ({
@@ -52,15 +37,39 @@ const MainMenu = ({
   handleDragStart,
   PageForm,
   setPageForm,
-  authors
+  authors,
+  isAdmin,
 }) => {
   const handleShowSubMenu = (section) => {
     setActiveTab(section);
   };
 
+  const adminSectionsMenu = [
+    ...guestSectionsMenu,
+    {
+      section: "Menu",
+      label: "Site Pages and Menu",
+      icon: <HiMenu className="w-6 h-6" color="white" />,
+    },
+    {
+      section: "Theme",
+      label: "Add Theme colors",
+      icon: <IoIosColorPalette className="w-6 h-6" color="white" />,
+    },
+    {
+      section: "DOM",
+      label: "DOM",
+      icon: <IoLayersOutline className="w-6 h-6" color="white" />,
+    },
+  ];
+
+  const sectionsMenu = isAdmin ? adminSectionsMenu : guestSectionsMenu;
+
   return (
     <>
-      <div className="flex gap-1 flex-col w-[64px] min-w-[64px] h-screen items-center py-3 px-2 bg-[#131826] rounded-md">
+      <div
+        className="flex gap-1 flex-col w-[64px] min-w-[64px] h-screen items-center py-3 px-2 bg-[#131826] "
+      >
         {sectionsMenu.map((item) => (
           <span
             key={item.section}

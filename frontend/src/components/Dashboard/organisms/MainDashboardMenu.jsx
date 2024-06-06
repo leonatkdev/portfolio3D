@@ -13,7 +13,7 @@ import { AiOutlineSetting } from "react-icons/ai";
 import SecondDashboardMenu from "../molecules/SecondDashboardMenu";
 import { Link } from "react-router-dom";
 
-const DashboardMenu = () => {
+const DashboardMenu = ({ isAdmin = false }) => {
   const [showDashboard, setShowDashboard] = useState(true);
   const [activeTab, setActive] = useState("Home");
   const [favorite, setFavorite] = useState([]);
@@ -44,6 +44,10 @@ const DashboardMenu = () => {
       label: "Posts",
       icon: <PostsSvg />,
     },
+  ];
+
+  const mainDashboardDataAsAdmin = [
+    ...mainDashboardData,
     {
       label: "Sections",
       icon: <SectionSvg />,
@@ -54,8 +58,10 @@ const DashboardMenu = () => {
     },
   ];
 
+  const mainMenu = isAdmin ? mainDashboardDataAsAdmin : mainDashboardData;
+
   return (
-    <div>
+    <div className={` ${toggle && "min-w-[64px]"}  ${showDashboard && "sm:min-w-[380px]" }`}>
       <img
         src={toggle ? close : menu}
         alt="menu"
@@ -65,11 +71,11 @@ const DashboardMenu = () => {
         onClick={() => setToggle(!toggle)}
       />
       <div
-        className={` hidden sm:flex absolute sm:static z-50 ${
+        className={` hidden sm:flex absolute sm:fixed z-50 ${
           toggle && "!flex"
         } `}
       >
-        <div className=" pt-16 sm:pt-3 sticky top-0 flex flex-col w-[64px] mxa-w-[64px] min-w-[64px] h-screen items-center py-3 px-2 justify-between bg-[#131826] ">
+        <div className=" pt-16 sm:pt-3 sticky top-0 flex flex-col w-[64px] max-w-[64px] min-w-[64px] min-h-screen h-full items-center py-3 px-2 justify-between bg-[#131826] ">
           <img
             src={logo}
             alt="Leonat Krasniqi Logo"
@@ -77,7 +83,7 @@ const DashboardMenu = () => {
           />
 
           <div className="flex flex-col items-center gap-1 mb-auto pt-6">
-            {mainDashboardData?.map((elm) => (
+            {mainMenu?.map((elm) => (
               <span
                 key={elm?.label}
                 onClick={() => setActive(elm?.label)}
@@ -115,6 +121,7 @@ const DashboardMenu = () => {
           favorite={favorite}
           addFavorite={addFavorite}
           removeItem={removeItem}
+          isAdmin={isAdmin} 
         />
       </div>
     </div>

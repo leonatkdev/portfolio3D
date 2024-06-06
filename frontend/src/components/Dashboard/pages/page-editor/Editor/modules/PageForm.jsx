@@ -90,6 +90,7 @@ const SimpleForm = ({ PageForm, setPageForm, authors }) => {
           options={authors} 
           selectedData={PageForm?.authID} 
           showImage={false} 
+          showLabel={false}
           onSelect={handleAuthorSelect} // Pass the handler
         />
       </div>

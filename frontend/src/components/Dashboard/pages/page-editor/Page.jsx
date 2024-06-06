@@ -32,6 +32,9 @@ const PageDashboard = () => {
 
   let { id } = useParams();
 
+  const isAuthenticated = JSON.parse(sessionStorage.getItem("user")) || null;
+  const isAdmin = isAuthenticated?.role === "admin";
+
   useEffect(() => {
     fetch("http://localhost:4000/api/authors")
       .then((res) => res.json())
@@ -216,7 +219,7 @@ const PageDashboard = () => {
         id={id}
         PageForm={PageForm}
       />
-      <div className="flex mt-[60px]">
+      <div className="flex mt-[65px]">
         <Sidebar
           activeTab={activeTab}
           setActiveTab={setActiveTab}
@@ -226,6 +229,7 @@ const PageDashboard = () => {
           PageForm={PageForm}
           setPageForm={setPageForm}
           authors={authors}
+          isAdmin={isAdmin}
         />
         <div className="flex flex-1 flex-col bg-slate-400 p-6">
           <div
@@ -233,7 +237,7 @@ const PageDashboard = () => {
             onDragOver={(e) => e.preventDefault()}
             onDrop={handleDrop}
             className={
-              "flex flex-1 flex-col relative bg-white m-auto w-full" +
+              "flex flex-1 flex-col relative bg-white m-auto w-full min-h-screen" +
               (screen === "mobile" ? " max-w-[300px]" : "") +
               (screen === "tablet" ? " max-w-[600px]" : "")
             }

@@ -162,7 +162,7 @@ const Dashboard = (props) => {
           <h1 className="text-2xl font-bold">Dashboard</h1>
           <p>Analyzing the patterns and trends of marketing traffic</p>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col sm:flex-row items-center gap-4">
           <div className="flex bg-white px-3 py-2 items-center gap-2 rounded-lg border border-slate-300">
             <IoFilter />
             Filter
@@ -177,7 +177,7 @@ const Dashboard = (props) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-[1fr_1fr] gap-4">
+      <div className="grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] gap-4">
         <div className="bg-white rounded-2xl p-4">
           <Chart type="bar" data={chartData} options={config} />
         </div>
@@ -215,7 +215,7 @@ const Dashboard = (props) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-[1fr_1fr] gap-4 pt-4">
+      <div className="grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] gap-4 pt-4">
         <div>
           <Chart type="line" data={chartDataTwo} options={{
 

@@ -55,7 +55,7 @@ const EditorHeader = ({ screen, setScreen, allComponents, id, PageForm }) => {
 
   const toggleDropdown = () => setIsOpen(!isOpen);
   return (
-    <div className="flex fixed  overflow-x-auto whitespace-nowrap z-10 w-full top-0  bg-white py-3 px-2  border-b border-[#dfe5eb]">
+    <div className="flex fixed  overflow-x-auto z-10 w-full top-0  bg-white py-3 px-2  border-b border-[#dfe5eb]">
       <a href="/dashboard/pages" className="px-3 py-2">
         <IoReturnUpBack className="w-6 h-6" color="black" />
       </a>
@@ -63,9 +63,9 @@ const EditorHeader = ({ screen, setScreen, allComponents, id, PageForm }) => {
       <div className="relative border-r border-l border-[#dfe5eb] px-3">
         <button
           onClick={toggleDropdown}
-          className="px-4 py-2 text-black rounded-md  "
+          className="px-4 py-2 text-black rounded-md   "
         >
-          <span>Page: </span>
+          <span className="hidden sm:inline">Page: </span>
           Homepage
         </button>
         {isOpen && (
@@ -77,7 +77,7 @@ const EditorHeader = ({ screen, setScreen, allComponents, id, PageForm }) => {
         )}
       </div>
 
-      <div className="flex items-center gap-2 mx-auto">
+      <div className="hidden items-center gap-2 mx-auto sm:flex">
         <span
           className={
             " p-2 rounded-lg" + (screen === "resize" ? " bg-sky-600" : "")

@@ -5,11 +5,14 @@ import NotFound from "../../Client/pages/NotFound";
 
 const DashboardLayout = ({ children }) => {
   const isAuthenticated = JSON.parse(sessionStorage.getItem("user")) || null;
+
+  console.log("isAuthenticated", isAuthenticated);
+
   return isAuthenticated ? (
     <div className="flex">
-      <MainDashboardMenu />
+      <MainDashboardMenu isAdmin={isAuthenticated?.role === 'admin'} />
       <div className="w-full bg-mainBackground text-[#121827]">
-        <DashboardNavigation />
+        <DashboardNavigation isAdmin={isAuthenticated?.role === 'admin'}  />
         {children}
       </div>
     </div>

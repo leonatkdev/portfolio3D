@@ -18,8 +18,24 @@ const DetailsMenu = ({
   favorite,
   addFavorite,
   removeItem,
+  isAdmin,
 }) => {
   const detailDashboardData = {
+    Home: [
+      { label: "Home", path: "/dashboard", icon: <HomeSvg /> },
+      { label: "Users", path: "/dashboard/users", icon: <FaRegUserCircle /> }
+    ],
+    Favorite: favorite,
+    Posts: [
+      { label: "Pages", path: "/dashboard/pages", icon: <PostsSvg /> },
+      { label: "Authors", path: "/dashboard/authors", icon: <LuUserSquare2 /> },
+    ],
+    // Sections: [{ label: "Sections", path: "/dashboard/sections", icon: <SectionSvg />}],
+    // Deploy: [{ label: "Deploy", path: "/dashboard/deploy", icon: <AiOutlineDeploymentUnit />}],
+  };
+
+
+  const detailDataAsAdmin = {
     Home: [
       { label: "Home", path: "/dashboard", icon: <HomeSvg /> },
       { label: "Users", path: "/dashboard/users", icon: <FaRegUserCircle /> },
@@ -63,7 +79,7 @@ const DetailsMenu = ({
     ],
     // Sections: [{ label: "Sections", path: "/dashboard/sections", icon: <SectionSvg />}],
     // Deploy: [{ label: "Deploy", path: "/dashboard/deploy", icon: <AiOutlineDeploymentUnit />}],
-  };
+  }
 
   return (
     showDashboard && (
