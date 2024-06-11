@@ -5,19 +5,22 @@ import { PiBellBold } from "react-icons/pi";
 import { AiOutlineSetting } from "react-icons/ai";
 import { GrLanguage } from "react-icons/gr";
 import { IoIosArrowDown } from "react-icons/io";
-import { avatar } from "../../../assets";
+import { avatar, menu, close } from "../../../assets";
 
-const DashboardNavigation = () => {
+const DashboardNavigation = ({showDashboard, setShowDashboard}) => {
   const [open, setOpen] = useState(false);
   return (
     <div className="flex items-center mb-3 p-4 ">
-      <span className="text-[32px] font-semibold mr-auto">
-        {/* Welcome, Sir! */}
-      </span>
+      <img
+        src={showDashboard ? close : menu}
+        alt="menu"
+        className={` w-[20px] h-[20px] object-contain cursor-pointer lg:hidden invert ${
+          showDashboard && " w-[16px] h-[16px] "
+        }`}
+        onClick={() => setShowDashboard(!showDashboard)}
+      />
 
-      {/* <BsCalendarWeek className=" w-5 h-5 mr-3" />
-      <TbMessage2 className=" w-5 h-5 mr-3" /> */}
-      <PiBellBold className=" w-5 h-5" />
+      <PiBellBold className=" w-5 h-5 ml-auto" />
 
       <div
         onClick={() => setOpen(!open)}

@@ -4,15 +4,17 @@ import DashboardNavigation from "../molecules/DashboardNavigation";
 import NotFound from "../../Client/pages/NotFound";
 
 const DashboardLayout = ({ children }) => {
+  const [showDashboard, setShowDashboard] = useState(false);
+
   const isAuthenticated = JSON.parse(sessionStorage.getItem("user")) || null;
 
   console.log("isAuthenticated", isAuthenticated);
 
   return isAuthenticated ? (
     <div className="flex">
-      <MainDashboardMenu isAdmin={isAuthenticated?.role === 'admin'} />
-      <div className="w-full bg-mainBackground text-[#121827]">
-        <DashboardNavigation isAdmin={isAuthenticated?.role === 'admin'}  />
+      <MainDashboardMenu isAdmin={isAuthenticated?.role === 'admin'} showDashboard={showDashboard} setShowDashboard={setShowDashboard}/>
+      <div className="w-full bg-mainBackground text-[#121827] min-h-screen">
+        <DashboardNavigation isAdmin={isAuthenticated?.role === 'admin'}  showDashboard={showDashboard} setShowDashboard={setShowDashboard} />
         {children}
       </div>
     </div>

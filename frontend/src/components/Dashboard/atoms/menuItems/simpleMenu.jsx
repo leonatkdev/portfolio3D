@@ -10,6 +10,7 @@ const SimpleMenu = ({
   addFavorite,
   existingFavorite = false,
   removeItem,
+  setShowDashboard
 }) => {
   return (
     <li className="flex gap-3 items-center p-3 rounded-md hover:bg-[#2B313B]">

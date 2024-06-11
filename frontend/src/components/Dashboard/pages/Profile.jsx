@@ -34,7 +34,7 @@ const dummyTeamMembers = [
 const Profile = () => {
   return (
     <DashboardLayout>
-      <div className=" p-4 flex gap-6 bg-[#EFF3F6]">
+      <div className=" p-4 flex flex-col justify-center md:flex-row gap-6 bg-[#EFF3F6]">
         <div className="bg-[#fefefe] rounded-3xl">
           <img
             className="w-[700px] h-[300px] object-cover rounded-t-3xl"

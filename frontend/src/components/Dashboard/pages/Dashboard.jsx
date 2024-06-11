@@ -181,7 +181,7 @@ const Dashboard = (props) => {
         <div className="bg-white rounded-2xl p-4">
           <Chart type="bar" data={chartData} options={config} />
         </div>
-        <div className=" grid grid-cols-2 gap-1 h-fit rounded-2xl ">
+        <div className=" grid sm:grid-cols-2 gap-1 h-fit rounded-2xl ">
           {dummyData?.map((data, index) => (
             <div
               className={` relative p-6 bg-white text-black ${

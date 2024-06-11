@@ -14,16 +14,30 @@ import { Link } from "react-router-dom";
 const PagesDashboard = () => {
   const [modal, setModal] = useState(false);
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+  const [searchTitle, setSearchTitle] = useState("");
+  const [searchPath, setSearchPath] = useState("");
 
   useEffect(() => {
-    console.log("modal", modal);
     fetch("http://localhost:4000/api/pages")
       .then((res) => res.json())
       .then((data) => {
-        console.log("data", data);
         setData(data);
+        setFilteredData(data);
       });
   }, []);
+
+  useEffect(() => {
+    filterData();
+  }, [searchTitle, searchPath]);
+
+  const filterData = () => {
+    const filtered = data.filter((page) => 
+      page.title.toLowerCase().includes(searchTitle.toLowerCase()) &&
+      page.path.toLowerCase().includes(searchPath.toLowerCase())
+    );
+    setFilteredData(filtered);
+  };
 
 
   const columns = [
@@ -41,7 +55,6 @@ const PagesDashboard = () => {
         const stateClasses = {
           Active: "bg-green-50 text-green-600",
         };
-
         return (
           <td className="px-6 py-4">
             <span
@@ -95,15 +108,25 @@ const PagesDashboard = () => {
           <h1 className="text-2xl font-bold">Pages</h1>
         <button
           onClick={() => (window.location.href = "pages/page")}
-          class=" block m-3 mr-6 ml-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105"
+          className="block m-3 mr-6 ml-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105"
         >
           Create page
         </button>
         </div>
         
-        <div className=" flex gap-3 border border-[#F0F3F5] p-4 bg-white rounded-lg">
-          <InputField label="Search for Title" placeholder="Search" />
-          <InputField label="Search by path" placeholder="Path" />
+        <div className=" flex flex-col sm:flex-row gap-3 border border-[#F0F3F5] p-4 bg-white rounded-lg">
+          <InputField 
+            label="Search for Title" 
+            placeholder="Search" 
+            value={searchTitle} 
+            onChange={(e) => setSearchTitle(e.target.value)} 
+          />
+          <InputField 
+            label="Search by path" 
+            placeholder="Path" 
+            value={searchPath} 
+            onChange={(e) => setSearchPath(e.target.value)} 
+          />
           <DropDown />
         </div>
       </div>
@@ -123,14 +146,14 @@ const PagesDashboard = () => {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-100  border-t border-gray-100">
-            {data?.map((row, rowIndex) => (
+            {filteredData?.map((row, rowIndex) => (
               <TableRow key={rowIndex} row={row} columns={columns} />
             ))}
           </tbody>
         </table>
       </div>
 
-      <Pagination items={data} />
+      <Pagination items={filteredData} />
 
       {modal && (
         <Modal

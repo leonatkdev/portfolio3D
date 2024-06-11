@@ -11,6 +11,7 @@ import { MdOutlineGTranslate } from "react-icons/md";
 import { AiOutlineDeploymentUnit } from "react-icons/ai";
 import { FaRegUserCircle } from "react-icons/fa";
 import { LuUserSquare2 } from "react-icons/lu";
+import { close } from "../../../assets";
 
 const DetailsMenu = ({
   showDashboard,
@@ -19,11 +20,12 @@ const DetailsMenu = ({
   addFavorite,
   removeItem,
   isAdmin,
+  setShowDashboard
 }) => {
   const detailDashboardData = {
     Home: [
       { label: "Home", path: "/dashboard", icon: <HomeSvg /> },
-      { label: "Users", path: "/dashboard/users", icon: <FaRegUserCircle /> }
+      { label: "Users", path: "/dashboard/users", icon: <FaRegUserCircle /> },
     ],
     Favorite: favorite,
     Posts: [
@@ -33,7 +35,6 @@ const DetailsMenu = ({
     // Sections: [{ label: "Sections", path: "/dashboard/sections", icon: <SectionSvg />}],
     // Deploy: [{ label: "Deploy", path: "/dashboard/deploy", icon: <AiOutlineDeploymentUnit />}],
   };
-
 
   const detailDataAsAdmin = {
     Home: [
@@ -79,12 +80,20 @@ const DetailsMenu = ({
     ],
     // Sections: [{ label: "Sections", path: "/dashboard/sections", icon: <SectionSvg />}],
     // Deploy: [{ label: "Deploy", path: "/dashboard/deploy", icon: <AiOutlineDeploymentUnit />}],
-  }
+  };
 
   return (
     showDashboard && (
       <div className="border-s border-[#262F3A] w-[315px] max-w-[315px] min-w-[315px] flex flex-col p-6 gap-4  bg-[#121827]">
-        <span className="text-[24px] font-bold">Dashboard</span>
+        <span className=" flex items-center justify-between text-[24px] font-bold">
+          Dashboard
+          <img
+            src={close}
+            alt="menu"
+            className={` w-[20px] h-[20px] object-contain cursor-pointer lg:hidden`}
+            onClick={() => setShowDashboard(!showDashboard)}
+          />
+        </span>
 
         <form className="flex items-center relative w-full">
           <button className="absolute left-3">
