@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { IoClose } from "react-icons/io5";
+import { LuPlusCircle } from "react-icons/lu";
 import SimpleForm from "../modules/PageForm";
 
 import Seo from "../modules/Seo";
@@ -26,33 +27,21 @@ const SubMenu = ({
   handleDragStart,
   PageForm,
   setPageForm,
-  authors
+  authors,
 }) => {
   if (!activeTab) return null;
 
-  const sectionsMenuDetails = {
-    Elements: {
-      Text: {
-        costumeComponent: {
-          componentName: "Content",
-          draggable: true,
-          component: <Content />,
-        },
-        Navigation: "value1",
-        Container: "Container",
-        Paragraf: "value2",
-      },
-      Image: {
-        innerKey3: "value3",
-        innerKey4: "value4",
-      },
-    },
+  const sectionsMenuDetails = { 
     Page: {
       Page: {
         costumeComponent: {
           draggable: false,
           component: (
-            <SimpleForm PageForm={PageForm} setPageForm={setPageForm} authors={authors} />
+            <SimpleForm
+              PageForm={PageForm}
+              setPageForm={setPageForm}
+              authors={authors}
+            />
           ),
         },
       },
@@ -62,35 +51,53 @@ const SubMenu = ({
           component: <Seo />,
         },
       },
-      CodeInjecton: {
+      "Code Injecton": {
         costumeComponent: {
           draggable: false,
           component: "Code Injection",
         },
       },
     },
-    Sections: {
-      middleKey3: {
-        costumeComponent: {
-          draggable: true,
-          component: <IframTest />,
-        },
+    Elements: {
+      Text: {
+        Content: "Content",
+        // costumeComponent: {
+        //   componentName: "Content",
+        //   draggable: true,
+        //   component: <Content />,
+        // },
+        Navigation: "value1",
+        Container: "Container",
+        Paragraf: "value2",
+      },
+      Image: {
+        innerKey3: "value3",
+        innerKey4: "value4",
+      },
+    },
+   
+    // Sections: {
+    //   middleKey3: {
+    //     costumeComponent: {
+    //       draggable: true,
+    //       component: <IframTest />,
+    //     },
 
-        innerKey6: "value6",
-      },
-      middleKey4: {
-        innerKey7: "value7",
-        innerKey8: "value8",
-      },
-    },
-    Menu: {
-      Menu: {
-        costumeComponent: "Menu",
-      },
-      Footer: {
-        costumeComponent: "Footer",
-      },
-    },
+    //     innerKey6: "value6",
+    //   },
+    //   middleKey4: {
+    //     innerKey7: "value7",
+    //     innerKey8: "value8",
+    //   },
+    // },
+    // Menu: {
+    //   Menu: {
+    //     costumeComponent: "Menu",
+    //   },
+    //   Footer: {
+    //     costumeComponent: "Footer",
+    //   },
+    // },
   };
   const details = sectionsMenuDetails[activeTab];
   const detailKeys = details && Object?.keys(details);
@@ -99,23 +106,37 @@ const SubMenu = ({
     ? details[nestedData]
     : details[Object.keys(details)[0]];
 
+
+  const getTitle = () => {
+    switch (activeTab) {
+      case "Page":
+        return "Page/SEO";
+      case "Elements":
+        return "Add Elements";
+        case "Sections":
+          return "Add Sections";
+      default:
+        return "Tab";
+    }
+  };
+
   return (
     detailKeys && (
       <div
         className={`bg-white text-black fixed left-[65px] z-20 top-[65px] bottom-0 shadow-md`}
       >
-        <div className="flex justify-between border-t-8 border-sky-600 text-lg font-semibold py-3 px-4 border-b-2 border-b-[#dfe5eb]">
-          Add Elements
-          <IoClose onClick={() => setActiveTab(null)} />
+        <div className="flex justify-between border-t-8 border-sky-600 sm:text-lg font-semibold py-3 px-4 border-b-2 border-b-[#dfe5eb]">
+          {getTitle()}
+          <IoClose onClick={() => setActiveTab(null)} width={24} height={24} className="w-6 h-6" />
         </div>
-        <div className="flex h-full">
-          <div className="flex h-full flex-col relative bg-[#f7f8f8] align-top min-w-[125px] max-w-[186px] border-r border-[#dfe5eb]">
+        <div className="flex flex-col sm:flex-row h-full">
+          <div className="grid grid-cols-3 sm:flex sm:h-full flex-col relative bg-[#f7f8f8] align-top min-w-[125px] sm:max-w-[186px] border-r border-[#dfe5eb]">
             {detailKeys?.map((key) => (
               <span
                 key={key}
                 onClick={() => setNestedData(key)}
                 className={
-                  "text-sm min-h-[30px] p-3 " +
+                  "text-sm min-h-[30px] p-3 content-center text-center sm:text-start " +
                   (nestedData === key && " bg-white ")
                 }
               >
@@ -134,7 +155,7 @@ const SubMenu = ({
                     return (
                       <div
                         key={unikeKey} // Assuming this ensures uniqueness
-                        className="text-sm min-h-[30px] max-w-[200px]"
+                        className="text-sm min-h-[30px] sm:max-w-[200px]"
                       >
                         {value.component}
                       </div>
@@ -147,7 +168,7 @@ const SubMenu = ({
                         onDragStart={(e) => {
                           handleDragStart(e, unikeKey, true);
                         }}
-                        className="text-sm min-h-[30px] min-w-[125px] max-w-[200px]"
+                        className="text-sm min-h-[30px] min-w-[125px] max-w-[200px] p-4"
                       >
                         {value.component}
                       </div>
@@ -162,9 +183,10 @@ const SubMenu = ({
                     onDragStart={(e) => {
                       handleDragStart(e, unikeKey, true);
                     }}
-                    className="text-sm min-h-[30px] min-w-[125px]"
+                    className=" flex items-center justify-between font-medium text-sm min-h-[30px] min-w-[150px] py-2 px-3 pr-1"
                   >
                     {key}
+                    <LuPlusCircle className="w-5 h-5" />
                   </div>
                 );
               })}

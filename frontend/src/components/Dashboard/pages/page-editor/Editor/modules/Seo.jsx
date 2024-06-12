@@ -6,7 +6,7 @@ import { HiMiniMagnifyingGlass } from "react-icons/hi2";
 
 const Seo = () => {
     return (
-      <div className=" max-w-[300px]">
+      <div className="">
         <div>
           <label
             htmlFor="title"

@@ -56,11 +56,11 @@ const EditorHeader = ({ screen, setScreen, allComponents, id, PageForm }) => {
   const toggleDropdown = () => setIsOpen(!isOpen);
   return (
     <div className="flex fixed  overflow-x-auto z-10 w-full top-0  bg-white py-3 px-2  border-b border-[#dfe5eb]">
-      <a href="/dashboard/pages" className="px-3 py-2">
+      <a href="/dashboard/pages" className="px-3 py-2 mr-auto">
         <IoReturnUpBack className="w-6 h-6" color="black" />
       </a>
 
-      <div className="relative border-r border-l border-[#dfe5eb] px-3">
+      {/* <div className="relative border-r border-l border-[#dfe5eb] ">
         <button
           onClick={toggleDropdown}
           className="px-4 py-2 text-black rounded-md   "
@@ -75,9 +75,9 @@ const EditorHeader = ({ screen, setScreen, allComponents, id, PageForm }) => {
             <li className="px-4 py-2 hover:bg-gray-100">Option 3</li>
           </ul>
         )}
-      </div>
+      </div> */}
 
-      <div className="hidden items-center gap-2 mx-auto sm:flex">
+      {/* <div className="hidden items-center gap-2 mx-auto sm:flex">
         <span
           className={
             " p-2 rounded-lg" + (screen === "resize" ? " bg-sky-600" : "")
@@ -112,7 +112,7 @@ const EditorHeader = ({ screen, setScreen, allComponents, id, PageForm }) => {
         </span>
 
         <span className=" text-black">1920 PX</span>
-      </div>
+      </div> */}
       {/* <div className="flex  items-center  gap-2 mr-3">
         <TbArrowBackUp className="w-6 h-6" color="black" />
         <TbArrowForwardUp className="w-6 h-6" color="black" />
@@ -122,14 +122,17 @@ const EditorHeader = ({ screen, setScreen, allComponents, id, PageForm }) => {
         100%
       </span> */}
 
-      <select id="cars" className=" rounded-full px-2 mr-2">
+      {/* <select id="cars" className=" rounded-full px-2 mr-2">
         <option value="volvo">Active</option>
         <option value="saab">Draft</option>
         <option value="time">Time</option>
-      </select>
+      </select> */}
+      <div className=" flex items-center rounded-full bg-green-500 px-2 mr-2">
+      Active
+      </div>
       <button
         onClick={() => handleSubmit()}
-        className=" bg-sky-600 rounded-full px-4 py-2"
+        className=" bg-[#131826] rounded-full px-4 py-2"
       >
         Publish
       </button>

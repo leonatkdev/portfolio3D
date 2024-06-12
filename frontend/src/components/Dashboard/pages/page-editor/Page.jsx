@@ -1,14 +1,9 @@
-/* eslint-disable react/prop-types */
-import { useState, useRef, useEffect, useCallback } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import { IoClose } from "react-icons/io5";
 import { EditorState, convertFromRaw, convertToRaw } from "draft-js";
 import EditorHeader from "./Editor/EditorHeader";
 import Sidebar from "./Editor/Sidebar/PrimaryMenu";
-import Content from "./Editor/modules/Content";
-import Modules from "./Modules";
-import { Editor } from "react-draft-wysiwyg";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import ModulesComponent from "./Modules";
 
 const PageDashboard = () => {
   const [PageForm, setPageForm] = useState({
@@ -26,8 +21,6 @@ const PageDashboard = () => {
   const [nestedData, setNestedData] = useState("Page");
   const [allComponents, setAllComponents] = useState([]);
   const [elmClicked, setElmClicked] = useState(null);
-  const [screen, setScreen] = useState("desktop");
-  const [width, setWidth] = useState(400);
   const [isEditingText, setIsEditingText] = useState(false);
 
   let { id } = useParams();
@@ -73,31 +66,14 @@ const PageDashboard = () => {
     }
   }, [id]);
 
+  console.log("allComponents", allComponents);
+
   useEffect(() => {
     setPageForm((prevPageForm) => ({
       ...prevPageForm,
       modules: allComponents,
     }));
   }, [allComponents]);
-
-  const startResizing = (mouseDownEvent) => {
-    const startX = mouseDownEvent.clientX;
-    const startWidth = width;
-
-    const onMouseMove = (mouseMoveEvent) => {
-      const currentX = mouseMoveEvent.clientX;
-      const newWidth = startWidth + (currentX - startX);
-      setWidth(newWidth);
-    };
-
-    const onMouseUp = () => {
-      document.removeEventListener("mousemove", onMouseMove);
-      document.removeEventListener("mouseup", onMouseUp);
-    };
-
-    document.addEventListener("mousemove", onMouseMove);
-    document.addEventListener("mouseup", onMouseUp);
-  };
 
   const itemsRef = useRef([]);
 
@@ -197,7 +173,10 @@ const PageDashboard = () => {
           (elmClicked?.index === `${index}` ? " border border-sky-500" : "")
         }
       >
-        <Modules
+        {console.log("here")}
+        {console.log("component", component)}
+        {console.log("component.content", component.content)}
+        <ModulesComponent
           value={component}
           index={index}
           itemsRef={itemsRef}
@@ -208,13 +187,10 @@ const PageDashboard = () => {
       </div>
     ));
 
-  console.log("PageForm", PageForm);
-
   return (
     <div className="bg-[#E1E2E6]">
       <EditorHeader
-        screen={screen}
-        setScreen={setScreen}
+       
         allComponents={allComponents}
         id={id}
         PageForm={PageForm}
@@ -237,30 +213,11 @@ const PageDashboard = () => {
             onDragOver={(e) => e.preventDefault()}
             onDrop={handleDrop}
             className={
-              "flex flex-1 flex-col relative bg-white m-auto w-full min-h-screen" +
-              (screen === "mobile" ? " max-w-[300px]" : "") +
-              (screen === "tablet" ? " max-w-[600px]" : "")
-            }
-            style={
-              screen === "resize"
-                ? { width: `${width}px`, maxWidth: "100%" }
-                : {}
+              "flex flex-1 flex-col relative bg-white m-auto w-full min-h-screen" 
             }
           >
             {renderComponents()}
-            {screen === "resize" && (
-              <div
-                style={{
-                  width: "10px",
-                  height: "100%",
-                  backgroundColor: "darkgrey",
-                  position: "absolute",
-                  right: 0,
-                  cursor: "col-resize",
-                }}
-                onMouseDown={startResizing}
-              ></div>
-            )}
+        
           </div>
         </div>
         {/* {elmClicked && (
@@ -275,3 +232,4 @@ const PageDashboard = () => {
 };
 
 export default PageDashboard;
+

@@ -22,11 +22,11 @@ const guestSectionsMenu = [
     icon: <LuPlusCircle className="w-6 h-6" color="white" />,
   },
 
-  {
-    section: "Sections",
-    label: "Add Section",
-    icon: <RxCardStackMinus className="w-6 h-6" color="white" />,
-  },
+  // {
+  //   section: "Sections",
+  //   label: "Add Section",
+  //   icon: <RxCardStackMinus className="w-6 h-6" color="white" />,
+  // },
 ];
 
 const MainMenu = ({
