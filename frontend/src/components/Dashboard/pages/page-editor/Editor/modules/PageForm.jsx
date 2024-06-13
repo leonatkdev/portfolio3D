@@ -123,20 +123,20 @@ const SimpleForm = ({ PageForm, setPageForm, authors }) => {
           type="date"
           name="manualDate"
           id="manualDate"
-          value={PageForm?.xx}
+          value={PageForm?.manualDate}
           onChange={handleChange}
           className="mt-1 block bg-white w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
         />
       </div>
 
-      <div className="mt-4">
+      {/* <div className="mt-4">
         <button
           type="submit"
           className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
         >
           Submit
         </button>
-      </div>
+      </div> */}
     </form>
   );
 };

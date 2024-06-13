@@ -1,16 +1,17 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Editor } from "react-draft-wysiwyg";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 
-const Modules = ({ itemsRef, handleContentChange, handleSave, setIsEditingText, value, index }) => {
-  const getActionType = useCallback((action) => {
-    if (action.includes("costumeComponent")) return "Content";
-    if (action.includes("Navigation")) return "Navigation";
-    if (action.includes("Container")) return "Container";
-    return "default";
-  }, []);
+const ModulesComponent = ({ value, index, itemsRef, handleContentChange, handleSave, setIsEditingText }) => {
 
-  const renderContent = useCallback(() => {
+  const getActionType = (action) => {
+    if (action.includes("Content")) return "Content";
+    if (action.includes("Code")) return "Code";
+    if (action.includes("BlackQuoute")) return "BlackQuoute";
+    return "default";
+  };
+
+  const renderContent = () => {
     switch (getActionType(value.content)) {
       case "Content":
         return (
@@ -31,20 +32,6 @@ const Modules = ({ itemsRef, handleContentChange, handleSave, setIsEditingText, 
             />
           </div>
         );
-      case "Navigation":
-        return (
-          <nav
-            key={index}
-            style={{ margin: "10px", padding: "8px 16px" }}
-            ref={(el) => (itemsRef.current[index] = el)}
-          >
-            Nav
-          </nav>
-        );
-      case "Container":
-        return (
-          <div key={index} className="border border-red-600 min-h-8 min-w-8"></div>
-        );
       default:
         return (
           <p key={index} className="px-4 py-2" ref={(el) => (itemsRef.current[index] = el)}>
@@ -52,9 +39,9 @@ const Modules = ({ itemsRef, handleContentChange, handleSave, setIsEditingText, 
           </p>
         );
     }
-  }, [getActionType, handleContentChange, index, setIsEditingText, value.content, value.values.editorState]);
+  };
 
   return renderContent();
 };
 
-export default Modules;
+export default ModulesComponent;

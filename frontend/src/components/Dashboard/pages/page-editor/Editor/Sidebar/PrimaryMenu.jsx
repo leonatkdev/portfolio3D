@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import SubMenu from "./SecondaryMenu";
 import { LuPlusCircle } from "react-icons/lu";
 import { RxCardStackMinus } from "react-icons/rx";
+import { MdKeyboardDoubleArrowRight } from "react-icons/md";
 import { IoIosColorPalette } from "react-icons/io";
 import { HiMenu } from "react-icons/hi";
 import { SiGoogledocs } from "react-icons/si";
 
 import { IoLayersOutline } from "react-icons/io5";
-
-<IoLayersOutline className="w-6 h-6" color="black" />;
 
 const guestSectionsMenu = [
   {
@@ -21,12 +20,6 @@ const guestSectionsMenu = [
     label: "Add Elements",
     icon: <LuPlusCircle className="w-6 h-6" color="white" />,
   },
-
-  // {
-  //   section: "Sections",
-  //   label: "Add Section",
-  //   icon: <RxCardStackMinus className="w-6 h-6" color="white" />,
-  // },
 ];
 
 const MainMenu = ({
@@ -40,6 +33,8 @@ const MainMenu = ({
   authors,
   isAdmin,
 }) => {
+  const [showSide, setShowSide] = useState(true);
+
   const handleShowSubMenu = (section) => {
     setActiveTab(section);
   };
@@ -65,10 +60,14 @@ const MainMenu = ({
 
   const sectionsMenu = isAdmin ? adminSectionsMenu : guestSectionsMenu;
 
+  console.log("test", showSide);
+
   return (
-    <>
+    <div>
       <div
-        className="flex gap-1 flex-col w-[64px] min-w-[64px] h-screen items-center py-3 px-2 bg-[#131826] "
+        className={`hidden sm:flex gap-1 flex-col w-[64px] min-w-[64px] h-screen items-center py-3 px-2 bg-[#131826] ${
+          showSide && " !flex sm:flex"
+        } `}
       >
         {sectionsMenu.map((item) => (
           <span
@@ -93,7 +92,16 @@ const MainMenu = ({
         setPageForm={setPageForm}
         authors={authors}
       />
-    </>
+
+      <div
+        onClick={() => {
+          setShowSide(!showSide)
+        }}
+        className="fixed flex items-center justify-center min-h-12 min-w-12 z-10 rounded-r-lg top-1/2 bg-stone-400 sm:hidden"
+      >
+        <MdKeyboardDoubleArrowRight color="black" className="w-6 h-6" />
+      </div>
+    </div>
   );
 };
 

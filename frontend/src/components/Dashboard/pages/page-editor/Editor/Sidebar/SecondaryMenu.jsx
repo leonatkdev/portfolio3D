@@ -4,16 +4,16 @@ import { LuPlusCircle } from "react-icons/lu";
 import SimpleForm from "../modules/PageForm";
 
 import Seo from "../modules/Seo";
-import Content from "../modules/Content";
+// import Content from "../modules/Content";
 
-const IframTest = () => (
-  <iframe
-    src="https://www.google.com/webhp?igu=1"
-    height="300"
-    width="400"
-    // style="border: 4px solid orange"
-  ></iframe>
-);
+// const IframTest = () => (
+//   <iframe
+//     src="https://www.google.com/webhp?igu=1"
+//     height="300"
+//     width="400"
+//     // style="border: 4px solid orange"
+//   ></iframe>
+// );
 
 const generateUniqueKey = (prefix = "key") => {
   return `${prefix}_${Math.random().toString(36).substr(2, 9)}`;
@@ -66,13 +66,13 @@ const SubMenu = ({
         //   draggable: true,
         //   component: <Content />,
         // },
-        Navigation: "value1",
-        Container: "Container",
-        Paragraf: "value2",
+        Code: "Code",
+        BlackQuoute: "BlackQuoute",
+        Table: "Table",
       },
       Image: {
-        innerKey3: "value3",
-        innerKey4: "value4",
+        Image: "value3",
+        Gif: "value4",
       },
     },
    

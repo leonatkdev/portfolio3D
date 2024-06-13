@@ -45,10 +45,9 @@ const PageDashboard = () => {
           }));
           const modules = data.modules.map((module) => {
             if (
-              module?.content?.includes("costumeComponent") &&
+              module?.content?.includes("Content") &&
               module.values.text
             ) {
-              console.log("module", module?.values?.text);
               return {
                 ...module,
                 values: {
@@ -65,8 +64,6 @@ const PageDashboard = () => {
         });
     }
   }, [id]);
-
-  console.log("allComponents", allComponents);
 
   useEffect(() => {
     setPageForm((prevPageForm) => ({
@@ -150,8 +147,6 @@ const PageDashboard = () => {
       newComponents[index].values.text = JSON.stringify(convertToRaw(content));
       return newComponents;
     });
-    // Optionally, you can make an API call here to save the content
-    // fetch('/api/saveContent', { method: 'POST', body: JSON.stringify({ content }) })
   }, []);
 
   const renderComponents = () =>
@@ -161,7 +156,7 @@ const PageDashboard = () => {
         key={component.id}
         draggable={!isEditingText}
         onDragStart={(e) => handleDragStart(e, component.id)}
-        onClick={(e) => {
+        onClick={() => {
           setElmClicked({
             id: component?.id,
             index: index,
@@ -169,13 +164,10 @@ const PageDashboard = () => {
           });
         }}
         className={
-          "text-black relative" +
-          (elmClicked?.index === `${index}` ? " border border-sky-500" : "")
+          "text-black relative p-4" +
+          (elmClicked?.index === index ? " border border-sky-500" : "")
         }
       >
-        {console.log("here")}
-        {console.log("component", component)}
-        {console.log("component.content", component.content)}
         <ModulesComponent
           value={component}
           index={index}
@@ -190,7 +182,6 @@ const PageDashboard = () => {
   return (
     <div className="bg-[#E1E2E6]">
       <EditorHeader
-       
         allComponents={allComponents}
         id={id}
         PageForm={PageForm}
@@ -213,23 +204,15 @@ const PageDashboard = () => {
             onDragOver={(e) => e.preventDefault()}
             onDrop={handleDrop}
             className={
-              "flex flex-1 flex-col relative bg-white m-auto w-full min-h-screen" 
+              "flex flex-1 flex-col relative bg-white m-auto w-full min-h-screen"
             }
           >
             {renderComponents()}
-        
           </div>
         </div>
-        {/* {elmClicked && (
-          <ModuleDetails
-            elmClicked={elmClicked}
-            setElmClicked={setElmClicked}
-          />
-        )} */}
       </div>
     </div>
   );
 };
 
 export default PageDashboard;
-
