@@ -9,7 +9,7 @@ const EditorHeader = ({ screen, setScreen, allComponents, id, PageForm }) => {
     try {
       const updatedPageForm = { ...PageForm };
       updatedPageForm.modules = PageForm.modules.map((module) => {
-        if (module?.content?.includes("Content") && module.values.editorState) {
+        if (module?.component?.includes("Content") && module.values.editorState) {
           return {
             ...module,
             values: {

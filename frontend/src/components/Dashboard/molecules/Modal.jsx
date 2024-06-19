@@ -10,12 +10,13 @@ const Modal = ({
   onConfirm = () => {},
   cancelText = "Cancel",
   onCancel = () => {},
+  zIndex = 10,
   children,
 }) => {
   return (
     modal && (
       <div
-        class="relative z-10"
+        class={`relative z-${zIndex}`}
         aria-labelledby="modal-title"
         role="dialog"
         aria-modal="true"

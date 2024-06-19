@@ -54,7 +54,7 @@ const Profile = () => {
             <div>
               <p className="font-bold text-2xl text-[#1C1E1F]">Leo</p>
               <p className=" text-[#424444] text-sm mt-1">
-                Tech lead at #Ilyrins Team
+                Tech lead at #Dev Team
               </p>
               <p className=" text-xs mt-1 mb-2">🇫🇷 Annecy, France</p>
 
@@ -70,7 +70,7 @@ const Profile = () => {
             <div>
               Status:
               <p>Position: #Tech Lead</p>
-              <p>Team: Ilyrinas</p>
+              <p>Team: Hunters</p>
             </div>
           </div>
         </div>

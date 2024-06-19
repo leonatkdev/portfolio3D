@@ -45,7 +45,7 @@ const PagesDashboard = () => {
     { key: "status", header: "status" },
     { key: "path", header: "Path" },
     { key: "layout", header: "Layout" },
-    { key: "language", header: "Language-(Market)" },
+    { key: "language", header: "Language" },
     { key: "tools", header: "Tools" },
   ];    
 

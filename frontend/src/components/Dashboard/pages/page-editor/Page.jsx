@@ -4,6 +4,34 @@ import { EditorState, convertFromRaw, convertToRaw } from "draft-js";
 import EditorHeader from "./Editor/EditorHeader";
 import Sidebar from "./Editor/Sidebar/PrimaryMenu";
 import ModulesComponent from "./Modules";
+import Modal from "../../molecules/Modal";
+
+const fetchAuthors = async (setAuthors) => {
+  const response = await fetch("http://localhost:4000/api/authors");
+  const data = await response.json();
+  setAuthors(data);
+};
+
+const fetchPageData = async (id, setPageForm, setAllComponents) => {
+  const response = await fetch(`http://localhost:4000/api/pages/${id}`);
+  const data = await response.json();
+  setPageForm((prevPageForm) => ({ ...prevPageForm, ...data }));
+  const modules = data.modules.map((module) => {
+    if (module.component === "Content" && module.values?.text) {
+      return {
+        component: module.component,
+        values: {
+          ...module.values,
+          editorState: EditorState.createWithContent(
+            convertFromRaw(JSON.parse(module.values.text))
+          ),
+        },
+      };
+    }
+    return { component: module.component };
+  });
+  setAllComponents(modules);
+};
 
 const PageDashboard = () => {
   const [PageForm, setPageForm] = useState({
@@ -22,6 +50,9 @@ const PageDashboard = () => {
   const [allComponents, setAllComponents] = useState([]);
   const [elmClicked, setElmClicked] = useState(null);
   const [isEditingText, setIsEditingText] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [selectedComponent, setSelectedComponent] = useState(null);
+  const [selectedPosition, setSelectedPosition] = useState(""); // State to store the input value
 
   let { id } = useParams();
 
@@ -29,39 +60,12 @@ const PageDashboard = () => {
   const isAdmin = isAuthenticated?.role === "admin";
 
   useEffect(() => {
-    fetch("http://localhost:4000/api/authors")
-      .then((res) => res.json())
-      .then((data) => setAuthors(data));
+    fetchAuthors(setAuthors);
   }, []);
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:4000/api/pages/${id}`)
-        .then((res) => res.json())
-        .then((data) => {
-          setPageForm((prevPageForm) => ({
-            ...prevPageForm,
-            ...data,
-          }));
-          const modules = data.modules.map((module) => {
-            if (
-              module?.content?.includes("Content") &&
-              module.values.text
-            ) {
-              return {
-                ...module,
-                values: {
-                  ...module.values,
-                  editorState: EditorState.createWithContent(
-                    convertFromRaw(JSON.parse(module.values.text))
-                  ),
-                },
-              };
-            }
-            return module;
-          });
-          setAllComponents(modules);
-        });
+      fetchPageData(id, setPageForm, setAllComponents);
     }
   }, [id]);
 
@@ -74,12 +78,12 @@ const PageDashboard = () => {
 
   const itemsRef = useRef([]);
 
-  const handleDragStart = (e, id, isNestedData = false) => {
+  const handleDragStart = (e, component, isNestedData = false) => {
     if (isEditingText) return;
 
     e.dataTransfer.setData(
       "application/json",
-      JSON.stringify({ id, isNestedData })
+      JSON.stringify({ component, isNestedData })
     );
 
     setTimeout(() => {
@@ -89,7 +93,7 @@ const PageDashboard = () => {
 
   const handleDrop = (e) => {
     e.preventDefault();
-    const { id, isNestedData } = JSON.parse(
+    const { component, isNestedData } = JSON.parse(
       e.dataTransfer.getData("application/json")
     );
 
@@ -116,13 +120,14 @@ const PageDashboard = () => {
       let newComponents = [...prevComponents];
       if (isNestedData) {
         const newItem = {
-          id,
-          content: id.split("-")[1],
-          values: { editorState: EditorState.createEmpty() },
+          component,
+          values: component === "Content" ? { editorState: EditorState.createEmpty() } : {},
         };
         newComponents.splice(dropPositionIndex, 0, newItem);
       } else {
-        const draggedIndex = newComponents.findIndex((comp) => comp.id === id);
+        const draggedIndex = newComponents.findIndex(
+          (comp) => comp.component === component
+        );
         if (draggedIndex === -1 || draggedIndex === dropPositionIndex)
           return prevComponents;
         const [draggedItem] = newComponents.splice(draggedIndex, 1);
@@ -153,19 +158,18 @@ const PageDashboard = () => {
     PageForm?.modules.map((component, index) => (
       <div
         id={`component-${index}`}
-        key={component.id}
+        key={index}
         draggable={!isEditingText}
-        onDragStart={(e) => handleDragStart(e, component.id)}
+        onDragStart={(e) => handleDragStart(e, component.component)}
         onClick={() => {
           setElmClicked({
-            id: component?.id,
             index: index,
-            ModuleName: component?.content,
+            ModuleName: component?.component,
           });
         }}
         className={
-          "text-black relative p-4" +
-          (elmClicked?.index === index ? " border border-sky-500" : "")
+          "text-black relative py-4 px-6" +
+          (elmClicked?.index === index ? " border-2 border-sky-500" : "")
         }
       >
         <ModulesComponent
@@ -179,13 +183,33 @@ const PageDashboard = () => {
       </div>
     ));
 
+  const handlePositionChange = (e) => {
+    const value = e.target.value;
+    if (!isNaN(value) && value >= 1 && value <= allComponents.length + 1) {
+      setSelectedPosition(value);
+    }
+  };
+
+  const addComponentAtPosition = () => {
+    if (selectedPosition && selectedComponent) {
+      const position = parseInt(selectedPosition, 10) - 1;
+      setAllComponents((prevComponents) => {
+        const newComponents = [...prevComponents];
+        const newItem = {
+          component: selectedComponent,
+          values: selectedComponent === "Content" ? { editorState: EditorState.createEmpty() } : {},
+        };
+        newComponents.splice(position, 0, newItem);
+        return newComponents;
+      });
+      setSelectedPosition("");
+      setModal(false);
+    }
+  };
+
   return (
     <div className="bg-[#E1E2E6]">
-      <EditorHeader
-        allComponents={allComponents}
-        id={id}
-        PageForm={PageForm}
-      />
+      <EditorHeader allComponents={allComponents} id={id} PageForm={PageForm} />
       <div className="flex mt-[65px]">
         <Sidebar
           activeTab={activeTab}
@@ -197,8 +221,10 @@ const PageDashboard = () => {
           setPageForm={setPageForm}
           authors={authors}
           isAdmin={isAdmin}
+          setModal={setModal}
+          setSelectedComponent={setSelectedComponent}
         />
-        <div className="flex flex-1 flex-col bg-slate-400 p-6">
+        <div className="flex flex-1 flex-col bg-slate-400 p-6 sm:pl-[88px]">
           <div
             id="page-container"
             onDragOver={(e) => e.preventDefault()}
@@ -211,6 +237,42 @@ const PageDashboard = () => {
           </div>
         </div>
       </div>
+      {modal && (
+        <Modal
+          modal={modal}
+          setModal={setModal}
+          zIndex="20"
+          onCancel={() => setModal(false)}
+          onConfirm={addComponentAtPosition}
+          title="Add Module"
+          desc="You can write the number where to place"
+        >
+          <div>
+            <div className="flex justify-between items-center mt-5 mb-4">
+              <p className="text-black font-semibold">{selectedComponent} Component: </p>
+              <input
+                className="bg-white border rounded-md p-3 py-1 text-black"
+                placeholder="Place the number "
+                value={selectedPosition}
+                onChange={handlePositionChange}
+              />
+            </div>
+            <div className="overflow-y-auto max-h-[250px]">
+              {allComponents?.map((com, index) => (
+                <div
+                  className={`text-black flex items-center mb-2 border rounded-md`}
+                  key={index}
+                >
+                  <span className="block p-3 border-r mr-4 min-w-[40px] text-center">
+                    {index + 1}
+                  </span>
+                  {com?.component}
+                </div>
+              ))}
+            </div>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };

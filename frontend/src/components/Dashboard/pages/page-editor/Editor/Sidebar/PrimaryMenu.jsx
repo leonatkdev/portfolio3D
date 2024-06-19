@@ -32,6 +32,8 @@ const MainMenu = ({
   setPageForm,
   authors,
   isAdmin,
+  setModal,
+  setSelectedComponent
 }) => {
   const [showSide, setShowSide] = useState(true);
 
@@ -60,12 +62,11 @@ const MainMenu = ({
 
   const sectionsMenu = isAdmin ? adminSectionsMenu : guestSectionsMenu;
 
-  console.log("test", showSide);
 
   return (
     <div>
       <div
-        className={`hidden sm:flex gap-1 flex-col w-[64px] min-w-[64px] h-screen items-center py-3 px-2 bg-[#131826] ${
+        className={`hidden fixed z-10 sm:flex gap-1 flex-col w-[64px] min-w-[64px] h-screen items-center py-3 px-2 bg-[#131826] ${
           showSide && " !flex sm:flex"
         } `}
       >
@@ -91,15 +92,18 @@ const MainMenu = ({
         PageForm={PageForm}
         setPageForm={setPageForm}
         authors={authors}
+        setModal={setModal}
+        setSelectedComponent={setSelectedComponent}
       />
 
       <div
         onClick={() => {
           setShowSide(!showSide)
+          setActiveTab("")
         }}
         className="fixed flex items-center justify-center min-h-12 min-w-12 z-10 rounded-r-lg top-1/2 bg-stone-400 sm:hidden"
       >
-        <MdKeyboardDoubleArrowRight color="black" className="w-6 h-6" />
+        <MdKeyboardDoubleArrowRight color="black" className={`w-6 h-6 ${showSide && " rotate-180"}`} />
       </div>
     </div>
   );

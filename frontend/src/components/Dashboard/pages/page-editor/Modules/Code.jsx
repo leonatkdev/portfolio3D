@@ -7,13 +7,11 @@ import 'codemirror/mode/javascript/javascript';
 const CodeEditor = () => {
   const [code, setCode] = useState(``);
 
-
-
   return (
-    <div style={{ margin: '20px' }}>
-      <h1>Code Editor</h1>
-      
-      <CodeMirror
+      <div style={{ "> div": {
+          background: "red"
+        }}}>
+         <CodeMirror
         value={code}
         options={{
           mode: 'javascript',
@@ -26,12 +24,10 @@ const CodeEditor = () => {
         onChange={(editor, data, value) => {
           // Optional: handle change if needed
         }}
-        style={{ border: '1px solid #ddd', borderRadius: '4px', minHeight: '200px',      background: "blue",   "& > div": {
-          background: "red"
-        } }}
-        className=' bg-amber-300'
+     
+        className=' bg-amber-300 [&>div:nth-child(1)]:hidden '
       />
-    </div>
+      </div>
   );
 };
 

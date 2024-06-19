@@ -58,8 +58,8 @@ const DashboardMenu = ({ isAdmin = false, showDashboard, setShowDashboard }) => 
   const mainMenu = isAdmin ? mainDashboardDataAsAdmin : mainDashboardData;
 
   return (
-      <div className={`hidden fixed z-10 ${showDashboard ? '!flex' :""} lg:flex lg:static min-h-screen`}>
-        <div className="pt-3 sticky top-0 flex flex-col w-[64px] max-w-[64px] min-w-[64px] min-h-screen h-full items-center py-3 px-2 justify-between bg-[#131826] ">
+      <div className={`hidden fixed z-10 ${showDashboard ? '!flex ' :""} sm:!flex lg:flex lg:static min-h-screen max-h-screen`}>
+        <div className="pt-3 sticky top-0 flex flex-col w-[64px] max-w-[64px] min-w-[64px] min-h-screen h-fit h-full items-center py-3 px-2 justify-between bg-[#131826] ">
           <img
             src={logo}
             alt="Leonat Krasniqi Logo"
@@ -95,7 +95,7 @@ const DashboardMenu = ({ isAdmin = false, showDashboard, setShowDashboard }) => 
           </div>
 
           <button
-            className={`absolute bottom-[150px] right-[-10px] p-1 bg-white border border-1 rounded-full ${
+            className={`absolute bottom-[150px] hidden sm:flex right-[-10px] p-1 bg-white border border-1 rounded-full ${
               showDashboard && " rotate-180"
             }`}
             onClick={() => setShowDashboard(!showDashboard)}

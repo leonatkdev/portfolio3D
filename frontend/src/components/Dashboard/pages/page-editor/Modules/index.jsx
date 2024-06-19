@@ -12,16 +12,8 @@ const ModulesComponent = ({
   handleSave,
   setIsEditingText,
 }) => {
-  const getActionType = (action) => {
-    if (action.includes("Content")) return "Content";
-    if (action.includes("Image")) return "Image";
-    if (action.includes("Code")) return "Code";
-    if (action.includes("BlackQuoute")) return "BlackQuoute";
-    return "default";
-  };
-
   const renderContent = () => {
-    switch (getActionType(value.content)) {
+    switch (value.component) {
       case "Content":
         return (
           <div key={index}>
