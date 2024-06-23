@@ -9,11 +9,15 @@ const generateUniqueKey = (prefix = "key") => {
 };
 
 const SubMenu = ({
+  PageForm, 
+  setPageForm,
   activeTab,
   setActiveTab,
   nestedData,
   setNestedData,
   handleDragStart,
+  
+ 
   setModal,
   setSelectedComponent,
 }) => {
@@ -24,7 +28,7 @@ const SubMenu = ({
       Page: {
         customComponent: {
           draggable: false,
-          component: <SimpleForm />,
+          component: <SimpleForm PageForm={PageForm} setPageForm={setPageForm} />,
         },
       },
       Seo: {

@@ -1,17 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Controlled as CodeMirror } from 'react-codemirror2';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/material.css';
 import 'codemirror/mode/javascript/javascript';
 
-const CodeEditor = () => {
-  const [code, setCode] = useState(``);
-
+const CodeEditor = ({ code, setCode }) => {
   return (
-      <div style={{ "> div": {
-          background: "red"
-        }}}>
-         <CodeMirror
+    <div>
+      <CodeMirror
         value={code}
         options={{
           mode: 'javascript',
@@ -24,10 +20,9 @@ const CodeEditor = () => {
         onChange={(editor, data, value) => {
           // Optional: handle change if needed
         }}
-     
-        className=' bg-amber-300 [&>div:nth-child(1)]:hidden '
+        // className='[&>div:nth-child(1)]:hidden '
       />
-      </div>
+    </div>
   );
 };
 

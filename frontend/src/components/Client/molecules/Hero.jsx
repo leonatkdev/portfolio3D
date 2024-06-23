@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 
 import { styles } from "../../../style";
 import leoAvatar from "../../../assets/leoavatar.png";
+import Spotify from '../atoms/spotify'
+import { FaSpotify } from "react-icons/fa";
 // import { ComputersCanvas } from "../../canvas";
 import { FaInstagram } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa";
@@ -47,7 +49,13 @@ const Hero = () => {
                 <FaInstagram width={32} height={32} className="w-8 h-8" />
               </a>
             </li>
+            <li>
+              <a href="https://open.spotify.com/user/31eozv4vnjfxxusxcz3673uzjgii" target="_blank" rel="noreferrer" className="text-[#915eff]" >
+                <FaSpotify width={32} height={32} className="w-8 h-8" />
+              </a>
+            </li>
           </ul>
+          <Spotify />
         </div>
       </div>
       <div className="relative overflow-hidden sm:overflow-visible ">
@@ -63,7 +71,6 @@ const Hero = () => {
 
       </div>
      
-      {/* <ComputersCanvas /> */}
 
       <div className=" absolute z-20  xs:bottom-10 bottom-[16px] w-full flex justify-center items-center ">
         <a href="#about" aria-label="Scroll to About Me Section">

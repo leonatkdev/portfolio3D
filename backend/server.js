@@ -7,12 +7,14 @@ const swaggerSpec = require("./swagger.js");
 
 // Import the router
 const sectionsRouter = require("./routes/sectionRouter");
-const authRouter = require("./routes/authRouter.js")
+const authRouter = require("./routes/authRouter.js");
+const cwvRouter = require("./routes/cwvRouter.js"); 
+const spotify = require("./routes/spotify.js");
 
-//Middleweare for user
-const { adminAuth, userAuth } = require("./middleware/auth.js")
+// Middleware for user
+const { adminAuth, userAuth } = require("./middleware/auth.js");
 
-//Connection to db
+// Connection to dbx
 const connectToDatabase = require("./db.js");
 
 const app = express();
@@ -48,8 +50,9 @@ app.get("/basic" , userAuth , (req, res)=> res.send("User Route") )
 
 app.use("/api/auth" , authRouter);
 app.use('/uploads', express.static('uploads'));
-
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use("/api", cwvRouter); 
+app.use("/", spotify);
 
 // Start the server
 const server = app.listen(Port, () => {

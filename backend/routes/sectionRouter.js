@@ -110,7 +110,24 @@ router.put("/pages/:id", (req, res) => {
     });
 });
 
-router.delete("/pages/:id", (req, res) => {});
+router.delete("/pages/:id", (req, res) => {
+  const { id } = req.params;
+
+  PageModel.findByIdAndDelete(id)
+  .then((deletedPage) => {
+    if (!deletedPage) {
+      return res.status(404).json({
+        message: "Page not found",
+      });
+    }
+    res.status(200).json({  
+      message: "Page deleted successfully",
+    });
+  })
+  .catch((err) => {
+    res.status(500).send({ "Server Error": err.message });
+  });
+});
 
 router.get("/authors", (req, res) => {
   AuthorModel.find({}).then((authors) => {

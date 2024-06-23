@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
-
 import { HiOutlineTrash } from "react-icons/hi2";
 import { TbEdit } from "react-icons/tb";
 import { AiOutlineStar } from "react-icons/ai";
-
 import InputField from "../atoms/inputField";
 import DropDown from "../atoms/dropDownField";
-
-import Modal from "../molecules/Modal";  
+import Modal from "../molecules/Modal";
 import Pagination from "../atoms/pagination";
 import { Link } from "react-router-dom";
 
@@ -17,6 +14,7 @@ const PagesDashboard = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [searchTitle, setSearchTitle] = useState("");
   const [searchPath, setSearchPath] = useState("");
+  const [pageToDelete, setPageToDelete] = useState(null);
 
   useEffect(() => {
     fetch("http://localhost:4000/api/pages")
@@ -32,22 +30,40 @@ const PagesDashboard = () => {
   }, [searchTitle, searchPath]);
 
   const filterData = () => {
-    const filtered = data.filter((page) => 
-      page.title.toLowerCase().includes(searchTitle.toLowerCase()) &&
-      page.path.toLowerCase().includes(searchPath.toLowerCase())
+    const filtered = data.filter(
+      (page) =>
+        page.title.toLowerCase().includes(searchTitle.toLowerCase()) &&
+        page.path.toLowerCase().includes(searchPath.toLowerCase())
     );
     setFilteredData(filtered);
   };
 
+  const deletePage = () => {
+    fetch(`http://localhost:4000/api/pages/${pageToDelete}`, {
+      method: "DELETE",
+    })
+      .then((res) => {
+        if (res.ok) {
+          setData((prevData) => prevData.filter((page) => page._id !== pageToDelete));
+          setFilteredData((prevData) => prevData.filter((page) => page._id !== pageToDelete));
+          setModal(false);
+        } else {
+          console.error("Failed to delete the page");
+        }
+      })
+      .catch((err) => {
+        console.error("Server Error:", err);
+      });
+  };
 
   const columns = [
     { key: "title", header: "Title" },
-    { key: "status", header: "status" },
+    { key: "status", header: "Status" },
     { key: "path", header: "Path" },
     { key: "layout", header: "Layout" },
     { key: "language", header: "Language" },
     { key: "tools", header: "Tools" },
-  ];    
+  ];
 
   const CostumeCell = ({ column, row }) => {
     switch (column?.key) {
@@ -72,14 +88,17 @@ const PagesDashboard = () => {
         return (
           <td className="px-6 py-4 flex justify-around">
             {[
-              <Link to={`/dashboard/pages/page/${row._id}`} key={row._id}> 
-              <TbEdit color="#6B7380" className="h-6 w-6" />
+              <Link to={`/dashboard/pages/page/${row._id}`} key={row._id}>
+                <TbEdit color="#6B7380" className="h-6 w-6" />
               </Link>,
               <AiOutlineStar color="#6B7380" className="h-6 w-6" />,
               <HiOutlineTrash
                 color="#6B7380"
                 className="h-6 w-6"
-                onClick={() => setModal(true)}
+                onClick={() => {
+                  setPageToDelete(row._id);
+                  setModal(true);
+                }}
               />,
             ].map((icon) => icon)}
           </td>
@@ -106,32 +125,32 @@ const PagesDashboard = () => {
       <div className="p-4 pt-0">
         <div className="flex items-center">
           <h1 className="text-2xl font-bold">Pages</h1>
-        <button
-          onClick={() => (window.location.href = "pages/page")}
-          className="block m-3 mr-6 ml-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105"
-        >
-          Create page
-        </button>
+          <button
+            onClick={() => (window.location.href = "pages/page")}
+            className="block m-3 mr-6 ml-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105"
+          >
+            Create page
+          </button>
         </div>
-        
-        <div className=" flex flex-col sm:flex-row gap-3 border border-[#F0F3F5] p-4 bg-white rounded-lg">
-          <InputField 
-            label="Search for Title" 
-            placeholder="Search" 
-            value={searchTitle} 
-            onChange={(e) => setSearchTitle(e.target.value)} 
+
+        <div className="flex flex-col sm:flex-row gap-3 border border-[#F0F3F5] p-4 bg-white rounded-lg">
+          <InputField
+            label="Search for Title"
+            placeholder="Search"
+            value={searchTitle}
+            onChange={(e) => setSearchTitle(e.target.value)}
           />
-          <InputField 
-            label="Search by path" 
-            placeholder="Path" 
-            value={searchPath} 
-            onChange={(e) => setSearchPath(e.target.value)} 
+          <InputField
+            label="Search by Path"
+            placeholder="Path"
+            value={searchPath}
+            onChange={(e) => setSearchPath(e.target.value)}
           />
           <DropDown />
         </div>
       </div>
 
-      <div className=" overflow-x-auto sm:overflow-x-hidden rounded-lg border border-gray-200 shadow-md m-5 mt-0">
+      <div className="overflow-x-auto sm:overflow-x-hidden rounded-lg border border-gray-200 shadow-md m-5 mt-0">
         <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
           <thead className="bg-gray-50">
             <tr>
@@ -145,7 +164,7 @@ const PagesDashboard = () => {
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100  border-t border-gray-100">
+          <tbody className="divide-y divide-gray-100 border-t border-gray-100">
             {filteredData?.map((row, rowIndex) => (
               <TableRow key={rowIndex} row={row} columns={columns} />
             ))}
@@ -159,9 +178,9 @@ const PagesDashboard = () => {
         <Modal
           modal={modal}
           setModal={setModal}
-          onConfirm={() => console.log("Delete")}
+          onConfirm={deletePage}
           title="Delete Page"
-          desc="Are you sure you want to delete your Page? All of your data will be permanently removed. This action cannot be undone."
+          desc="Are you sure you want to delete your page? All of your data will be permanently removed. This action cannot be undone."
         />
       )}
     </>

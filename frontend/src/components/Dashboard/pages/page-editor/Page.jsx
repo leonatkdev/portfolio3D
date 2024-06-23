@@ -28,7 +28,10 @@ const fetchPageData = async (id, setPageForm, setAllComponents) => {
         },
       };
     }
-    return { component: module.component };
+    return {
+      component: module.component,
+      values: module.values || {},
+    };
   });
   setAllComponents(modules);
 };
@@ -52,7 +55,9 @@ const PageDashboard = () => {
   const [isEditingText, setIsEditingText] = useState(false);
   const [modal, setModal] = useState(false);
   const [selectedComponent, setSelectedComponent] = useState(null);
-  const [selectedPosition, setSelectedPosition] = useState(""); // State to store the input value
+  const [selectedPosition, setSelectedPosition] = useState("");
+
+  console.log("allComponents", allComponents);
 
   let { id } = useParams();
 
@@ -121,7 +126,10 @@ const PageDashboard = () => {
       if (isNestedData) {
         const newItem = {
           component,
-          values: component === "Content" ? { editorState: EditorState.createEmpty() } : {},
+          values:
+            component === "Content"
+              ? { editorState: EditorState.createEmpty() }
+              : {},
         };
         newComponents.splice(dropPositionIndex, 0, newItem);
       } else {
@@ -154,6 +162,26 @@ const PageDashboard = () => {
     });
   }, []);
 
+  const handleCodeChange = useCallback((index, code) => {
+    setAllComponents((prevComponents) => {
+      const newComponents = [...prevComponents];
+      newComponents[index].values.code = code;
+      return newComponents;
+    });
+  }, []);
+
+  const handleImageChange = useCallback((index, file) => {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setAllComponents((prevComponents) => {
+        const newComponents = [...prevComponents];
+        newComponents[index].values.image = e.target.result;
+        return newComponents;
+      });
+    };
+    reader.readAsDataURL(file);
+  }, []);
+
   const renderComponents = () =>
     PageForm?.modules.map((component, index) => (
       <div
@@ -178,16 +206,15 @@ const PageDashboard = () => {
           itemsRef={itemsRef}
           handleContentChange={handleContentChange}
           handleSave={handleSave}
+          handleCodeChange={handleCodeChange}
+          handleImageChange={handleImageChange}
           setIsEditingText={setIsEditingText}
         />
       </div>
     ));
 
   const handlePositionChange = (e) => {
-    const value = e.target.value;
-    if (!isNaN(value) && value >= 1 && value <= allComponents.length + 1) {
-      setSelectedPosition(value);
-    }
+    setSelectedPosition(e.target.value);
   };
 
   const addComponentAtPosition = () => {
@@ -197,7 +224,10 @@ const PageDashboard = () => {
         const newComponents = [...prevComponents];
         const newItem = {
           component: selectedComponent,
-          values: selectedComponent === "Content" ? { editorState: EditorState.createEmpty() } : {},
+          values:
+            selectedComponent === "Content"
+              ? { editorState: EditorState.createEmpty() }
+              : {},
         };
         newComponents.splice(position, 0, newItem);
         return newComponents;
@@ -243,19 +273,22 @@ const PageDashboard = () => {
           setModal={setModal}
           zIndex="20"
           onCancel={() => setModal(false)}
-          onConfirm={addComponentAtPosition}
+          onConfirm={() => addComponentAtPosition()}
           title="Add Module"
           desc="You can write the number where to place"
         >
           <div>
             <div className="flex justify-between items-center mt-5 mb-4">
-              <p className="text-black font-semibold">{selectedComponent} Component: </p>
+              <p className="text-black font-semibold">
+                {selectedComponent} Component:{" "}
+              </p>
               <input
                 className="bg-white border rounded-md p-3 py-1 text-black"
                 placeholder="Place the number "
                 value={selectedPosition}
                 onChange={handlePositionChange}
               />
+             
             </div>
             <div className="overflow-y-auto max-h-[250px]">
               {allComponents?.map((com, index) => (
