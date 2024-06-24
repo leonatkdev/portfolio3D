@@ -10,10 +10,6 @@ const REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN; // Your Spotify refresh
 const redirect_uri ="http://localhost:4000/callback"
 
 
-console.log('CLIENT_ID', CLIENT_ID)
-console.log('CLIENT_SECRET', CLIENT_SECRET)
-console.log('REFRESH_TOKEN', REFRESH_TOKEN)
-
 const SCOPE = [
  "user-read-email",
   "playlist-read-collaborative",
@@ -73,7 +69,6 @@ router.get('/login', (req, res) => {
         }
       });
 
-      console.log('response', response)
       return response.data.access_token;
     } catch (error) {
       console.error('Error getting access token:', error.response ? error.response.data : error.message);
@@ -84,7 +79,6 @@ router.get('/login', (req, res) => {
   router.get('/recently-played', async (req, res) => {
     try {
       const access_token = await getAccessToken();
-      console.log('access_token', access_token )
       const response = await axios.get('https://api.spotify.com/v1/me/player/recently-played?limit=1', {
         headers: {
           'Authorization': `Bearer ${access_token}`
