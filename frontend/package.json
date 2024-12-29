@@ -5,11 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "vite start",
-    "dev": "vite start",
+    "dev": "vite",
     "build": "vite build",
-    "test": "vite test",
-    "eject": "vite eject"
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
   "author": "",
   "license": "MIT",
