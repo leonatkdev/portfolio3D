@@ -22,7 +22,7 @@ const SimpleForm = ({ PageForm, setPageForm, authors }) => {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:4000/api/pages", {
+      const response = await fetch("https://portfolio3d-c4gq.onrender.com/api/pages", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

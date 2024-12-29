@@ -7,7 +7,8 @@ require('dotenv').config();
 const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID; // Your Spotify client ID
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET; // Your Spotify client secret
 const REFRESH_TOKEN = process.env.SPOTIFY_REFRESH_TOKEN; // Your Spotify refresh token
-const redirect_uri ="http://localhost:4000/callback"
+// const redirect_uri ="http://localhost:4000/callback"
+const redirect_uri ="https://portfolio3d-c4gq.onrender.com/callback"
 
 
 const SCOPE = [

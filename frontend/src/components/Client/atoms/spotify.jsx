@@ -10,7 +10,7 @@ const Spotify = () => {
       // console.log("here");
       try {
         const response = await axios.get(
-          "http://localhost:4000/recently-played"
+          "https://portfolio3d-c4gq.onrender.com/recently-played"
         );
         // console.log("response", response);
         setTrack(response.data);

@@ -22,8 +22,8 @@ const PageUsers = ({ title = "authors", api = "authors" }) => {
   useEffect(() => {
     fetch(
       api === "authors"
-        ? `http://localhost:4000/api/authors`
-        : `http://localhost:4000/api/auth/${api}`
+        ? `https://portfolio3d-c4gq.onrender.com/api/authors`
+        : `https://portfolio3d-c4gq.onrender.com/api/auth/${api}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -44,7 +44,7 @@ const PageUsers = ({ title = "authors", api = "authors" }) => {
 
   const addAuthor = async () => {
     try {
-      fetch(`http://localhost:4000/api/auth/${api}`, {
+      fetch(`https://portfolio3d-c4gq.onrender.com/api/auth/${api}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

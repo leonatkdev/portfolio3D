@@ -30,7 +30,7 @@ const EditorHeader = ({ allComponents, id, PageForm }) => {
         return module;
       });
 
-      const response = await fetch(`http://localhost:4000/api/pages/${id}`, {
+      const response = await fetch(`https://portfolio3d-c4gq.onrender.com/api/pages/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

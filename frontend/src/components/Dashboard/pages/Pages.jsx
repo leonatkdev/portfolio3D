@@ -17,7 +17,7 @@ const PagesDashboard = () => {
   const [pageToDelete, setPageToDelete] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:4000/api/pages")
+    fetch("https://portfolio3d-c4gq.onrender.com/api/pages")
       .then((res) => res.json())
       .then((data) => {
         setData(data);
@@ -39,7 +39,7 @@ const PagesDashboard = () => {
   };
 
   const deletePage = () => {
-    fetch(`http://localhost:4000/api/pages/${pageToDelete}`, {
+    fetch(`https://portfolio3d-c4gq.onrender.com/api/pages/${pageToDelete}`, {
       method: "DELETE",
     })
       .then((res) => {

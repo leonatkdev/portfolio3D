@@ -7,13 +7,13 @@ import ModulesComponent from "./Modules";
 import Modal from "../../molecules/Modal";
 
 const fetchAuthors = async (setAuthors) => {
-  const response = await fetch("http://localhost:4000/api/authors");
+  const response = await fetch("https://portfolio3d-c4gq.onrender.com/api/authors");
   const data = await response.json();
   setAuthors(data);
 };
 
 const fetchPageData = async (id, setPageForm, setAllComponents) => {
-  const response = await fetch(`http://localhost:4000/api/pages/${id}`);
+  const response = await fetch(`https://portfolio3d-c4gq.onrender.com/api/pages/${id}`);
   const data = await response.json();
   setPageForm((prevPageForm) => ({ ...prevPageForm, ...data }));
   const modules = data.modules.map((module) => {
