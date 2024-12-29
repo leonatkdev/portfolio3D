@@ -1,7 +1,7 @@
 
 import React from 'react'
 import GoogleLogo from "../../../../../../assets/google-logo-text.webp";
-import logo from "../../../../../../assets/logo.svg";
+import logo from "../../../../../../assets/logoWhite.svg";
 import { HiMiniMagnifyingGlass } from "react-icons/hi2";
 
 const Seo = () => {
@@ -60,7 +60,7 @@ const Seo = () => {
               <img
                 src={logo}
                 alt="Website Logo"
-                className=" w-7 h-7 rounded-full bg-[#f1f3f4] border-[#ecedef]  object-contain"
+                className=" w-7 h-7 rounded-full bg-[#f1f3f4] border-[#ecedef]  object-contain fill-white"
               />
               <div>
                 <h3 className=" text-lg text-[#1841d2]">Meta Title | Keyword</h3>

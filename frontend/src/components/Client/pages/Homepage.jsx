@@ -19,28 +19,29 @@ const Homepage = () => {
     "@type": "Person",
     "name": "Leonat Krasniqi",
     "url": "https://leonat.dev",
-    "image": "URL_TO_YOUR_PROFILE_IMAGE",
+    "image": "https://leonat.dev/logo.svg",  // Replace with actual profile image URL
     "jobTitle": "Full Stack Developer",
     "worksFor": {
       "@type": "Organization",
       "name": "StarLabs",
       "description": "Web Developer and Team Leader in the StarLabs Internship Program.",
-      "sameAs": "URL_TO_STARLABS_OR_YOUR_LINKEDIN_PROFILE"
+      "sameAs": "https://www.linkedin.com/in/leonat-krasniqi"  // Replace with your LinkedIn or StarLabs profile
     },
     "description": "Specializing in TypeScript, JavaScript, React Native, and Node.js for developing mobile and web applications. Experienced in leading and mentoring teams, and passionate about creating efficient, user-friendly applications.",
     "knowsAbout": ["TypeScript", "JavaScript", "React Native", "Node.js"],
     "sameAs": [
-      "YOUR_FACEBOOK_PROFILE",
-      "YOUR_TWITTER_PROFILE",
-      "YOUR_LINKEDIN_PROFILE",
-      "OTHER_SOCIAL_PROFILE"
+      "https://www.linkedin.com/in/leonat-krasniqi-6b59a0223/",
+      "https://github.com/leonatkdev",
+      "https://www.instagram.com/leonatk_1/",
+      "https://open.spotify.com/user/31eozv4vnjfxxusxcz3673uzjgii",
     ]
   };
+  
   return (
     <>
     <Helmet>
         <title>Leonat Krasniqi - Full Stack Developer Specializing in Mobile and Web Applications</title>
-        <meta name="description" content="Leonat Krasniqi, a proficient Full Stack Developer with expertise in TypeScript, JavaScript, React Native, and Node.js. Specializing in developing dynamic, efficient, and scalable mobile and web applications. Explore my portfolio to see my work on innovative projects like Car Rent, Job IT, and Trip Guide."/>
+        <meta name="description" content="Leonat Krasniqi, a Full Stack Developer with expertise in TypeScript, JavaScript, React Native, and Node.js. Specializing in developing dynamic, efficient, and scalable mobile and web applications. Explore my portfolio to see my work on innovative projects like DesignSuite(Google extension), Folder VScode(Visual studion extension), Loggerv2(Npm libary)."/>
         <meta name="keywords" content="Leonat Krasniqi, Full Stack Developer, Mobile App Development, Web Development, React Native, Node.js, TypeScript, JavaScript, Portfolio"/>
         <link rel="canonical" href="https://leonat.dev/"/>
         {/* Social Media Meta Tags */}
@@ -48,7 +49,7 @@ const Homepage = () => {
         <meta property="og:type" content="website"/>
         <meta property="og:url" content="https://leonat.dev/"/>
         <meta property="og:image" content=""/>
-        <meta property="og:description" content="Explore the portfolio of Leonat Krasniqi, a Full Stack Developer with a focus on mobile and web application development. Featuring projects like Car Rent, Job IT, and Trip Guide."/>
+        <meta property="og:description" content="Explore the portfolio of Leonat Krasniqi, a Full Stack Developer with a focus on mobile and web application development. Featuring projects like DesignSuite(Google extension), Folder VScode(Visual studion extension), Loggerv2(Npm libary)."/>
         <meta property="og:site_name" content="Leonat Krasniqi Portfolio"/>
         {/* Twitter Card data */}
         <meta name="twitter:card" content="summary_large_image"/>

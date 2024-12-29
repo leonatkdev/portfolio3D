@@ -22,7 +22,7 @@ const DashboardMenu = ({ isAdmin = false, showDashboard, setShowDashboard }) => 
   };
 
   const removeItem = (obj) => {
-    console.log("obj", obj);
+    // console.log("obj", obj);
     setFavorite((prevItems) =>
       prevItems.filter((item) => item.label !== obj.label)
     );
@@ -60,11 +60,14 @@ const DashboardMenu = ({ isAdmin = false, showDashboard, setShowDashboard }) => 
   return (
       <div className={`hidden fixed z-10 ${showDashboard ? '!flex ' :""} sm:!flex lg:flex lg:static min-h-screen max-h-screen`}>
         <div className="pt-3 sticky top-0 flex flex-col w-[64px] max-w-[64px] min-w-[64px] min-h-screen h-fit h-full items-center py-3 px-2 justify-between bg-[#131826] ">
-          <img
+         <Link to={'/dashboard'} >      
+         <img
             src={logo}
             alt="Leonat Krasniqi Logo"
             className=" w-10 h-10 sm:w-12 sm:h-12 object-contain"
           />
+         </Link>
+    
 
           <div className="flex flex-col items-center gap-1 mb-auto pt-6">
             {mainMenu?.map((elm) => (

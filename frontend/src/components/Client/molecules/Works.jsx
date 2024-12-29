@@ -14,10 +14,14 @@ const ProjectCard = ({
   tags,
   image,
   source_code_link,
-  uniqueKey
+  github_repo_link,
+  uniqueKey,
 }) => {
   return (
-    <motion.div variants={fadeIn("up", "spring", index * 0.5, 0.75)} key={uniqueKey}>
+    <motion.div
+      variants={fadeIn("up", "spring", index * 0.5, 0.75)}
+      key={uniqueKey}
+    >
       <Tilt
         options={{
           max: 45,
@@ -33,7 +37,7 @@ const ProjectCard = ({
             className="w-full h-full object-cover rounded-2xl"
           />
 
-          <a
+          {/* <a
             href={source_code_link}
             className=" absolute top-2 right-2 z-10 rounded-full bg-gradient-to-r from-neutral-900 to-gray-200"
           >
@@ -42,19 +46,32 @@ const ProjectCard = ({
               alt="Github"
               className=" w-5 h-5 object-contain"
             />
-          </a>
+          </a> */}
         </div>
 
-        <div className="mt-5">
+        <div className="mt-5 mb-2">
           <h3 className=" text-white font-bold text-[24px]">{name}</h3>
           <p className=" mt-2 text-secondary  text-[14px]">{description}</p>
-          <div className="mt-3 flex flex-wrap gap-2">
-            {tags?.map((tag) => (
-              <p key={tag.name} className={`text-[14px] ${tag.color}`}>
-                #{tag.name}
-              </p>
-            ))}
-          </div>
+        </div>
+     { github_repo_link &&  <a
+          href={github_repo_link}
+          className=" flex items-center rounded-full text-indigo-400 underline mb-2 gap-1"
+        >
+          Github Repo
+          <img src={github} alt="Github" className=" w-5 h-5 object-contain" />
+        </a>}
+      {source_code_link &&  <a
+          href={source_code_link}
+          className=" flex rounded-full  text-indigo-400 underline gap-1"
+        >
+          Project Live
+        </a>}
+        <div className="mt-4 flex flex-wrap gap-2">
+          {tags?.map((tag) => (
+            <p key={tag.name} className={`text-[14px] ${tag.color}`}>
+              #{tag.name}
+            </p>
+          ))}
         </div>
       </Tilt>
     </motion.div>
@@ -84,7 +101,12 @@ const Works = () => {
 
       <div className=" mt-20 flex flex-wrap gap-7">
         {projects?.map((project, index) => (
-          <ProjectCard {...project} index={index} uniqueKey={project.name} key={project.name} />
+          <ProjectCard
+            {...project}
+            index={index}
+            uniqueKey={project.name}
+            key={project.name}
+          />
         ))}
       </div>
     </>

@@ -1,4 +1,4 @@
-import logo from "./logo.svg";
+import logo from "./logoWhite.svg";
 import backend from "./backend.png";
 import creator from "./creator.png";
 import mobile from "./mobile.png";
@@ -23,9 +23,11 @@ import threejs from "./tech/threejs.webp";
 
 import starLabs from "./starlabs.webp";
 
-import carrent from "./carrent.webp";
-import jobit from "./jobit.webp";
-import tripguide from "./tripguide.webp";
+import designSuite from "./designsuite.png";
+import foldvscode from "./foldvscode.webp";
+import loggers from "./npm.webp";
+import discord from "./discord.webp";
+import pokemonGame from './pokemonGame.png'
 
 import avatar from './avatar.png'
 
@@ -51,9 +53,11 @@ export {
   tailwind,
   typescript,
   threejs,
-  carrent,
-  jobit,
-  tripguide,
+  designSuite,
+  foldvscode,
+  loggers,
+  discord,
+  pokemonGame,
   starLabs,
   avatar
 };

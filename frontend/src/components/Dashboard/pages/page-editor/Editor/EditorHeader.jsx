@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { IoReturnUpBack } from "react-icons/io5";
 import { EditorState, convertFromRaw, convertToRaw } from "draft-js";
 import { IoIosArrowDown } from "react-icons/io";
+import { IoIosSave } from "react-icons/io";
 
-const EditorHeader = ({ screen, setScreen, allComponents, id, PageForm }) => {
+const EditorHeader = ({ allComponents, id, PageForm }) => {
   const [status, setStatus] = useState(
     (PageForm?.status && PageForm?.status[0]) || "Inactive"
   );
@@ -92,10 +93,10 @@ const EditorHeader = ({ screen, setScreen, allComponents, id, PageForm }) => {
       <a href="/dashboard/pages" className="px-3 py-2 mr-auto">
         <IoReturnUpBack className="w-6 h-6" color="black" />
       </a>
-      <div className="relative content-center mr-6">
-        {getStatusDOM(status, openstatusModal, "", "px-2")} <IoIosArrowDown color="black" className=" absolute right-0 top-1/2" />
+      <div className="relative content-center mr-3 sm:mr-6 min-w-28">
+        {getStatusDOM(status, openstatusModal, "", "px-2")} <IoIosArrowDown color="black" className=" absolute right-0 top-1/2 -translate-y-1/2" />
         {showStatuses && (
-          <div className=" absolute top-full bg-white border rounded-lg ">
+          <div className=" absolute top-full bg-white border rounded-lg min-w-28">
             {fileredFromStatus?.map((stat, index) =>
               getStatusDOM(stat, (pros) => setStatus(pros), index, "p-4")
             )}
@@ -105,8 +106,9 @@ const EditorHeader = ({ screen, setScreen, allComponents, id, PageForm }) => {
 
       <button
         onClick={handleSubmit}
-        className="bg-[#131826] rounded-full px-8 py-2 mr-4 text-lg bg-gradient-to-r from-cyan-500 to-blue-500 "
+        className=" flex items-center  gap-1 bg-[#131826] rounded-full px-8 py-2 mr-4 text-lg bg-gradient-to-r from-cyan-500 to-blue-500 "
       >
+        <IoIosSave />
         Publish
       </button>
     </div>

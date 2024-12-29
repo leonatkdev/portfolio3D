@@ -114,29 +114,37 @@ const SimpleForm = ({ PageForm, setPageForm, authors }) => {
 
       <div>
         <label
-          htmlFor="manualDate"
+          htmlFor="publishDate"
           className="block text-sm font-medium text-gray-700"
         >
-          Manual Date:
+         Short Description
         </label>
-        <input
-          type="date"
-          name="manualDate"
-          id="manualDate"
-          value={PageForm?.manualDate}
+        <textarea
+          type="text"
+          name="description"
+          id="description"
+          value={PageForm?.description}
           onChange={handleChange}
-          className="mt-1 block bg-white w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+          className="mt-1 bg-white block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
         />
       </div>
 
-      {/* <div className="mt-4">
-        <button
-          type="submit"
-          className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      <div>
+        <label
+          htmlFor="publishDate"
+          className="block text-sm font-medium text-gray-700"
         >
-          Submit
-        </button>
-      </div> */}
+         Main Image
+        </label>
+        <input
+           type="file"
+          name="Image"
+          id="Image"
+          value={PageForm?.Image}
+          onChange={handleChange}
+          className="mt-1 bg-white block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+        />
+      </div>
     </form>
   );
 };
