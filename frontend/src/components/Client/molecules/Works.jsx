@@ -19,7 +19,7 @@ const ProjectCard = ({
 }) => {
   return (
     <motion.div
-      variants={fadeIn("up", "spring", index * 0.5, 0.75)}
+      variants={fadeIn("up", "spring", index * 0.1, 0.75)}
       key={uniqueKey}
     >
       <Tilt
@@ -36,17 +36,6 @@ const ProjectCard = ({
             alt={name}
             className="w-full h-full object-cover rounded-2xl"
           />
-
-          {/* <a
-            href={source_code_link}
-            className=" absolute top-2 right-2 z-10 rounded-full bg-gradient-to-r from-neutral-900 to-gray-200"
-          >
-            <img
-              src={github}
-              alt="Github"
-              className=" w-5 h-5 object-contain"
-            />
-          </a> */}
         </div>
 
         <div className="mt-5 mb-2">
@@ -113,4 +102,4 @@ const Works = () => {
   );
 };
 
-export default SectionWrapper(Works, "");
+export default SectionWrapper(Works, "projects");
