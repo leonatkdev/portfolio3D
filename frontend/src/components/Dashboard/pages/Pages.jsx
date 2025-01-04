@@ -7,8 +7,13 @@ import DropDown from "../atoms/dropDownField";
 import Modal from "../molecules/Modal";
 import Pagination from "../atoms/pagination";
 import { Link } from "react-router-dom";
+import AUTHModal from "../molecules/AuthModal";
 
-const PagesDashboard = () => {
+const PagesDashboard = ({
+  isAuthenticated,
+  showModaAuth,
+  setShowModalAuth,
+}) => {
   const [modal, setModal] = useState(false);
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
@@ -44,8 +49,12 @@ const PagesDashboard = () => {
     })
       .then((res) => {
         if (res.ok) {
-          setData((prevData) => prevData.filter((page) => page._id !== pageToDelete));
-          setFilteredData((prevData) => prevData.filter((page) => page._id !== pageToDelete));
+          setData((prevData) =>
+            prevData.filter((page) => page._id !== pageToDelete)
+          );
+          setFilteredData((prevData) =>
+            prevData.filter((page) => page._id !== pageToDelete)
+          );
           setModal(false);
         } else {
           console.error("Failed to delete the page");
@@ -61,7 +70,7 @@ const PagesDashboard = () => {
     { key: "status", header: "Status" },
     { key: "path", header: "Path" },
     { key: "layout", header: "Layout" },
-    { key: "language", header: "Language" },
+    // { key: "language", header: "Language" },
     { key: "tools", header: "Tools" },
   ];
 
@@ -88,9 +97,15 @@ const PagesDashboard = () => {
         return (
           <td className="px-6 py-4 flex justify-around">
             {[
-              <Link to={`/dashboard/pages/page/${row._id}`} key={row._id}>
-                <TbEdit color="#6B7380" className="h-6 w-6" />
-              </Link>,
+              isAuthenticated ? (
+                <Link to={`/dashboard/pages/page/${row._id}`} key={row._id}>
+                  <TbEdit color="#6B7380" className="h-6 w-6" />
+                </Link>
+              ) : (
+                <button onClick={() => setShowModalAuth(true)}>
+                  <TbEdit color="#6B7380" className="h-6 w-6" />
+                </button>
+              ),
               <AiOutlineStar color="#6B7380" className="h-6 w-6" />,
               <HiOutlineTrash
                 color="#6B7380"
@@ -125,12 +140,21 @@ const PagesDashboard = () => {
       <div className="p-4 pt-0">
         <div className="flex items-center">
           <h1 className="text-2xl font-bold">Pages</h1>
-          <button
-            onClick={() => (window.location.href = "pages/page")}
-            className="block m-3 mr-6 ml-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105"
-          >
-            Create page
-          </button>
+          {isAuthenticated ? (
+            <Link
+              to={"pages/page"}
+              className="block m-3 mr-6 ml-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105"
+            >
+              Create page
+            </Link>
+          ) : (
+            <button
+              onClick={() => setShowModalAuth(true)}
+              className="block m-3 mr-6 ml-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105"
+            >
+              Create page
+            </button>
+          )}
         </div>
 
         <div className="flex flex-col sm:flex-row gap-3 border border-[#F0F3F5] p-4 bg-white rounded-lg">
@@ -146,7 +170,7 @@ const PagesDashboard = () => {
             value={searchPath}
             onChange={(e) => setSearchPath(e.target.value)}
           />
-          <DropDown />
+          {/* <DropDown /> */}
         </div>
       </div>
 

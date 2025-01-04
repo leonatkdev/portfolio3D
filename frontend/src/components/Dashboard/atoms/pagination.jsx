@@ -35,13 +35,13 @@ const Pagination = ({items = [], itemsPerPage = '10'}) => {
     <>
       <div className="bg-white px-4 py-4"> 
   
-        <p class="text-sm text-gray-700 mb-4">
+        <p className="text-sm text-gray-700 mb-4">
           Showing 
-          <span class="font-medium mx-1">1</span>
+          <span className="font-medium mx-1">1</span>
           to
-          <span class="font-medium mx-1">{itemsPerPage}</span>
+          <span className="font-medium mx-1">{itemsPerPage}</span>
           of
-          <span class="font-medium mx-1">{resultsLenght}</span>
+          <span className="font-medium mx-1">{resultsLenght}</span>
           results
         </p>
       

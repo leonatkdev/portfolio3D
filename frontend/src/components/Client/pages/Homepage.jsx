@@ -8,6 +8,7 @@ import {
     Works,
     Feedbacks,
     Contact,
+    Certificate,
     StarsCanvas
   } from "../../index";
   import { Helmet } from 'react-helmet';
@@ -70,6 +71,7 @@ const Homepage = () => {
      <Works />
      <Tech />
      <Experience />
+     <Certificate />
      <Feedbacks />
      <div className="relative z-0"> 
      <Contact />

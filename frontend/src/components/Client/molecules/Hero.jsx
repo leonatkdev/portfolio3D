@@ -8,6 +8,7 @@ import { FaSpotify } from "react-icons/fa";
 import { FaInstagram } from "react-icons/fa6";
 import { FaGithub } from "react-icons/fa";
 
+// import pdf from "../pdf-cv/ResumeDark.pdf"
 import { RxLinkedinLogo } from "react-icons/rx";
 
 const Hero = () => {
@@ -18,7 +19,7 @@ const Hero = () => {
     `}
     >
       <div
-        className={`inset-0 top-[120px] max-w-7xl flex flex-row items-start gap-5`}
+        className={`inset-0 top-[120px] max-w-7xl flex flex-row items-start gap-3 lg:gap-5`}
       >
         <div className="flex flex-col justify-center items-center mt-5">
           <div className="w-5 h-5 rounded-full bg-[#6366f1]" />
@@ -77,72 +78,112 @@ const Hero = () => {
             </li>
           </ul> */}
 
-
-          <a href="/path-to-your-cv/cv.pdf" download="Leonat_CV.pdf"
+          {/* <a href="/path-to-your-cv/cv.pdf" download="Leonat_CV.pdf"
            className="block w-full text-center mt-4 lg:mt-6 bg-[#915eff] p-4 px-6 rounded-full"
           >
             <button className=" font-semibold">Download CV</button>
-          </a>
+          </a> */}
+      
+          <div className="flex gap-4">
+            {/* <span className=" text-nowrap">
+              CV Mode
+            </span> */}
+            <a
+              href="pdfs/ResumeLight.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full text-center mt-4 lg:mt-6 border border-[#915eff] p-4 px-6 rounded-full"
+            >
+              Light CV
+            </a>
+            <a
+              href="pdfs/ResumeDark.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block w-full text-center mt-4 lg:mt-6 border- bg-[#915eff] p-4 px-6 rounded-full"
+            >
+              Dark CV
+            </a>
+          </div>
 
           <Spotify />
         </div>
       </div>
       <div className="flex flex-col-reverse lg:flex-col gap-6">
-           <div className="relative overflow-hidden sm:overflow-visible ">
-        <img
-          src={leoAvatar}
-          alt="hero"
-          loading="eager"
-          className=" relative z-10 w-[420px] sm:h-[420px]  object-cover  rounded-b-[50%] rotate-45 hover:rotate-0 sm:hover:scale-[1.1] sm:hover:rounded-none transition duration-500 ease-in-out"
-          width="420px"
-          height="420px"
-        />
-        <div className=" absolute top-[0px] bg-[#7126b640] border-2 border-[mediumpurple] rounded-full w-full sm:w-[420px] h-full sm:h-[420px]"></div>
+        <div className="relative overflow-hidden sm:overflow-visible ">
+          <img
+            src={leoAvatar}
+            alt="hero"
+            loading="eager"
+            className=" relative z-10 w-[420px] sm:h-[420px]  object-cover  rounded-b-[50%] rotate-45 hover:rotate-0 sm:hover:scale-[1.1] sm:hover:rounded-none transition duration-500 ease-in-out"
+            width="420px"
+            height="420px"
+          />
+          <div className=" absolute top-[0px] bg-[#7126b640] border-2 border-[mediumpurple] rounded-full w-full sm:w-[420px] h-full sm:h-[420px]"></div>
+        </div>
+        <ul className="mt-4 flex gap-4 z-30 relative justify-center">
+          <li>
+            <a
+              href="https://www.linkedin.com/in/leonat-krasniqi-6b59a0223/"
+              target="_blank"
+              rel="noreferrer"
+              className="text-[#915eff]"
+            >
+              <RxLinkedinLogo
+                title="Linkedin Logo"
+                width={32}
+                height={32}
+                className="w-8 h-8"
+              />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://github.com/leonatkdev"
+              target="_blank"
+              rel="noreferrer"
+              className="text-[#915eff]"
+            >
+              <FaGithub
+                title="Github Logo"
+                width={32}
+                height={32}
+                className="w-8 h-8"
+              />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://www.instagram.com/leonatk_1/"
+              target="_blank"
+              rel="noreferrer"
+              className="text-[#915eff]"
+            >
+              <FaInstagram
+                title="Instagram Logo"
+                width={32}
+                height={32}
+                className="w-8 h-8"
+              />
+            </a>
+          </li>
+          <li>
+            <a
+              href="https://open.spotify.com/user/31eozv4vnjfxxusxcz3673uzjgii"
+              target="_blank"
+              rel="noreferrer"
+              className="text-[#915eff]"
+            >
+              <FaSpotify
+                title="Spotify Logo"
+                width={32}
+                height={32}
+                className="w-8 h-8"
+              />
+            </a>
+          </li>
+        </ul>
       </div>
-      <ul className="mt-4 flex gap-4 z-30 relative justify-center">
-            <li>
-              <a
-                href="https://www.linkedin.com/in/leonat-krasniqi-6b59a0223/"
-                target="_blank"
-                rel="noreferrer"
-                className="text-[#915eff]"
-              >
-                <RxLinkedinLogo title="Linkedin Logo" width={32} height={32} className="w-8 h-8" />
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://github.com/leonatkdev"
-                target="_blank"
-                rel="noreferrer"
-                className="text-[#915eff]"
-              >
-                <FaGithub title="Github Logo" width={32} height={32} className="w-8 h-8" />
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://www.instagram.com/leonatk_1/"
-                target="_blank"
-                rel="noreferrer"
-                className="text-[#915eff]"
-              >
-                <FaInstagram title="Instagram Logo" width={32} height={32} className="w-8 h-8" />
-              </a>
-            </li>
-            <li>
-              <a
-                href="https://open.spotify.com/user/31eozv4vnjfxxusxcz3673uzjgii"
-                target="_blank"
-                rel="noreferrer"
-                className="text-[#915eff]"
-              >
-                <FaSpotify title="Spotify Logo" width={32} height={32} className="w-8 h-8" />
-              </a>
-            </li>
-          </ul>
-      </div>
-   
 
       <div className=" absolute z-20  xs:bottom-10 bottom-[16px] w-full flex justify-center items-center ">
         <a href="#about" aria-label="Scroll to About Me Section">

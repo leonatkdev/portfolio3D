@@ -5,6 +5,7 @@ import { styles } from "../../../style";
 import { git, github } from "../../../assets";
 import { SectionWrapper } from "../../../hoc";
 import { projects } from "../constants";
+import { FaGithub } from "react-icons/fa";
 import { fadeIn, textVariant } from "../../../utils/motion";
 
 const ProjectCard = ({
@@ -42,19 +43,33 @@ const ProjectCard = ({
           <h3 className=" text-white font-bold text-[24px]">{name}</h3>
           <p className=" mt-2 text-secondary  text-[14px]">{description}</p>
         </div>
-     { github_repo_link &&  <a
-          href={github_repo_link}
-          className=" flex items-center rounded-full text-indigo-400 underline mb-2 gap-1"
-        >
-          Github Repo
-          <img src={github} alt="Github" className=" w-5 h-5 object-contain" />
-        </a>}
-      {source_code_link &&  <a
-          href={source_code_link}
-          className=" flex rounded-full  text-indigo-400 underline gap-1"
-        >
-          Project Live
-        </a>}
+        {github_repo_link && (
+          <a
+            href={github_repo_link}
+            target="_blank"
+            rel="noreferrer"
+            className=" flex items-center rounded-full text-indigo-400 underline mb-2 gap-1"
+          >
+            Github Repo
+            <FaGithub
+              title="Github Logo"
+              width={32}
+              height={32}
+              className="w-5 h-5"
+            />
+            {/* <img src={github} alt="Github" className=" w-5 h-5 object-contain" /> */}
+          </a>
+        )}
+        {source_code_link && (
+          <a
+            href={source_code_link}
+            target="_blank"
+            rel="noreferrer"
+            className=" flex rounded-full  text-indigo-400 underline gap-1"
+          >
+            Project Live
+          </a>
+        )}
         <div className="mt-4 flex flex-wrap gap-2">
           {tags?.map((tag) => (
             <p key={tag.name} className={`text-[14px] ${tag.color}`}>

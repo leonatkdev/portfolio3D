@@ -19,19 +19,20 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" exact element={<Homepage />} />
-        <Route path="/blogs" element={<Blogs />} />
-        <Route path="/blog/:id" element={<BlogPage />} />(
+        {/* <Route path="/blogs" element={<Blogs />} />
+        <Route path="/blog/:id" element={<BlogPage />} />( */}
         <>
-          <Route
+          {/* <Route
             path="/dashboard"
             element={
               <DashboardLayout>
                 <Dashboard />
               </DashboardLayout>
             }
-          />
+          /> */}
           <Route
-            path="/dashboard/pages"
+          // path="/dashboard/pages"
+            path="/dashboard"
             element={
               <DashboardLayout>
                 <PagesDashboard />
@@ -49,7 +50,7 @@ const App = () => {
               </DashboardLayout>
             }
           />
-          <Route
+          {/* <Route
             path="/dashboard/sections"
             element={
               <DashboardLayout>
@@ -64,7 +65,7 @@ const App = () => {
                 <Users title="Authors" />
               </DashboardLayout>
             }
-          />
+          /> */}
         </>
         )
         <Route path="/profile" element={<Profiles />} />

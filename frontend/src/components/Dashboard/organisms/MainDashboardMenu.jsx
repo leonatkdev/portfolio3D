@@ -12,9 +12,11 @@ import { AiOutlineDeploymentUnit } from "react-icons/ai";
 import { AiOutlineSetting } from "react-icons/ai";
 import SecondDashboardMenu from "../molecules/SecondDashboardMenu";
 import { Link } from "react-router-dom";
+import { RxAvatar } from "react-icons/rx";
+
 
 const DashboardMenu = ({ isAdmin = false, showDashboard, setShowDashboard }) => {
-  const [activeTab, setActive] = useState("Home");
+  const [activeTab, setActive] = useState("Posts");
   const [favorite, setFavorite] = useState([]);
 
   const addFavorite = (obj) => {
@@ -29,18 +31,19 @@ const DashboardMenu = ({ isAdmin = false, showDashboard, setShowDashboard }) => 
   };
 
   const mainDashboardData = [
-    {
-      label: "Home",
-      icon: <HomeSvg />,
+    // {
+    //   label: "Home",
+    //   icon: <HomeSvg />,
+    // },
+     {
+      label: "Posts",
+      icon: <PostsSvg />,
     },
     {
       label: "Favorite",
       icon: <StarSvg />,
     },
-    {
-      label: "Posts",
-      icon: <PostsSvg />,
-    },
+   
   ];
 
   const mainDashboardDataAsAdmin = [
@@ -89,11 +92,12 @@ const DashboardMenu = ({ isAdmin = false, showDashboard, setShowDashboard }) => 
           <div className="flex flex-col items-center gap-4">
             <AiOutlineSetting className="w-5 h-5" />
             <Link to={`/profile`}>
-              <img
+              {/* <img
                 src={avatar}
                 alt="Leonat Krasniqi Logo"
                 className=" w-10 h-10 sm:w-12 sm:h-12 object-contain rounded-2xl border border-white"
-              />
+              /> */}
+              <RxAvatar  className=" w-8 h-8 "/>
             </Link>
           </div>
 

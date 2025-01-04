@@ -3,6 +3,7 @@ import { avatar } from "../../../assets";
 import { BiMessageSquareDetail } from "react-icons/bi";
 import CoolBg from "../../../assets/cololbg.jpg";
 import DashboardLayout from "../templates/DashboardLayout";
+import { RxAvatar } from "react-icons/rx";
 
 const dummyTeamMembers = [
   {
@@ -43,20 +44,21 @@ const Profile = () => {
             height={500}
             alt="Cool Background"
           />
-          <img
+          {/* <img
             className="rounded-full w-[120px] h-[120px] border-2 border-white relative mt-[-3rem] ml-[2rem]"
             src={avatar}
             width={120}
             height={120}
             alt="Profile img"
-          />
+          /> */}
+          <RxAvatar  className="rounded-full w-[120px] h-[120px] border-2 border-white bg-white relative mt-[-3rem] ml-[2rem]" />
           <div className="p-4 flex justify-between">
             <div>
-              <p className="font-bold text-2xl text-[#1C1E1F]">Leo</p>
+              <p className="font-bold text-2xl text-[#1C1E1F]">Guest</p>
               <p className=" text-[#424444] text-sm mt-1">
-                Tech lead at #Dev Team
+                Full Stack Developer
               </p>
-              <p className=" text-xs mt-1 mb-2">🇫🇷 Annecy, France</p>
+              <p className=" text-xs mt-1 mb-2">🇽🇰 Prishtina, Kosova</p>
 
               <button className="bg-[#131826] text-white rounded-xl mt-2 py-2 px-4 ">
                 Message
@@ -74,7 +76,7 @@ const Profile = () => {
             </div>
           </div>
         </div>
-        <div className="bg-[#fefefe] rounded-3xl py-4  px-6">
+        {/* <div className="bg-[#fefefe] rounded-3xl py-4  px-6">
           <p className=" text-lg font-semibold mb-4">Team on people</p>
 
           {dummyTeamMembers?.map((person) => (
@@ -93,7 +95,7 @@ const Profile = () => {
                 <BiMessageSquareDetail className=" w-[30px] h-8 text-[#131826] ml-2" />
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </DashboardLayout>
   );

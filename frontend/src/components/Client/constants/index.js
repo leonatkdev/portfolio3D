@@ -46,11 +46,11 @@ export const navLinks = [
     type: "section",
     title: "Contact",
   },
-  {
-    id: "blogs",
-    type: "page",
-    title: "Blogs",
-  },
+  // {
+  //   id: "blogs",
+  //   type: "page",
+  //   title: "Blogs",
+  // },
   {
     id: "dashboard",
     type: "page",

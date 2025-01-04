@@ -90,7 +90,7 @@ const EditorHeader = ({ allComponents, id, PageForm }) => {
 
   return (
     <div className="flex fixed z-30 w-full top-0 bg-white py-3 px-2 border-b border-[#dfe5eb]">
-      <a href="/dashboard/pages" className="px-3 py-2 mr-auto">
+      <a href="/dashboard" className="px-3 py-2 mr-auto">
         <IoReturnUpBack className="w-6 h-6" color="black" />
       </a>
       <div className="relative content-center mr-3 sm:mr-6 min-w-28">

@@ -13,8 +13,6 @@ const NavigationBar = () => {
 
   const shadow = useRef();
 
-
-
   return (
     <>
       <nav

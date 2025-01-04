@@ -1,26 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import MainDashboardMenu from "../organisms/MainDashboardMenu";
 import DashboardNavigation from "../molecules/DashboardNavigation";
-import NotFound from "../../Client/pages/NotFound";
+import { IoClose } from "react-icons/io5";
+import AUTHModal from "../molecules/AuthModal";
 
 const DashboardLayout = ({ children }) => {
-  const [showDashboard, setShowDashboard] = useState(false);
+  const [showDashboard, setShowDashboard] = useState(true);
+  const [showModaAuth, setShowModalAuth] = useState(false);
 
   const isAuthenticated = JSON.parse(sessionStorage.getItem("user")) || null;
 
-  console.log("isAuthenticated", isAuthenticated);
-
-  return isAuthenticated ? (
-    <div className="flex">
-      <MainDashboardMenu isAdmin={isAuthenticated?.role === 'admin'} showDashboard={showDashboard} setShowDashboard={setShowDashboard}/>
-      <div className="w-full bg-mainBackground text-[#121827] min-h-screen">
-        <DashboardNavigation isAdmin={isAuthenticated?.role === 'admin'}  showDashboard={showDashboard} setShowDashboard={setShowDashboard} />
-        {children}
+  return (
+    <>
+      <div className="flex">
+        <MainDashboardMenu
+          isAdmin={isAuthenticated?.role === "admin"}
+          showDashboard={showDashboard}
+          setShowDashboard={setShowDashboard}
+        />
+        <div className="w-full bg-mainBackground text-[#121827] min-h-screen">
+          <DashboardNavigation
+            isAdmin={isAuthenticated?.role === "admin"}
+            showDashboard={showDashboard}
+            setShowDashboard={setShowDashboard}
+          />
+          {React.Children.map(children, (child) =>
+            React.cloneElement(child, {
+              isAdmin: isAuthenticated?.role === "admin",
+              showModaAuth: showModaAuth, 
+              setShowModalAuth: setShowModalAuth
+            })
+          )}
+        </div>
       </div>
-    </div>
-  ) : (
-     <NotFound text="You are not authorized to view this page" />
+      {
+        showModaAuth && (
+          <AUTHModal showModaAuth={showModaAuth} setShowModalAuth={setShowModalAuth} />
+        )
+      }
+    </>
   );
 };
 
-export default DashboardLayout; 
+export default DashboardLayout;

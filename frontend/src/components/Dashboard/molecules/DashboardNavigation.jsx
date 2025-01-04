@@ -6,6 +6,7 @@ import { AiOutlineSetting } from "react-icons/ai";
 import { GrLanguage } from "react-icons/gr";
 import { IoIosArrowDown } from "react-icons/io";
 import { avatar, menu, close } from "../../../assets";
+import { RxAvatar } from "react-icons/rx";
 
 const DashboardNavigation = ({showDashboard, setShowDashboard}) => {
   const [open, setOpen] = useState(false);
@@ -26,11 +27,12 @@ const DashboardNavigation = ({showDashboard, setShowDashboard}) => {
         onClick={() => setOpen(!open)}
         className="relative flex items-center ml-4"
       >
-        <img
+        {/* <img
           src={avatar}
           alt="Leonat Krasniqi Logo"
           className=" w-10 h-10 rounded-full"
-        />
+        /> */}
+        <RxAvatar  className=" w-7 h-7 "/>
 
         <IoIosArrowDown className="ml-2" />
 

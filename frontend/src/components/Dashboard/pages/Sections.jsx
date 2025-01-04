@@ -77,12 +77,13 @@ const Sections = () => {
     <>
       <div className="p-4 pt-0">
         <h1 className="text-2xl font-bold">Section</h1>
-        <button
-          onClick={() => (window.location.href = "pages/page")}
-          class=" block m-3 mr-6 ml-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105"
-        >
+        <Link class=" block m-3 mr-6 ml-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105">
           Create page
-        </button>
+        </Link>
+        {/* <button
+          onClick={() => (window.location.href = "/dashboard/pages/page")}
+          class=" block m-3 mr-6 ml-auto bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg shadow-md transition duration-300 ease-in-out transform hover:scale-105"
+        ></button> */}
         <div className=" flex gap-3 border border-[#F0F3F5] p-4 bg-white rounded-lg">
           <InputField label="Search for Section" placeholder="Search" />
           <InputField label="Search by path" placeholder="Path" />

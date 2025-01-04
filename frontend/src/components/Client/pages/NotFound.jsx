@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import NavigationBar from "../molecules/NavigationBar";
 
 const NotFound = ({text = "Not Found" }) => {
@@ -10,9 +11,9 @@ const NotFound = ({text = "Not Found" }) => {
           {text}
           </h1>
         <div className="flex gap-3 flex-wrap">
-        <button className="border border-violet-600 px-6 py-4 rounded-xl hover:bg-violet-600" >Homepage</button>
-        <button className="border border-violet-600 px-6 py-4 rounded-xl hover:bg-violet-600">Projects</button>
-        <button className="border border-violet-600 px-6 py-4 rounded-xl hover:bg-violet-600">Blogs</button>
+        <Link to='/' className="border border-violet-600 px-6 py-4 rounded-xl hover:bg-violet-600" >Homepage</Link>
+        {/* <Link to='/blogs' className="border border-violet-600 px-6 py-4 rounded-xl hover:bg-violet-600">Blogs</Link> */}
+        <Link to='/dashboard' className="border border-violet-600 px-6 py-4 rounded-xl hover:bg-violet-600">Dashboard</Link>
         </div>
       </div>
     </>

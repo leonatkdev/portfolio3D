@@ -57,12 +57,12 @@ const PageDashboard = () => {
   const [selectedComponent, setSelectedComponent] = useState(null);
   const [selectedPosition, setSelectedPosition] = useState("");
 
-  console.log("allComponents", allComponents);
+  // console.log("allComponents", allComponents);
 
   let { id } = useParams();
 
   const isAuthenticated = JSON.parse(sessionStorage.getItem("user")) || null;
-  const isAdmin = isAuthenticated?.role === "admin";
+  const isAdmin = true //isAuthenticated?.role === "admin";
 
   useEffect(() => {
     fetchAuthors(setAuthors);
