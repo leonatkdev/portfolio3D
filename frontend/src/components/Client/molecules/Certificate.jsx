@@ -5,16 +5,16 @@ import { fadeIn, textVariant } from "../../../utils/motion";
 import { SectionWrapper } from "../../../hoc";
 import { styles } from "../../../style";
 
-import CertificateSharp from "../../../assets/certificates/csharp.png";
-// import CertificateEnglishB1 from "../../../assets/certificates/englishB1.png";
-// import CertificateEnglishB2 from "../../../assets/certificates/englishB2.png";
-import CertificateFrontend from "../../../assets/certificates/frontend.png";
-import CertificateHackathon from "../../../assets/certificates/hackathon.png";
-import CertificateIckJava from "../../../assets/certificates/ickJava.png";
-import CertificateJava from "../../../assets/certificates/java.png";
-import CertificateJuniorit from "../../../assets/certificates/juniorit.png";
-import CertificateReactNative from "../../../assets/certificates/reactNative.png";
-import CertificateWebdev from "../../../assets/certificates/webdev.png";
+import CertificateSharp from "../../../assets/certificates/csharp.webp";
+// import CertificateEnglishB1 from "../../../assets/certificates/englishB1.webp";
+// import CertificateEnglishB2 from "../../../assets/certificates/englishB2.webp";
+import CertificateFrontend from "../../../assets/certificates/frontend.webp";
+import CertificateHackathon from "../../../assets/certificates/hackathon.webp";
+import CertificateIckJava from "../../../assets/certificates/ickJava.webp";
+import CertificateJava from "../../../assets/certificates/java.webp";
+import CertificateJuniorit from "../../../assets/certificates/juniorit.webp";
+import CertificateReactNative from "../../../assets/certificates/reactNative.webp";
+import CertificateWebdev from "../../../assets/certificates/webdev.webp";
 
 const certificate = [
   { name: "React Native", imagesrc: CertificateReactNative },
