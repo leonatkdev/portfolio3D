@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "./components/Client/pages/Homepage";
-import Dashboard from "./components/Dashboard/pages/Dashboard";
-import BlogPage from "./components/Client/pages/BlogPage";
-import Blogs from "./components/Client/pages/Blogs";
-import Profiles from "./components/Dashboard/pages/Profile";
+// import Dashboard from "./components/Dashboard/pages/Dashboard";
+// import BlogPage from "./components/Client/pages/BlogPage";
+// import Blogs from "./components/Client/pages/Blogs";
+// import Profiles from "./components/Dashboard/pages/Profile";
 import NotFound from "./components/Client/pages/NotFound";
 
 // Dashboard
-import DashboardLayout from "./components/Dashboard/templates/DashboardLayout";
-import PagesDashboard from "./components/Dashboard/pages/Pages";
-import Users from "./components/Dashboard/pages/Users";
-import Page from "./components/Dashboard/pages/page-editor/Page";
-import Sections from "./components/Dashboard/pages/Sections";
+// import DashboardLayout from "./components/Dashboard/templates/DashboardLayout";
+// import PagesDashboard from "./components/Dashboard/pages/Pages";
+// import Users from "./components/Dashboard/pages/Users";
+// import Page from "./components/Dashboard/pages/page-editor/Page";
+// import Sections from "./components/Dashboard/pages/Sections";
 
 const App = () => {
   return (
@@ -30,7 +30,7 @@ const App = () => {
               </DashboardLayout>
             }
           /> */}
-          <Route
+          {/* <Route
           // path="/dashboard/pages"
             path="/dashboard"
             element={
@@ -49,7 +49,7 @@ const App = () => {
                 <Users title="Users" api="users" />
               </DashboardLayout>
             }
-          />
+          /> */}
           {/* <Route
             path="/dashboard/sections"
             element={
@@ -67,8 +67,8 @@ const App = () => {
             }
           /> */}
         </>
-        )
-        <Route path="/profile" element={<Profiles />} />
+        
+        {/* <Route path="/profile" element={<Profiles />} /> */}
         {/* <Route path="/dashboard/*" element={<NotFound />} /> */}
         <Route path="*" element={<NotFound />} />
       </Routes>

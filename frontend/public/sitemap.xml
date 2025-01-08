@@ -17,7 +17,7 @@
   </url> -->
 
   <!-- Dashboard (if public) -->
-  <url>
+  <!-- <url>
     <loc>https://leonat.dev/dashboard</loc>
     <lastmod>2025-01-02</lastmod>
     <changefreq>monthly</changefreq>
@@ -29,5 +29,5 @@
     <lastmod>2025-01-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-  </url>
+  </url> -->
 </urlset>

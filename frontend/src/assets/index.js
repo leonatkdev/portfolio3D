@@ -1,4 +1,5 @@
 import logo from "./logoWhite.svg";
+import logoBlack from './logo.svg'
 import backend from "./backend.png";
 import creator from "./creator.png";
 import mobile from "./mobile.png";
@@ -33,6 +34,7 @@ import avatar from './avatar.png'
 
 export {
   logo,
+  logoBlack,
   backend,
   creator,
   mobile,

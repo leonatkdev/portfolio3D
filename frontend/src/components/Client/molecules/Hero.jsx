@@ -89,7 +89,7 @@ const Hero = () => {
               CV Mode
             </span> */}
             <a
-              href="pdfs/ResumeLight.pdf"
+              href="cv/Leonat-CV.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="block w-full text-center mt-4 lg:mt-6 border border-[#915eff] p-4 px-6 rounded-full"
@@ -97,7 +97,7 @@ const Hero = () => {
               Light CV
             </a>
             <a
-              href="pdfs/ResumeDark.pdf"
+              href="cv/Leonat-CV-dark.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="block w-full text-center mt-4 lg:mt-6 border- bg-[#915eff] p-4 px-6 rounded-full"
@@ -115,7 +115,7 @@ const Hero = () => {
             src={leoAvatar}
             alt="hero"
             loading="eager"
-            className=" relative z-10 w-[420px] sm:h-[420px]  object-cover  rounded-b-[50%] rotate-45 hover:rotate-0 sm:hover:scale-[1.1] sm:hover:rounded-none transition duration-500 ease-in-out"
+            className=" relative z-10 w-[420px] sm:h-[420px] sm:w-[420px]  object-cover  rounded-b-[100%] rotate-45 hover:rotate-0 sm:hover:scale-[1.0] transition duration-500 ease-in-out"
             width="420px"
             height="420px"
           />

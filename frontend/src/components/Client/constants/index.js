@@ -1,5 +1,6 @@
 import {
   logo,
+  logoBlack,
   mobile,
   backend,
   creator,
@@ -25,11 +26,49 @@ import {
   starLabs,
 } from "../../../assets";
 
+// export const navLinks = [
+//   {
+//     id: "about",
+//     type: "section",
+//     title: "About",
+//   },
+//   {
+//     id: "projects",
+//     type: "section",
+//     title: "Projects",
+//   },
+//   {
+//     id: "work",
+//     type: "section",
+//     title: "Work",
+//   },
+//   {
+//     id: "certificates",
+//     type: "section",
+//     title: "Certificates",
+//   },
+//   {
+//     id: "contact",
+//     type: "section",
+//     title: "Contact",
+//   },
+//   // {
+//   //   id: "blogs",
+//   //   type: "page",
+//   //   title: "Blogs",
+//   // },
+//   // {
+//   //   id: "dashboard",
+//   //   type: "page",
+//   //   title: "Dashboard",
+//   // },
+// ];
+
 export const navLinks = [
   {
     id: "about",
     type: "section",
-    title: "About",
+    title: "About Me",
   },
   {
     id: "projects",
@@ -42,21 +81,17 @@ export const navLinks = [
     title: "Work",
   },
   {
+    id: "certificates",
+    type: "section",
+    title: "Certificates",
+  },
+  {
     id: "contact",
     type: "section",
-    title: "Contact",
-  },
-  // {
-  //   id: "blogs",
-  //   type: "page",
-  //   title: "Blogs",
-  // },
-  {
-    id: "dashboard",
-    type: "page",
-    title: "Dashboard",
+    title: "Get in Touch",
   },
 ];
+
 
 const services = [
   {
@@ -133,7 +168,7 @@ const experiences = [
     title: "Web Developer",
     company_name: "StarLabs",
     icon: starLabs, // Replace with actual icon variable
-    iconBg: "#383E56", // Example background color, adjust as needed
+    iconBg: "#fff", // Example background color, adjust as needed
     date: "August 2021 - Present",
     points: [
       "Initiated career focusing on web development with React.js and Gatsby.js, continuously enhancing both frontend and backend capabilities.",
@@ -144,7 +179,7 @@ const experiences = [
     title: "Team Leader - StarLabs Internship Program",
     company_name: "StarLabs",
     icon: starLabs, // Replace with actual icon variable
-    iconBg: "#E6DEDD", // Example background color, adjust as needed
+    iconBg: "#fff", // Example background color, adjust as needed
     // date: "Date when you started this role - Present", // Fill in the specific dates
     points: [
       "Guided and mentored interns through comprehensive 3-month development cycles, with a focus on real-world application of development skills.",
@@ -155,8 +190,8 @@ const experiences = [
     title: "Mobile App Developer",
     company_name: "Personal Projects",
 
-    icon: starLabs, // Replace with actual icon variable for your personal projects
-    iconBg: "#C2EDEC", // Example background color, adjust as needed
+    icon: logoBlack, // Replace with actual icon variable for your personal projects
+    iconBg: "#fff", // Example background color, adjust as needed
     date: " Present", // Fill in the specific dates
     points: [
       "Focused on creating mobile apps for learning, using React Native to understand mobile app functionalities and development processes.",
