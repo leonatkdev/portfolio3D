@@ -24,6 +24,7 @@ import {
   pokemonGame,
   threejs,
   starLabs,
+  realestate
 } from "../../../assets";
 
 // export const navLinks = [
@@ -91,7 +92,6 @@ export const navLinks = [
     title: "Get in Touch",
   },
 ];
-
 
 const services = [
   {
@@ -221,8 +221,28 @@ const testimonials = [
   },
 ];
 
-
 const projects = [
+  {
+    name: "Real Estate Website",
+    description: "A modern web project built with Next.js, React.js, and Tailwind CSS, inspired by a Figma Community design. Developed to showcase my frontend skills and attention to detail.",
+    tags: [
+      {
+        name: "Next JS",
+        color: "blue-text-gradient",
+      },
+      {
+        name: "React JS",
+        color: "green-text-gradient",
+      },
+      {
+        name: "Tailwind",
+        color: "pink-text-gradient",
+      },
+    ],
+    image: realestate,
+    source_code_link:
+    "https://next-js-estate.vercel.app/",
+  },
   {
     name: "DesignSuite",
     description:
@@ -244,7 +264,7 @@ const projects = [
     image: designSuite,
     source_code_link:
       "https://chromewebstore.google.com/detail/designsuite/jcadgngfdgcjoebncmimnhhgofocpeeh",
-    github_repo_link: "https://github.com/leonatkdev/Tools-google-extension"
+    github_repo_link: "https://github.com/leonatkdev/Tools-google-extension",
   },
   {
     name: "Fold VSCode",
@@ -259,7 +279,7 @@ const projects = [
     image: foldvscode,
     source_code_link:
       "https://marketplace.visualstudio.com/items?itemName=LeonatKrasniqi.foldvscode",
-      github_repo_link: 'https://github.com/leonatkdev/Fold-vscode-extension',
+    github_repo_link: "https://github.com/leonatkdev/Fold-vscode-extension",
   },
   {
     name: "Loggerv2",
@@ -273,7 +293,7 @@ const projects = [
     ],
     image: loggers,
     source_code_link: "https://www.npmjs.com/package/loggerv2",
-    github_repo_link: 'https://github.com/leonatkdev/LoggerV2'
+    github_repo_link: "https://github.com/leonatkdev/LoggerV2",
   },
   {
     name: "Encar Scrapper with(Discord)",
@@ -295,7 +315,7 @@ const projects = [
     ],
     image: discord,
     // source_code_link: "https://github.com/leonatkdev/node-js-scrapping",
-     github_repo_link:"https://github.com/leonatkdev/node-js-scrapping"
+    github_repo_link: "https://github.com/leonatkdev/node-js-scrapping",
   },
   {
     name: "Pokemon base Game",
@@ -331,7 +351,7 @@ const projects = [
     ],
     image: logo,
     source_code_link: "https://leonat.dev/",
-    github_repo_link: "https://github.com/leonatkdev/portfolio3D"
+    github_repo_link: "https://github.com/leonatkdev/portfolio3D",
   },
 ];
 

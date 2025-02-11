@@ -31,6 +31,7 @@ import discord from "./discord.webp";
 import pokemonGame from './pokemonGame.png'
 
 import avatar from './avatar.png'
+import realestate from './realestate.png'
 
 export {
   logo,
@@ -61,5 +62,6 @@ export {
   discord,
   pokemonGame,
   starLabs,
-  avatar
+  avatar,
+  realestate
 };
