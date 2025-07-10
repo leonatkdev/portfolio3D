@@ -8,9 +8,6 @@ import { SectionWrapper } from "../../../hoc";
 import { EarthCanvas } from "../canvas";
 import { slideIn } from "../../../utils/motion";
 
-//template_d0uw4cp
-//service_gcev3ld
-//2yezs8ezAkIgSIVq2
 
 const Contact = () => {
   const formRef = useRef();
@@ -28,40 +25,40 @@ const Contact = () => {
     setForm({ ...form, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-
-    emailjs
-      .send(
-        "service_gcev3ld",
-        "template_d0uw4cp",
-        {
-          from_name: form.name,
-          to_name: "Leonat",
-          from_email: form.email,
-          to_email: "leonatkdev@gmail.com",
-          message: form.message,
+  
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/contact`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-        "2yezs8ezAkIgSIVq2"
-      )
-      .then(() => {
-        setLoading(false);
-        alert("Message Sent");
-
-        setForm({
-          name: "",
-          email: "",
-          message: "",
-        });
-      }),
-      (err) => {
-        setLoading(false)
-        console.log(err);
-
-        alert("Something went wrong")
-      };
+        body: JSON.stringify({
+          from_name: form.name,
+          from_email: form.email,
+          message: form.message,
+        }),
+      });
+  
+      if (!res.ok) throw new Error("Failed to send");
+  
+      setLoading(false);
+      alert("Message Sent");
+  
+      setForm({
+        name: "",
+        email: "",
+        message: "",
+      });
+    } catch (err) {
+      setLoading(false);
+      console.error(err);
+      alert("Something went wrong");
+    }
   };
+  
 
   return (
     <div className="xl:mt-12 xl:flex-row flex-col-reverse flex gap-10 overflow-hidden">

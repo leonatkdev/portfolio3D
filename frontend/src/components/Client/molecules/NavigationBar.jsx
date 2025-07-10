@@ -5,7 +5,7 @@ import { logo, menu, close } from "../../../assets";
 import { IoClose } from "react-icons/io5";
 
 import { useNavigate } from "react-router-dom";
-import Scrollbar from "../../Dashboard/atoms/scrollbar";
+import Scrollbar from "../atoms/scrollbar";
 
 const NavigationBar = () => {
   const [active, setActive] = useState("");

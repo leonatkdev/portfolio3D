@@ -2,28 +2,18 @@ const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
-const swaggerUi = require("swagger-ui-express");
-const swaggerSpec = require("./swagger.js");
 
-// Import the router
-const sectionsRouter = require("./routes/sectionRouter");
-const authRouter = require("./routes/authRouter.js");
-const cwvRouter = require("./routes/cwvRouter.js"); 
+const nodemailer = require("nodemailer");
+
 const spotify = require("./routes/spotify.js");
-
-// Middleware for user
-const { adminAuth, userAuth } = require("./middleware/auth.js");
-
-// Connection to dbx
-const connectToDatabase = require("./db.js");
 
 const app = express();
 const Port = process.env.PORT || 4001;
 
 const allowedOrigins = ['http://localhost:5173', 'http://localhost:5174', 'https://leonat.dev'];
 
-// Middleware
 app.use(express.json()); // So you can use req.body
+app.use(cookieParser()); // So we can use res.cookie
 
 app.use(cors({
   origin: function(origin, callback){
@@ -37,22 +27,49 @@ app.use(cors({
   },
   credentials: true
 }));
-app.use(cookieParser()); // So we can use res.cookie
 
-// Routes
+
 app.get("/", (req, res) => {
   res.send("Hello Bro :) ")
 });
-
-app.use("/api", sectionsRouter);
-app.get("/admin", adminAuth , (req, res) => res.send("Admin Route"))
-app.get("/basic" , userAuth , (req, res)=> res.send("User Route") )
-
-app.use("/api/auth" , authRouter);
-app.use('/uploads', express.static('uploads'));
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-app.use("/api", cwvRouter); 
 app.use("/", spotify);
+
+app.post("/contact", async (req, res) => {
+  console.log('process.env.EMAIL_USER', process.env.EMAIL_USER)
+  console.log('process.env.EMAIL_PASS', process.env.EMAIL_PASS)
+  const { from_name, from_email, message } = req.body;
+
+  if (!from_name || !from_email || !message) {
+    return res.status(400).json({ error: "All fields are required." });
+  }
+
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
+      },
+    });
+
+    await transporter.sendMail({
+      from: `"${from_name}" <${from_email}>`,
+      to: "leonatkdev@gmail.com",
+      subject: `New message from ${from_name}`,
+      html: `
+        <p><strong>Name:</strong> ${from_name}</p>
+        <p><strong>Email:</strong> ${from_email}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message}</p>
+      `,
+    });
+
+    res.status(200).json({ message: "Email sent successfully." });
+  } catch (err) {
+    console.error("Email send error:", err);
+    res.status(500).json({ error: "Failed to send email." });
+  }
+});
 
 // Start the server
 const server = app.listen(Port, () => {
@@ -77,5 +94,3 @@ process.on("uncaughtException", (err) => {
   process.exit(1);
 });
 
-// Connect to the database
-connectToDatabase();

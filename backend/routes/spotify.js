@@ -29,6 +29,7 @@ router.get('/login', (req, res) => {
         state: '123456',
         prompt: 'consent'
       });
+      console.log('authUrl', authUrl)
     res.redirect(authUrl);
   });
   

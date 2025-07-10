@@ -11,7 +11,7 @@ const Spotify = () => {
       // console.log("here");
       try {
         const response = await axios.get(
-          "https://portfolio3d-c4gq.onrender.com/recently-played"
+          `${import.meta.env.VITE_API_URL}/recently-played`
         );
         // console.log("response", response);
         setTrack(response.data);
