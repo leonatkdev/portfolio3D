@@ -137,7 +137,7 @@ const Hero = () => {
             </motion.a>
           </motion.div>
 
-          <Spotify />
+          {/* <Spotify /> */}
         </motion.div>
       </div>
       <motion.div 
