@@ -16,7 +16,7 @@ import {
   mongodb,
   git,
   figma,
-  designSuite,
+  DevKit,
   foldvscode,
   loggers,
   // github,
@@ -24,7 +24,8 @@ import {
   pokemonGame,
   threejs,
   starLabs,
-  realestate
+  realestate,
+  hellocareicon
 } from "../../../assets";
 
 // export const navLinks = [
@@ -164,41 +165,51 @@ const technologies = [
 ];
 
 const experiences = [
-  {
-    title: "Web Developer",
-    company_name: "StarLabs",
-    icon: starLabs, // Replace with actual icon variable
-    iconBg: "#fff", // Example background color, adjust as needed
-    date: "August 2021 - Present",
-    points: [
-      "Initiated career focusing on web development with React.js and Gatsby.js, continuously enhancing both frontend and backend capabilities.",
-      "Developed mobile apps for personal learning and exploration outside of StarLabs responsibilities, focusing on React Native for mobile app development.",
-    ],
-  },
-  {
-    title: "Team Leader - StarLabs Internship Program",
-    company_name: "StarLabs",
-    icon: starLabs, // Replace with actual icon variable
-    iconBg: "#fff", // Example background color, adjust as needed
-    // date: "Date when you started this role - Present", // Fill in the specific dates
-    points: [
-      "Guided and mentored interns through comprehensive 3-month development cycles, with a focus on real-world application of development skills.",
-      "Promoted a collaborative learning environment, ensuring project milestones were met and facilitating a productive internship experience.",
-    ],
-  },
-  {
+   {
     title: "Mobile App Developer",
     company_name: "Personal Projects",
-
-    icon: logoBlack, // Replace with actual icon variable for your personal projects
-    iconBg: "#fff", // Example background color, adjust as needed
-    date: " Present", // Fill in the specific dates
+    icon: logoBlack, 
+    iconBg: "#fff",
+    date: "Present",
     points: [
-      "Focused on creating mobile apps for learning, using React Native to understand mobile app functionalities and development processes.",
-      "Applied knowledge gained from web development to build and enhance mobile applications, improving skills in cross-platform development.",
+      "Created mobile apps with React Native to practice and enhance skills.",
+      "Explored cross-platform development and app functionality.",
+      "Integrated APIs for real-time data and dynamic app features.",
+      "Focused on performance optimization and smooth user experience.",
+      "Adopted best practices in mobile UI/UX design for usability.",
+    ],
+  },{
+    title: "Frontend Developer",
+    company_name: "HelloCare.ai",
+    icon: hellocareicon, 
+    iconBg: "#fff",
+    date: "August 2025 - Present",
+    points: [
+      "Build and maintain frontend infrastructure for the telehealth platform.",
+      "Implement responsive, accessible, and user-friendly interfaces.",
+      "Collaborate with product, design, and backend teams to deliver features.",
+      "Contribute to technical decisions and ensure scalable solutions.",
+    ],
+  },
+ 
+  {
+    title: "Web Developer & Internship Team Leader",
+    company_name: "StarLabs",
+    icon: starLabs,
+    iconBg: "#fff",
+    date: "August 2021 - August 2025",
+    points: [
+      "Started career focusing on web development with React.js and Gatsby.js.",
+      "Built and maintained web projects, gaining experience in full-stack development.",
+      "Applied best practices in software architecture and design patterns.",
+      "Improved code quality through modularization, reusable components, and clean structure.",
+      "Collaborated with team members to deliver scalable and maintainable applications.",
+      "Led and mentored interns in 3-month development cycles, ensuring real-world learning and project delivery.",
     ],
   },
 ];
+
+
 
 const testimonials = [
   {
@@ -244,9 +255,9 @@ const projects = [
     "https://next-js-estate.vercel.app/",
   },
   {
-    name: "DesignSuite",
+    name: "DevKit",
     description:
-      "DesignSuite is a Chrome extension that streamlines graphic design workflows, offering tools for quick edits, inspiration, and project organization in one place.",
+      "DevKit is a Chrome extension that streamlines graphic design workflows, offering tools for quick edits, inspiration, and project organization in one place.",
     tags: [
       {
         name: "HTML",
@@ -261,9 +272,9 @@ const projects = [
         color: "pink-text-gradient",
       },
     ],
-    image: designSuite,
+    image: DevKit,
     source_code_link:
-      "https://chromewebstore.google.com/detail/designsuite/jcadgngfdgcjoebncmimnhhgofocpeeh",
+      "https://chromewebstore.google.com/detail/DevKit/jcadgngfdgcjoebncmimnhhgofocpeeh",
     github_repo_link: "https://github.com/leonatkdev/Tools-google-extension",
   },
   {
@@ -350,7 +361,7 @@ const projects = [
       },
     ],
     image: logo,
-    source_code_link: "https://leonat.dev/",
+    source_code_link: "https://leonatk.dev/",
     github_repo_link: "https://github.com/leonatkdev/portfolio3D",
   },
 ];

@@ -1,7 +1,7 @@
 import logo from "./logoWhite.svg";
 import logoBlack from './logo.svg'
 import backend from "./backend.png";
-import creator from "./creator.png";
+import creator from "./react-purple.png";
 import mobile from "./mobile.png";
 import web from "./web.png";
 import github from "./github.webp";
@@ -24,7 +24,7 @@ import threejs from "./tech/threejs.webp";
 
 import starLabs from "./starlabs.webp";
 
-import designSuite from "./designsuite.png";
+import DevKit from "./devkit.png";
 import foldvscode from "./foldvscode.webp";
 import loggers from "./npm.webp";
 import discord from "./discord.webp";
@@ -32,6 +32,8 @@ import pokemonGame from './pokemonGame.png'
 
 import avatar from './avatar.png'
 import realestate from './realestate.png'
+
+import hellocareicon from "./hellocareicon.webp"
 
 export {
   logo,
@@ -56,12 +58,13 @@ export {
   tailwind,
   typescript,
   threejs,
-  designSuite,
+  DevKit,
   foldvscode,
   loggers,
   discord,
   pokemonGame,
   starLabs,
   avatar,
-  realestate
+  realestate,
+  hellocareicon
 };
