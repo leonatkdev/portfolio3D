@@ -115,26 +115,42 @@ const Hero = () => {
             {/* <span className=" text-nowrap">
               CV Mode
             </span> */}
-            <motion.a
-              href="cv/Leonat-CV.pdf"
+            {/* <motion.a
+              href="cv/LeonatKrasniqi-CV.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="block w-full text-center mt-4 lg:mt-6 border border-[#915eff] p-4 px-6 rounded-full hover:bg-[#915eff]/10 transition-all duration-300 backdrop-blur-sm"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >
-              Light CV
-            </motion.a>
-            <motion.a
-              href="cv/Leonat-CV-dark.pdf"
+              CV
+            </motion.a> */}
+            {/* <motion.a
+              href="cv/LeonatKrasniqi-CV.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="block w-full text-center mt-4 lg:mt-6 bg-gradient-to-r from-[#915eff] to-[#6366f1] p-4 px-6 rounded-full hover:shadow-lg hover:shadow-[#915eff]/50 transition-all duration-300"
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
             >
-              Dark CV
-            </motion.a>
+             CV
+            </motion.a> */}
+
+<motion.a
+  href="cv/LeonatKrasniqi-CV.pdf"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="block w-full text-center mt-4 lg:mt-6 
+             p-4 px-6 rounded-full  lg:w-3/4
+             bg-gradient-to-r from-[#915eff]/80 via-[#915eff]/50 to-[#6366f1]/80 
+             hover:shadow-lg hover:shadow-[#915eff]/50 
+             transition-all duration-300 text-white font-medium"
+  whileHover={{ scale: 1.05, y: -2 }}
+  whileTap={{ scale: 0.95 }}
+>
+ View CV
+</motion.a>
+
           </motion.div>
 
           {/* <Spotify /> */}
