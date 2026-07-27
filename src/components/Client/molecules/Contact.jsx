@@ -1,232 +1,240 @@
-import React, { useEffect, useRef, useState } from "react";
-import { motion } from "framer-motion";
-import emailjs from "@emailjs/browser";
+import { useState } from "react";
+import { LuCheck, LuCopy, LuLoader, LuMail, LuSend } from "react-icons/lu";
 
-import { styles } from "../../../style";
-import { SectionWrapper } from "../../../hoc";
+import { profile, socials } from "../constants";
+import { socialIcons } from "../atoms/SocialLinks";
+import Section from "../atoms/Section";
+import Reveal from "../atoms/Reveal";
 
-import { EarthCanvas } from "../canvas";
-import { slideIn, fadeIn } from "../../../utils/motion";
+const EMPTY_FORM = { name: "", email: "", message: "" };
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
+const validate = ({ name, email, message }) => {
+  const errors = {};
+  if (!name.trim()) errors.name = "Please add your name.";
+  if (!email.trim()) errors.email = "Please add your email.";
+  else if (!/^\S+@\S+\.\S+$/.test(email)) errors.email = "That email looks off.";
+  if (!message.trim()) errors.message = "Tell me a little about the project.";
+  return errors;
+};
+
+const Field = ({ label, error, children }) => (
+  <label className="block">
+    <span className="mb-2 block text-sm font-medium">{label}</span>
+    {children}
+    {error && (
+      <span role="alert" className="mt-1.5 block text-xs text-red-500">
+        {error}
+      </span>
+    )}
+  </label>
+);
 
 const Contact = () => {
-  const formRef = useRef();
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
-  const [loading, setLoading] = useState(false);
+  const [form, setForm] = useState(EMPTY_FORM);
   const [errors, setErrors] = useState({});
-  const [success, setSuccess] = useState(false);
+  const [status, setStatus] = useState("idle"); // idle | sending | sent | error
+  const [copied, setCopied] = useState(false);
 
-  const validateForm = () => {
-    const newErrors = {};
-    
-    if (!form.name.trim()) {
-      newErrors.name = "Name is required";
-    }
-    
-    if (!form.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(form.email)) {
-      newErrors.email = "Email is invalid";
-    }
-    
-    if (!form.message.trim()) {
-      newErrors.message = "Message is required";
-    }
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setForm((current) => ({ ...current, [name]: value }));
+    if (errors[name]) setErrors((current) => ({ ...current, [name]: "" }));
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
-    
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors({ ...errors, [name]: "" });
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(profile.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      window.location.href = `mailto:${profile.email}`;
     }
   };
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    
-    if (!validateForm()) {
+    const nextErrors = validate(form);
+    setErrors(nextErrors);
+    if (Object.keys(nextErrors).length) return;
+
+    // No backend configured? Hand the message off to the visitor's mail client.
+    if (!API_BASE) {
+      const body = encodeURIComponent(`${form.message}\n\n— ${form.name}`);
+      const subject = encodeURIComponent(`Portfolio enquiry from ${form.name}`);
+      window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
       return;
     }
-    
-    setLoading(true);
-    setSuccess(false);
+
+    setStatus("sending");
 
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/contact`, {
+      const response = await fetch(`${API_BASE}/contact`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           from_name: form.name,
           from_email: form.email,
           message: form.message,
         }),
       });
-  
-      if (!res.ok) throw new Error("Failed to send");
-  
-      setLoading(false);
-      setSuccess(true);
-      setForm({
-        name: "",
-        email: "",
-        message: "",
-      });
-      
-      // Hide success message after 5 seconds
-      setTimeout(() => setSuccess(false), 5000);
-    } catch (err) {
-      setLoading(false);
-      console.error(err);
-      alert("Something went wrong");
+
+      if (!response.ok) throw new Error("Request failed");
+
+      setForm(EMPTY_FORM);
+      setStatus("sent");
+      setTimeout(() => setStatus("idle"), 6000);
+    } catch (error) {
+      console.error(error);
+      setStatus("error");
     }
   };
-  
 
   return (
-    <div className="xl:mt-12 xl:flex-row flex-col-reverse flex gap-10 overflow-hidden">
-      <motion.div
-        variants={slideIn("left", "tween", 0.2, 1)}
-        className="flex-[0.75] bg-gradient-to-br from-black-100/80 to-tertiary/40 p-8 rounded-2xl backdrop-blur-sm border border-[#915eff]/20"
-      >
-        <p className={styles.sectionSubText}>Get in touch</p>
-        <h2 className={styles.sectionHeadText}>Contact.</h2>
-
-        {success && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="mt-4 p-4 bg-gradient-to-r from-green-500/20 to-emerald-500/20 border border-green-500/30 rounded-lg"
-          >
-            <p className="text-green-400 font-medium">Message sent successfully! I'll get back to you soon.</p>
-          </motion.div>
-        )}
-
-        <form
-          ref={formRef}
-          onSubmit={handleSubmit}
-          className="mt-12 flex flex-col gap-8"
-        >
-          <motion.label 
-            className="flex flex-col"
-            variants={fadeIn("up", "tween", 0.1, 1)}
-          >
-            <span className="text-white font-medium mb-4">Your Name</span>
-            <input
-              type="text"
-              name="name"
-              value={form.name}
-              onChange={handleChange}
-              placeholder="What's your name"
-              className={`bg-tertiary/80 py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-2 font-medium transition-all duration-300 backdrop-blur-sm ${
-                errors.name ? "border-red-500" : "border-transparent focus:border-[#915eff]"
-              }`}
-            />
-            {errors.name && (
-              <motion.span
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-red-400 text-sm mt-2"
-              >
-                {errors.name}
-              </motion.span>
-            )}
-          </motion.label>
-
-          <motion.label 
-            className="flex flex-col"
-            variants={fadeIn("up", "tween", 0.2, 1)}
-          >
-            <span className="text-white font-medium mb-4">Your Email</span>
-            <input
-              type="email"
-              name="email"
-              value={form.email}
-              onChange={handleChange}
-              placeholder="What's your email"
-              className={`bg-tertiary/80 py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-2 font-medium transition-all duration-300 backdrop-blur-sm ${
-                errors.email ? "border-red-500" : "border-transparent focus:border-[#915eff]"
-              }`}
-            />
-            {errors.email && (
-              <motion.span
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-red-400 text-sm mt-2"
-              >
-                {errors.email}
-              </motion.span>
-            )}
-          </motion.label>
-
-          <motion.label 
-            className="flex flex-col"
-            variants={fadeIn("up", "tween", 0.3, 1)}
-          >
-            <span className="text-white font-medium mb-4">Your Message</span>
-            <textarea
-              rows="7"
-              name="message"
-              value={form.message}
-              onChange={handleChange}
-              placeholder="What do you want to say?"
-              className={`bg-tertiary/80 py-4 px-6 placeholder:text-secondary text-white rounded-lg outline-none border-2 font-medium transition-all duration-300 backdrop-blur-sm resize-none ${
-                errors.message ? "border-red-500" : "border-transparent focus:border-[#915eff]"
-              }`}
-            />
-            {errors.message && (
-              <motion.span
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-red-400 text-sm mt-2"
-              >
-                {errors.message}
-              </motion.span>
-            )}
-          </motion.label>
-
-          <motion.button
-            type="submit"
-            disabled={loading}
-            className="bg-gradient-to-r from-[#915eff] to-[#6366f1] py-3 px-8 outline-none w-fit text-white font-bold shadow-lg shadow-[#915eff]/30 rounded-xl hover:shadow-xl hover:shadow-[#915eff]/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-            variants={fadeIn("up", "tween", 0.4, 1)}
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            {loading ? (
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                Sending...
+    <Section
+      id="contact"
+      eyebrow="Contact"
+      title="Let's build something"
+      description="Have a role, a product idea or a problem worth solving? Send a note and I'll reply within a couple of days."
+    >
+      <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
+        <div className="lg:col-span-5">
+          <Reveal>
+            <div className="card p-6">
+              <p className="eyebrow">Email</p>
+              <div className="mt-3 flex flex-wrap items-center gap-3">
+                <a
+                  href={`mailto:${profile.email}`}
+                  className="text-base font-medium underline-offset-4 hover:text-accent hover:underline"
+                >
+                  {profile.email}
+                </a>
+                <button
+                  type="button"
+                  onClick={copyEmail}
+                  aria-label="Copy email address"
+                  className="grid h-8 w-8 place-items-center rounded-full border border-line
+                             text-muted transition-colors hover:text-ink"
+                >
+                  {copied ? (
+                    <LuCheck className="h-3.5 w-3.5 text-emerald-500" />
+                  ) : (
+                    <LuCopy className="h-3.5 w-3.5" />
+                  )}
+                </button>
               </div>
-            ) : (
-              "Send Message"
-            )}
-          </motion.button>
-        </form>
-      </motion.div>
+            </div>
+          </Reveal>
 
-      <motion.div
-        variants={slideIn("right", "tween", 0.2, 1)}
-        className="xl:flex-1 xl:h-auto md:h-[550px] h-[350px]"
-      >
-        <EarthCanvas />
-      </motion.div>
-    </div>
+          <Reveal delay={0.06}>
+            <ul className="mt-4 space-y-2">
+              {socials.map(({ name, handle, url, icon }) => {
+                const Icon = socialIcons[icon];
+                return (
+                  <li key={name}>
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="card flex items-center gap-4 p-4 hover:border-ink/20"
+                    >
+                      <span className="grid h-9 w-9 place-items-center rounded-lg bg-subtle text-ink">
+                        <Icon className="h-4 w-4" />
+                      </span>
+                      <span className="min-w-0 flex-1">
+                        <span className="block text-sm font-medium">{name}</span>
+                        <span className="block truncate text-xs text-muted">
+                          {handle}
+                        </span>
+                      </span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </Reveal>
+        </div>
+
+        <div className="lg:col-span-7">
+          <Reveal delay={0.08}>
+            <form onSubmit={handleSubmit} noValidate className="card p-6 sm:p-8">
+              <div className="grid gap-5 sm:grid-cols-2">
+                <Field label="Name" error={errors.name}>
+                  <input
+                    type="text"
+                    name="name"
+                    value={form.name}
+                    onChange={handleChange}
+                    placeholder="Your name"
+                    className="field"
+                  />
+                </Field>
+
+                <Field label="Email" error={errors.email}>
+                  <input
+                    type="email"
+                    name="email"
+                    value={form.email}
+                    onChange={handleChange}
+                    placeholder="you@company.com"
+                    className="field"
+                  />
+                </Field>
+              </div>
+
+              <div className="mt-5">
+                <Field label="Message" error={errors.message}>
+                  <textarea
+                    rows="6"
+                    name="message"
+                    value={form.message}
+                    onChange={handleChange}
+                    placeholder="What are you working on?"
+                    className="field resize-none"
+                  />
+                </Field>
+              </div>
+
+              <div className="mt-6 flex flex-wrap items-center gap-4">
+                <button
+                  type="submit"
+                  disabled={status === "sending"}
+                  className="btn-primary"
+                >
+                  {status === "sending" ? (
+                    <>
+                      <LuLoader className="h-4 w-4 animate-spin" />
+                      Sending
+                    </>
+                  ) : (
+                    <>
+                      <LuSend className="h-4 w-4" />
+                      Send message
+                    </>
+                  )}
+                </button>
+
+                {status === "sent" && (
+                  <p className="flex items-center gap-2 text-sm text-emerald-600 dark:text-emerald-400">
+                    <LuCheck className="h-4 w-4" />
+                    Message sent — talk soon.
+                  </p>
+                )}
+
+                {status === "error" && (
+                  <p className="flex items-center gap-2 text-sm text-red-500">
+                    <LuMail className="h-4 w-4" />
+                    Sending failed. Email me at {profile.email} instead.
+                  </p>
+                )}
+              </div>
+            </form>
+          </Reveal>
+        </div>
+      </div>
+    </Section>
   );
 };
 
-export default SectionWrapper(Contact, "contact");
+export default Contact;

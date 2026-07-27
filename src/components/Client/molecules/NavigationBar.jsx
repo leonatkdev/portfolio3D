@@ -1,137 +1,160 @@
-import { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import { navLinks } from "../constants";
-import { logo, menu, close } from "../../../assets";
-import { IoClose } from "react-icons/io5";
-import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { LuMenu, LuX } from "react-icons/lu";
 
-import { useNavigate } from "react-router-dom";
-import Scrollbar from "../atoms/scrollbar";
+import { navLinks, profile } from "../constants";
+import { useActiveSection } from "../../../hooks/useActiveSection";
+import ThemeToggle from "../atoms/ThemeToggle";
+import ScrollProgress from "../atoms/ScrollProgress";
 
 const NavigationBar = () => {
-  const [active, setActive] = useState("");
-  const [toggle, setToggle] = useState(false);
-  const [isDesktop, setIsDesktop] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const shadow = useRef();
+  const sectionIds = useMemo(() => navLinks.map((link) => link.id), []);
+  const activeId = useActiveSection(sectionIds);
 
   useEffect(() => {
-    const checkScreenSize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
-    };
-    
-    checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-    
-    return () => window.removeEventListener('resize', checkScreenSize);
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Close the mobile sheet on Escape and lock the page behind it.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKeyDown = (event) => event.key === "Escape" && setMenuOpen(false);
+    document.addEventListener("keydown", onKeyDown);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
 
   return (
     <>
-      <motion.nav
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6 }}
-        className={`w-full z-50 flex items-center px-3 lgpx-16 py-3 lg:py-5 lg:px-5 fixed top-0 bg-primary/80 backdrop-blur-md border-b border-[#915eff]/20`}
-      >
-        <div className="w-full flex justify-between items-center max-w-7xl mx-auto gap-3">
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Link
-              to="/"
-              className="flex items-center gap-2"
-              onClick={() => {
-                setActive("");
-                window.scroll(0, 0);
-              }}
-            >
-              <motion.img
-                src={logo}
-                alt="Leonat Krasniqi Logo"
-                className="w-10 h-10 lg:w-12 lg:h-12 object-contain"
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.6 }}
-              />
-              <p className="text-white text-[14px] lg:text-[18px] font-bold cursor-pointer">
-                 <span className="lg:block">Full Stack Developer</span>
-              </p>
-            </Link>
-          </motion.div>
+      <ScrollProgress />
 
-          <motion.div
-            ref={shadow}
-            initial={false}
-            animate={{
-              opacity: isDesktop ? 1 : (toggle ? 1 : 0),
-              scale: isDesktop ? 1 : (toggle ? 1 : 0.95),
-              y: isDesktop ? 0 : (toggle ? 0 : -20)
-            }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className={`${
-              !toggle ? "hidden lg:flex" : "flex"
-            } absolute top-[60px] bg-gradient-to-br from-primary to-tertiary backdrop-blur-xl p-6 lg:p-0 right-0 left-0 min-w[140px] h-screen z-10 lg:h-min lg:flex lg:static lg:mx-4 lg:my-2 lg:top-20 lg:bg-none border-t border-[#915eff]/20 lg:border-none shadow-2xl lg:shadow-none`}
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70]
+                   focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-sm
+                   focus:text-accent-contrast"
+      >
+        Skip to content
+      </a>
+
+      <header
+        className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+          scrolled || menuOpen
+            ? "border-b border-line bg-bg/80 backdrop-blur-xl"
+            : "border-b border-transparent"
+        }`}
+      >
+        <nav
+          className="container-page flex h-16 items-center justify-between gap-4"
+          aria-label="Primary"
+        >
+          <a
+            href="#top"
+            className="flex items-center gap-2.5 text-sm font-semibold tracking-tight"
           >
-              <ul className="w-full h-fit list-none flex items-start flex-col gap-4 lg:flex-row lg:justify-end">
-                {navLinks.map((link, index) => (
-                  <motion.li
-                    key={link.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.3, delay: index * 0.1 }}
-                    onClick={() => {
-                      setToggle(!toggle);
-                      setActive(link.title);
-                    }}
-                    className="relative group"
+            <span
+              className="grid h-8 w-8 place-items-center rounded-lg bg-ink font-mono
+                         text-[11px] font-medium text-bg"
+            >
+              {profile.initials}
+            </span>
+            <span className="hidden sm:inline">{profile.name}</span>
+          </a>
+
+          <ul className="hidden items-center gap-1 md:flex">
+            {navLinks.map((link) => {
+              const isActive = activeId === link.id;
+              return (
+                <li key={link.id}>
+                  <a
+                    href={`#${link.id}`}
+                    aria-current={isActive ? "true" : undefined}
+                    className={`relative rounded-full px-3.5 py-2 text-sm transition-colors duration-200 ${
+                      isActive ? "text-ink" : "text-muted hover:text-ink"
+                    }`}
                   >
-                    <motion.a
-                      href={link.type === "page" ? `${link.id}` : `/#${link.id}`}
-                      className={`${
-                        active === link.title
-                          ? "text-white"
-                          : "text-white lg:text-white"
-                      } hover:text-white text-[18px] font-medium cursor-pointer transition-colors duration-300 relative z-10 px-3 py-2 rounded-lg hover:bg-[#915eff]/10`}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
+                    {isActive && (
+                      <motion.span
+                        layoutId="nav-pill"
+                        className="absolute inset-0 -z-10 rounded-full bg-subtle"
+                        transition={{ type: "spring", stiffness: 380, damping: 32 }}
+                      />
+                    )}
+                    {link.title}
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
+
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <a href="#contact" className="btn-primary hidden sm:inline-flex">
+              Get in touch
+            </a>
+            <button
+              type="button"
+              onClick={() => setMenuOpen((open) => !open)}
+              aria-expanded={menuOpen}
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              className="grid h-9 w-9 place-items-center rounded-full border border-line
+                         bg-surface text-ink md:hidden"
+            >
+              {menuOpen ? (
+                <LuX className="h-4 w-4" />
+              ) : (
+                <LuMenu className="h-4 w-4" />
+              )}
+            </button>
+          </div>
+        </nav>
+
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+              className="overflow-hidden border-t border-line bg-bg md:hidden"
+            >
+              <ul className="container-page flex flex-col py-3">
+                {navLinks.map((link) => (
+                  <li key={link.id}>
+                    <a
+                      href={`#${link.id}`}
+                      onClick={() => setMenuOpen(false)}
+                      className={`block border-b border-line/70 py-3.5 text-base transition-colors ${
+                        activeId === link.id ? "text-ink" : "text-muted"
+                      }`}
                     >
                       {link.title}
-                      {active === link.title && (
-                        <motion.div
-                          layoutId="activeTab"
-                          className="absolute inset-0 bg-gradient-to-r from-[#915eff]/20 to-[#6366f1]/20 rounded-lg -z-10"
-                          initial={false}
-                          transition={{ type: "spring", stiffness: 500, damping: 30 }}
-                        />
-                      )}
-                    </motion.a>
-                  </motion.li>
+                    </a>
+                  </li>
                 ))}
+                <li className="pt-4">
+                  <a
+                    href="#contact"
+                    onClick={() => setMenuOpen(false)}
+                    className="btn-primary w-full"
+                  >
+                    Get in touch
+                  </a>
+                </li>
               </ul>
-          </motion.div>
-
-          <div className="lg:hidden flex justify-end items-center">
-            <motion.button
-              className="p-2 rounded-lg hover:bg-[#915eff]/10 transition-colors duration-300"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
-              onClick={() => setToggle(!toggle)}
-            >
-              <motion.img
-                src={toggle ? close : menu}
-                alt="menu"
-                className={`w-[20px] h-[20px] object-contain cursor-pointer ${
-                  toggle && " w-[16px] h-[16px]"
-                }`}
-                animate={{ rotate: toggle ? 180 : 0 }}
-                transition={{ duration: 0.3 }}
-              />
-            </motion.button>
-          </div>
-        </div>
-      </motion.nav>
-      <Scrollbar />
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
     </>
   );
 };

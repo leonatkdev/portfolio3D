@@ -1,21 +1,36 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import NavigationBar from "../molecules/NavigationBar";
+import { LuArrowLeft } from "react-icons/lu";
 
-const NotFound = ({text = "Not Found" }) => {
-  return (
-    <>
-      <NavigationBar  />
-      <div className={`bg-hero-pattern h-screen bg-repeat-round flex flex-col items-center justify-center`}>
-        <h1 className={` max-w-7xl sm:p-4 font-extrabold lg:text-[80px] sm:text-[60px] xs:text-[50px] text-[40px] lg:leading-[98px] mt-2 mb-3 shadow-lg text-transparent bg-clip-text bg-gradient-to-r from-violet-500 to-fuchsia-500 text-center`}>
-          {text}
-          </h1>
-        <div className="flex gap-3 flex-wrap">
-        <Link to='/' className="border border-violet-600 px-6 py-4 rounded-xl hover:bg-violet-600" >Homepage</Link>
-        </div>
-      </div>
-    </>
-  );
-};
+import { profile } from "../constants";
+import ThemeToggle from "../atoms/ThemeToggle";
+
+const NotFound = () => (
+  <div className="relative grid min-h-screen place-items-center overflow-hidden px-6">
+    <div
+      className="pointer-events-none absolute inset-0 -z-10 grid-bg"
+      aria-hidden="true"
+    />
+
+    <div className="absolute right-6 top-6">
+      <ThemeToggle />
+    </div>
+
+    <div className="text-center">
+      <p className="eyebrow">Error 404</p>
+      <h1 className="mt-5 text-display-sm sm:text-display">
+        This page doesn&apos;t exist.
+      </h1>
+      <p className="mx-auto mt-5 max-w-md text-base text-muted">
+        The link may be outdated or mistyped. Everything about {profile.name} is
+        one click away.
+      </p>
+
+      <Link to="/" className="btn-primary mt-9">
+        <LuArrowLeft className="h-4 w-4" />
+        Back to homepage
+      </Link>
+    </div>
+  </div>
+);
 
 export default NotFound;

@@ -1,44 +1,70 @@
 /** @type {import('tailwindcss').Config} */
-export default{
-  content: ["./src/**/*.{html,js,jsx}"],
-  mode: "jit",
+export default {
+  content: ["./index.html", "./src/**/*.{html,js,jsx}"],
+  darkMode: "class",
   theme: {
     extend: {
       colors: {
-        MainTextColor: "#000624",
-        SecondaryTextColor: "#6F7679",
-        primary: "#050816",
-        secondary: "#aaa6c3",
-        tertiary: "#151030",
-        "black-100": "#100d25",
-        "black-200": "#090325",
-        "white-100": "#f3f3f3",
-        "costume": "rgb(29 24 54 / 88%)",
+        // Every token is a CSS variable so light/dark share one class name.
+        bg: "rgb(var(--bg) / <alpha-value>)",
+        subtle: "rgb(var(--bg-subtle) / <alpha-value>)",
+        surface: "rgb(var(--surface) / <alpha-value>)",
+        line: "rgb(var(--border) / <alpha-value>)",
+        ink: "rgb(var(--fg) / <alpha-value>)",
+        muted: "rgb(var(--fg-muted) / <alpha-value>)",
+        faint: "rgb(var(--fg-faint) / <alpha-value>)",
+        accent: "rgb(var(--accent) / <alpha-value>)",
+        "accent-contrast": "rgb(var(--accent-contrast) / <alpha-value>)",
+      },
+      fontFamily: {
+        sans: [
+          "Inter",
+          "ui-sans-serif",
+          "system-ui",
+          "-apple-system",
+          "Segoe UI",
+          "Helvetica Neue",
+          "Arial",
+          "sans-serif",
+        ],
+        mono: [
+          "JetBrains Mono",
+          "ui-monospace",
+          "SFMono-Regular",
+          "Menlo",
+          "Consolas",
+          "monospace",
+        ],
+      },
+      fontSize: {
+        "display-sm": ["2.5rem", { lineHeight: "1.1", letterSpacing: "-0.03em" }],
+        display: ["3.25rem", { lineHeight: "1.05", letterSpacing: "-0.035em" }],
+        "display-lg": ["4.25rem", { lineHeight: "1", letterSpacing: "-0.04em" }],
+      },
+      borderRadius: {
+        "4xl": "2rem",
       },
       boxShadow: {
-        card: "0px 35px 120px -15px #211e35",
+        soft: "0 1px 2px rgb(0 0 0 / 0.04), 0 8px 24px -12px rgb(0 0 0 / 0.12)",
+        lift: "0 1px 2px rgb(0 0 0 / 0.05), 0 20px 40px -20px rgb(0 0 0 / 0.22)",
       },
-      screens: {
-        xs: "450px",
+      maxWidth: {
+        content: "72rem",
       },
-      backgroundImage: {
-        "hero-pattern": "url('/src/assets/herobg.webp')",
-        "custom-gradient": "linear-gradient(to bottom, #6366f1,#6366f1 ,#6366f1d1,rgb(99 102 241 / 15%))",
-        "costume-gradientTwo": "linear-gradient(to bottom, #110C24 ,#110C24 ,#110C24,rgb(99 102 241 / 15%))",
-        "midnight-city": "linear-gradient(to bottom, #232526, #414345)",
-        "forest": "linear-gradient(to bottom, #e6dada, #274046)"
+      keyframes: {
+        "fade-up": {
+          from: { opacity: "0", transform: "translateY(12px)" },
+          to: { opacity: "1", transform: "translateY(0)" },
+        },
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(-50%)" },
+        },
       },
-      backgroundColor: {
-        mainBackground: "#F3F5F6",
-        moduleBackground: "#fff",
-        tabsBackground: "#fff",
-        tabshoverBackground: "#F9FAFB",
-        hoverBackground: "#f8faff"
+      animation: {
+        "fade-up": "fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) both",
+        marquee: "marquee 40s linear infinite",
       },
-      borderColor:{
-        mainborderColor: "#dfe5eb"
-      }
-
     },
   },
   plugins: [],

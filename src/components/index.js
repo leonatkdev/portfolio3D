@@ -1,28 +1,16 @@
-import { EarthCanvas, BallCanvas, StarsCanvas } from './Client/canvas';
-import Hero from "./Client/molecules/Hero";
-import NavigationBar from "./Client/molecules/NavigationBar";
-import About from "./Client/molecules/About";
-import Tech from "./Client/molecules/Tech";
-import Experience from "./Client/molecules/Experience";
-import Works from "./Client/molecules/Works";
-import Feedbacks from "./Client/molecules/Feedback";
-import Contact from "./Client/molecules/Contact";
-import Certificate from "./Client/molecules/Certificate";
-import CanvasLoader from "./Client/templates/Loader";
+export { default as NavigationBar } from "./Client/molecules/NavigationBar";
+export { default as Hero } from "./Client/molecules/Hero";
+export { default as About } from "./Client/molecules/About";
+export { default as Experience } from "./Client/molecules/Experience";
+export { default as Works } from "./Client/molecules/Works";
+export { default as Tech } from "./Client/molecules/Tech";
+export { default as Certificate } from "./Client/molecules/Certificate";
+export { default as Feedback } from "./Client/molecules/Feedback";
+export { default as Contact } from "./Client/molecules/Contact";
+export { default as Footer } from "./Client/molecules/Footer";
 
-
-export {
-  Hero,
-  NavigationBar,
-  About,
-  Tech,
-  Experience,
-  Works,
-  Feedbacks,
-  Contact,
-  CanvasLoader,
-  EarthCanvas, 
-  BallCanvas, 
-  Certificate,
-  StarsCanvas
-};
+export { default as Section } from "./Client/atoms/Section";
+export { default as Reveal } from "./Client/atoms/Reveal";
+export { default as ThemeToggle } from "./Client/atoms/ThemeToggle";
+export { default as ScrollProgress } from "./Client/atoms/ScrollProgress";
+export { default as SocialLinks } from "./Client/atoms/SocialLinks";

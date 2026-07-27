@@ -1,48 +1,36 @@
-import { motion } from "framer-motion";
-
-import { styles } from "../../../style";
-import { SectionWrapper } from "../../../hoc";
-import { fadeIn, textVariant } from "../../../utils/motion";
+import { LuQuote } from "react-icons/lu";
 
 import { testimonials } from "../constants";
+import Section from "../atoms/Section";
+import Reveal from "../atoms/Reveal";
 
-const FeedbackCard = ({ index, testimonial, name ,designation, company, image }) => {
-  return (
-    <motion.div
-      variants={fadeIn("", "spring", index * 0.5, 0.75)}
-      className=" bg-black-200 p-10 rounded-3xl xs:w-[320px] w-full"
-    >
-      <p className=" text-white font-black text-[48px]">{`"`}</p>
-      <p className=" text-white tracking-wider text-[18px]">{testimonial}</p>
+const Feedback = () => (
+  <Section id="testimonials" eyebrow="Kind words" title="What people say">
+    <div className="grid gap-5 md:grid-cols-3">
+      {testimonials.map((item, index) => (
+        <Reveal key={item.name} delay={index * 0.06}>
+          <figure className="card flex h-full flex-col p-7">
+            <LuQuote className="h-5 w-5 text-accent" aria-hidden="true" />
 
-      <span className="block mt-3 text-[16px] text-cyan-500">@ {name}</span>
-      <p className=" mt-1 text-secondary text-[12px]">{designation} {company && "of " + company}</p>
-    </motion.div>
-  );
-};
+            <blockquote className="mt-5 flex-1 text-sm leading-relaxed text-ink">
+              {item.quote}
+            </blockquote>
 
-const Feedback = () => {
-  return (
-    <div className=" mt-12 rounded-[20px] bg-costume-gradientTwo">
-      <div
-        className={`${styles.padding} rounded-2xl `}
-      >
-        <motion.div variants={textVariant()}>
-          <p className={`${styles.sectionSubText}`}>What others say</p>
-          <h2 className={`${styles.sectionHeadText}`}>Testimonials</h2>
-        </motion.div>
-      </div>
-      <div className={`${styles.paddingX}  flex flex-wrap gap-7 pb-8`}>
-        {testimonials?.map((testimonial, index) => (
-          <FeedbackCard
-            {...testimonial}
-            index={index}
-            key={testimonial.name}
-          />
-        ))}
-      </div>
+            <figcaption className="mt-6 flex items-center gap-3 border-t border-line pt-5">
+              <span
+                className="grid h-9 w-9 place-items-center rounded-full bg-subtle
+                           font-mono text-xs text-muted"
+                aria-hidden="true"
+              >
+                {item.name.slice(0, 2).toUpperCase()}
+              </span>
+              <span className="text-sm font-medium">{item.name}</span>
+            </figcaption>
+          </figure>
+        </Reveal>
+      ))}
     </div>
-  );
-};
+  </Section>
+);
 
-export default SectionWrapper(Feedback, "");
+export default Feedback;

@@ -1,202 +1,166 @@
-import { Tilt } from "react-tilt";
-import { motion } from "framer-motion";
+import { LuArrowUpRight, LuGithub } from "react-icons/lu";
 
-import { styles } from "../../../style";
-import { git, github } from "../../../assets";
-import { SectionWrapper } from "../../../hoc";
 import { projects } from "../constants";
-import { FaGithub } from "react-icons/fa";
-import { fadeIn, textVariant } from "../../../utils/motion";
+import Section from "../atoms/Section";
+import Reveal from "../atoms/Reveal";
 
-const ProjectCard = ({
-  index,
-  name,
-  description,
-  tags,
-  image,
-  source_code_link,
-  github_repo_link,
-  uniqueKey,
-}) => {
-  return (
-    <motion.div
-      key={uniqueKey}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: index * 0.05 }}
-      viewport={{ once: true, margin: "-50px" }}
-      className="group w-full"
-    >
-      <div className="bg-gradient-to-br from-tertiary/80 to-tertiary/40 rounded-2xl backdrop-blur-sm border border-[#915eff]/20 hover:border-[#915eff]/40 transition-all duration-300 shadow-lg hover:shadow-2xl hover:shadow-[#915eff]/20 overflow-hidden">
-        {/* Desktop Layout */}
-        <div className="hidden lg:flex">
-          <div className="flex-1 p-6">
-            <div className="flex items-start justify-between mb-4">
-              <h3 className="text-white font-bold text-2xl group-hover:text-[#915eff] transition-colors duration-300">
-                {name}
-              </h3>
-              <div className="flex gap-2">
-                {github_repo_link && (
-                  <motion.a
-                    href={github_repo_link}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center bg-white/10 backdrop-blur-sm px-3 py-2 rounded-lg text-white text-sm hover:bg-white/20 transition-colors duration-300 border border-white/20"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <FaGithub className="w-4 h-4 mr-2" />
-                    Code
-                  </motion.a>
-                )}
-                {source_code_link && (
-                  <motion.a
-                    href={source_code_link}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center bg-gradient-to-r from-[#915eff] to-[#6366f1] px-3 py-2 rounded-lg text-white text-sm hover:shadow-lg hover:shadow-[#915eff]/50 transition-all duration-300"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    Live Demo
-                  </motion.a>
-                )}
-              </div>
-            </div>
-
-            <p className="text-secondary text-base leading-relaxed mb-6">
-              {description}
-            </p>
-
-            <div className="flex flex-wrap gap-2">
-              {tags?.map((tag, tagIndex) => (
-                <motion.span
-                  key={tag.name}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: tagIndex * 0.1 }}
-                  className={`text-sm px-3 py-1 rounded-full bg-gradient-to-r from-[#915eff]/20 to-[#6366f1]/20 border border-[#915eff]/30 ${tag.color}`}
-                >
-                  #{tag.name}
-                </motion.span>
-              ))}
-            </div>
-          </div>
-
-          <div className="w-80 h-64 relative overflow-hidden">
-            <motion.img
-              src={image}
-              alt={name}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              whileHover={{ scale: 1.05 }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-tertiary/20" />
-          </div>
-        </div>
-
-        {/* Mobile Layout */}
-        <div className="lg:hidden">
-          <div className="relative w-full h-48 overflow-hidden">
-            <motion.img
-              src={image}
-              alt={name}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-              whileHover={{ scale: 1.1 }}
-            />
-
-            {/* Buttons always visible on mobile */}
-            <div className="absolute bottom-4 left-4 flex gap-2">
-              {github_repo_link && (
-                <motion.a
-                  href={github_repo_link}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center bg-white/20 backdrop-blur-sm px-3 py-2 rounded-full text-white text-sm hover:bg-white/30 transition-colors duration-300"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <FaGithub className="w-4 h-4 mr-2" />
-                  Code
-                </motion.a>
-              )}
-              {source_code_link && (
-                <motion.a
-                  href={source_code_link}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center bg-[#915eff]/80 backdrop-blur-sm px-3 py-2 rounded-full text-white text-sm hover:bg-[#915eff] transition-colors duration-300"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  Live Demo
-                </motion.a>
-              )}
-            </div>
-          </div>
-
-          <div className="p-5">
-            <h3 className="text-white font-bold text-xl group-hover:text-[#915eff] transition-colors duration-300 mb-2">
-              {name}
-            </h3>
-            <p className="text-secondary text-sm leading-relaxed mb-4">
-              {description}
-            </p>
-
-            <div className="flex flex-wrap gap-2">
-              {tags?.map((tag, tagIndex) => (
-                <motion.span
-                  key={tag.name}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.3, delay: tagIndex * 0.1 }}
-                  className={`text-xs px-2 py-1 rounded-full bg-gradient-to-r from-[#915eff]/20 to-[#6366f1]/20 border border-[#915eff]/30 ${tag.color}`}
-                >
-                  #{tag.name}
-                </motion.span>
-              ))}
-            </div>
-          </div>
-        </div>
+const ProjectMedia = ({ project, className = "" }) => (
+  <div
+    className={`relative overflow-hidden bg-subtle ${className}`}
+    aria-hidden="true"
+  >
+    {project.art === "icon" ? (
+      <div className="grid h-full w-full place-items-center grid-bg p-8">
+        <img
+          src={project.image}
+          alt=""
+          loading="lazy"
+          className="h-24 w-24 rounded-2xl bg-white object-contain shadow-lift"
+        />
       </div>
-    </motion.div>
-  );
-};
+    ) : (
+      <img
+        src={project.image}
+        alt=""
+        loading="lazy"
+        className="h-full w-full object-cover object-top transition-transform
+                   duration-500 group-hover:scale-[1.03]"
+      />
+    )}
+  </div>
+);
 
-const Works = () => {
-  return (
-    <>
-      <motion.div
-      // variants={textVariant()}
-      >
-        <p className={styles.sectionSubText}>My Work</p>
-        <h2 className={styles.sectionHeadText}>Projects</h2>
-      </motion.div>
-
-      <div className=" w-full flex">
-        <motion.p
-          // variants={fadeIn()}
-          className=" mt-3 text-secondary text-[17px] max-w-3xl leading-[30px]"
+const ProjectMeta = ({ project }) => (
+  <>
+    <div className="flex items-start justify-between gap-4">
+      <div>
+        <p className="eyebrow">{project.category}</p>
+        <h3 className="mt-2 text-xl">{project.name}</h3>
+        {project.status && (
+          <p className="mt-2.5 inline-flex items-center gap-2 rounded-full bg-accent/10 px-3 py-1 text-xs text-accent">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent/70" />
+              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-accent" />
+            </span>
+            {project.status}
+          </p>
+        )}
+      </div>
+      {project.live && (
+        <span
+          className="mt-1 grid h-8 w-8 shrink-0 place-items-center rounded-full border
+                     border-line text-muted transition-all duration-300
+                     group-hover:border-transparent group-hover:bg-accent
+                     group-hover:text-accent-contrast"
+          aria-hidden="true"
         >
-          Following projects showcases my skills and experience through
-          real-world examples of my work. Each project is briefly described with
-          links to code repositories and live demos in it. It reflects my
-          ability to solve complex problems, work with different technologies,
-          and manage projects effectively.
-        </motion.p>
-      </div>
+          <LuArrowUpRight className="h-4 w-4" />
+        </span>
+      )}
+    </div>
 
-      <div className="mt-20 space-y-8">
-        {projects?.map((project, index) => (
-          <ProjectCard
-            {...project}
-            index={index}
-            uniqueKey={project.name}
-            key={project.name}
-          />
-        ))}
-      </div>
-    </>
-  );
-};
+    <p className="mt-3 text-sm leading-relaxed text-muted">
+      {project.description}
+    </p>
 
-export default SectionWrapper(Works, "projects");
+    <ul className="mt-5 flex flex-wrap gap-2">
+      {project.tags.map((tag) => (
+        <li
+          key={tag}
+          className="rounded-full border border-line px-2.5 py-1 font-mono text-[11px] text-muted"
+        >
+          {tag}
+        </li>
+      ))}
+    </ul>
+
+    <div className="mt-6 flex flex-wrap items-center gap-4 text-sm">
+      {project.live && (
+        <a
+          href={project.live}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-1.5 font-medium text-ink
+                     underline-offset-4 hover:text-accent hover:underline"
+        >
+          Visit
+          <LuArrowUpRight className="h-3.5 w-3.5" />
+        </a>
+      )}
+      {project.repo && (
+        <a
+          href={project.repo}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-1.5 text-muted
+                     underline-offset-4 hover:text-ink hover:underline"
+        >
+          <LuGithub className="h-3.5 w-3.5" />
+          Source
+        </a>
+      )}
+    </div>
+  </>
+);
+
+const Works = () => (
+  <Section
+    id="projects"
+    eyebrow="Selected work"
+    title="Things I've built and shipped"
+    description="Extensions, libraries and web apps — each one solved a problem I actually ran into. Live demos and source are linked where available."
+  >
+    <div className="grid gap-5 md:grid-cols-2">
+      {projects.map((project, index) => {
+        if (project.featured) {
+          return (
+            <Reveal
+              key={project.name}
+              delay={index * 0.05}
+              className="md:col-span-2"
+            >
+              <article className="card group h-full overflow-hidden hover:border-ink/20">
+                <div className="grid md:grid-cols-2">
+                  <ProjectMedia
+                    project={project}
+                    className={`aspect-[16/10] md:aspect-auto md:min-h-[320px] ${
+                      index % 2 === 0 ? "md:order-last" : ""
+                    }`}
+                  />
+                  <div className="flex flex-col justify-center p-7 sm:p-9">
+                    <ProjectMeta project={project} />
+                  </div>
+                </div>
+              </article>
+            </Reveal>
+          );
+        }
+
+        return (
+          <Reveal key={project.name} delay={index * 0.05}>
+            <article className="card group flex h-full flex-col overflow-hidden hover:border-ink/20">
+              <ProjectMedia project={project} className="aspect-[16/10]" />
+              <div className="flex flex-1 flex-col p-6 sm:p-7">
+                <ProjectMeta project={project} />
+              </div>
+            </article>
+          </Reveal>
+        );
+      })}
+    </div>
+
+    <Reveal delay={0.1} className="mt-10 text-center">
+      <a
+        href="https://github.com/leonatkdev"
+        target="_blank"
+        rel="noreferrer"
+        className="btn-secondary"
+      >
+        <LuGithub className="h-4 w-4" />
+        More on GitHub
+      </a>
+    </Reveal>
+  </Section>
+);
+
+export default Works;

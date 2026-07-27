@@ -2,32 +2,37 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="favicon.ico" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Leonat Krasniqi | Portfolio</title>
-    <meta name="description" content="Leonat Krasniqi is a Full Stack Web Developer specializing in front-end and back-end development.">
-    <meta name="keywords" content="Leonat Krasniqi, Full Stack Web Developer, Front-end, Back-end">
-    <meta name="author" content="Leonat Krasniqi">
-  
-    <!-- Schema.org markup for Google+ -->
-    <script type="application/ld+json">
-      {
-        "@context": "http://schema.org",
-        "@type": "Person",
-        "name": "Leonat Krasniqi",
-        "jobTitle": "Full Stack Web Developer",
-        "url": "http://www.leonat.dev",
-        "sameAs": [
-          "http://www.facebook.com/your-profile",
-          "http://www.twitter.com/your-profile",
-          "http://www.linkedin.com/in/your-profile"
-        ]
-      }
-    </script>
+    <meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b0b0d" media="(prefers-color-scheme: dark)" />
 
-    <!-- // the react-draft-wysiwyg was throwing erroe without the bellow script const global -->
+    <title>Leonat Krasniqi — Full-Stack Developer</title>
+    <meta
+      name="description"
+      content="Leonat Krasniqi is a full-stack developer building fast, accessible web and mobile products with TypeScript, React, React Native and Node.js."
+    />
+    <meta name="author" content="Leonat Krasniqi" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Applies the stored theme before first paint so the page never flashes. -->
     <script>
-      const global = globalThis;
+      (function () {
+        try {
+          var stored = localStorage.getItem("theme");
+          var dark =
+            stored === "dark" ||
+            (!stored && window.matchMedia("(prefers-color-scheme: dark)").matches);
+          document.documentElement.classList.toggle("dark", dark);
+          document.documentElement.style.colorScheme = dark ? "dark" : "light";
+        } catch (e) {}
+      })();
     </script>
   </head>
   <body>

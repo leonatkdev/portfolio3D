@@ -1,109 +1,108 @@
-import { motion } from "framer-motion";
-import { SectionWrapper } from "../../../hoc";
-import { styles } from "../../../style";
-import { services } from "../constants";
-import { fadeIn, textVariant } from "../../../utils/motion";
-import {logo} from '../../../assets'
-import React, { useRef, useState, useEffect } from "react";
+import {
+  LuLayoutDashboard,
+  LuServer,
+  LuSmartphone,
+  LuTerminal,
+} from "react-icons/lu";
 
+import { focusAreas, product, profile } from "../constants";
+import Section from "../atoms/Section";
+import Reveal from "../atoms/Reveal";
 
-const About = () => {
-  return (
-    <>
-      <motion.div variants={textVariant()}>
-        <p className={styles.sectionSubText}>Introduction</p>
-        <h2 className={styles.sectionHeadText}>About Me</h2>
-      </motion.div>
-
-      <motion.p
-        variants={fadeIn("", "", 0.1, 0.5)}
-        className="mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]"
-      >
-        I am an adept software developer specializing in TypeScript and JavaScript, with a strong foundation in both front-end and back-end frameworks such as React Native, Node.js (specifically Express.js), and others. My skill set extends to creating dynamic, efficient, and scalable applications that prioritize user experience and functionality. With a proven track record of quickly adapting to new technologies and frameworks, I excel in collaborating with clients to develop solutions that address real-world challenges. Let's collaborate to transform your vision into reality.
-      </motion.p>
-
-      {/* Mobile Grid Layout */}
-      <motion.div
-        variants={fadeIn("", "", 0.2, 0.4)}
-        className="lg:hidden mt-20"
-      >
-        <div className="grid grid-cols-2 gap-6 max-w-md mx-auto">
-          {/* Center Full Stack Card */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.3, delay: 0 }}
-            className="col-span-2 flex justify-center mb-4"
-          >
-            <motion.div
-              className="relative group cursor-pointer"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#915eff] to-[#6366f1] p-1 shadow-2xl shadow-[#915eff]/50">
-                <div className="w-full h-full rounded-full bg-tertiary/90 backdrop-blur-sm flex items-center justify-center border border-[#915eff]/30">
-                  <motion.img
-                    src={logo}
-                    alt="Full Stack"
-                    className="w-12 h-12 object-contain"
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.6 }}
-                  />
-                </div>
-              </div>
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.2, delay: 0.2 }}
-                className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 px-3 py-1 bg-black/80 backdrop-blur-sm rounded-lg border border-[#915eff]/30"
-              >
-                <span className="text-white text-sm font-medium whitespace-nowrap">
-                  Full Stack
-                </span>
-              </motion.div>
-            </motion.div>
-          </motion.div>
-
-          {/* Service Cards */}
-          {services.map((service, index) => (
-            <motion.div
-              key={service?.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, delay: (index + 1) * 0.1 }}
-              className="group"
-            >
-              <motion.div
-                className="relative bg-gradient-to-br from-tertiary/60 to-tertiary/30 p-4 rounded-xl backdrop-blur-sm border border-[#915eff]/20 hover:border-[#915eff]/40 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-[#915eff]/20 cursor-pointer"
-                whileHover={{ scale: 1.05, y: -5 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <div className="flex flex-col items-center text-center">
-                  <motion.div
-                    className="relative mb-3"
-                    whileHover={{ rotate: 360 }}
-                    transition={{ duration: 0.6 }}
-                  >
-                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-[#915eff]/20 to-[#6366f1]/20 p-2 border border-[#915eff]/30 group-hover:border-[#915eff]/60 transition-colors duration-300">
-                      <img
-                        src={service?.icon}
-                        alt={service?.title}
-                        className="w-full h-full object-contain"
-                      />
-                    </div>
-                  </motion.div>
-                  
-                  <h3 className="text-white font-semibold text-xs group-hover:text-[#915eff] transition-colors duration-300">
-                    {service?.title}
-                  </h3>
-                </div>
-              </motion.div>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
-    </>
-  );
+const icons = {
+  layout: LuLayoutDashboard,
+  server: LuServer,
+  smartphone: LuSmartphone,
+  terminal: LuTerminal,
 };
 
-export default SectionWrapper(About, "about")
+const About = () => (
+  <Section
+    id="about"
+    eyebrow="About"
+    title="A developer who cares how it feels to use."
+  >
+    <div className="grid gap-14 lg:grid-cols-12 lg:gap-16">
+      <div className="lg:col-span-5">
+        <Reveal className="space-y-5 text-base leading-relaxed text-muted">
+          <p>
+            I&apos;m {profile.name.split(" ")[0]}, a software engineer in{" "}
+            {profile.location} with {profile.yearsExperience}+ years of
+            hands-on full-stack experience, primarily focused on front-end
+            engineering. I build scalable, high-performance web and mobile apps
+            with TypeScript, React, Next.js, Gatsby.js and React Native.
+          </p>
+          <p>
+            I care about the details that decide whether software feels good:
+            clean architecture, fast first loads, interfaces that work with a
+            keyboard, and reusable component systems the next person can read.
+            At Starlabs I led five internship programmes, which taught me how
+            much clarity matters — in code and in conversation.
+          </p>
+          <p>
+            Today I build the front end of a telehealth platform at{" "}
+            {profile.currentCompanyFull}. Alongside that I run{" "}
+            <a
+              href={product.url}
+              target="_blank"
+              rel="noreferrer"
+              className="font-medium text-ink underline decoration-accent
+                         decoration-2 underline-offset-4 hover:text-accent"
+            >
+              {product.name}
+            </a>
+            , my own {product.tagline.toLowerCase()} — front end, back end and
+            database, localised in Albanian, English and German. The web
+            platform is live and the React Native apps for iOS and Android are
+            in development.
+          </p>
+        </Reveal>
+
+        <Reveal delay={0.08} className="mt-10">
+          <dl className="grid grid-cols-2 gap-x-6 gap-y-5 border-t border-line pt-8 text-sm">
+            {[
+              ["Role", profile.roleLong],
+              ["Based in", profile.location],
+              ["Currently", profile.currentCompanyFull],
+              ["Also building", product.name],
+              ["Languages", profile.languages],
+              ["Availability", profile.available ? "Open to work" : "Booked"],
+            ].map(([label, value]) => (
+              <div key={label}>
+                <dt className="eyebrow">{label}</dt>
+                <dd className="mt-1.5 text-ink">{value}</dd>
+              </div>
+            ))}
+          </dl>
+        </Reveal>
+      </div>
+
+      <div className="lg:col-span-7">
+        <div className="grid gap-4 sm:grid-cols-2">
+          {focusAreas.map((area, index) => {
+            const Icon = icons[area.icon];
+            return (
+              <Reveal key={area.title} delay={index * 0.06}>
+                <article className="card group h-full p-6 hover:border-ink/20">
+                  <span
+                    className="grid h-10 w-10 place-items-center rounded-xl bg-subtle
+                               text-ink transition-colors duration-300
+                               group-hover:bg-accent group-hover:text-accent-contrast"
+                  >
+                    <Icon className="h-[18px] w-[18px]" />
+                  </span>
+                  <h3 className="mt-5 text-base">{area.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">
+                    {area.description}
+                  </p>
+                </article>
+              </Reveal>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </Section>
+);
+
+export default About;
