@@ -343,6 +343,11 @@ export const testimonials = [
       "The website Leonat built for us not only looks amazing but also boosted our engagement significantly.",
     name: "Dafina",
   },
+  {
+    quote:
+      "Having Leo as a teammate made me envision my approaches differently, couldn't have been luckier.",
+    name: "Saimir",
+  },
 ];
 
 export const stats = [
