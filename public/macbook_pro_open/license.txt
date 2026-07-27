@@ -1,8 +1,0 @@
-Model Information:
-* title:	MacBook Pro Open
-* source:	https://sketchfab.com/3d-models/macbook-pro-open-bcbde627aeab4bd493147d8084ba8eb8
-* author:	NoXiou5 (https://sketchfab.com/NoXiou5)
-
-Model License:
-* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
-* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works
